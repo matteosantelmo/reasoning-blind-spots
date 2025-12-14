@@ -1,0 +1,11 @@
+defaults:
+  - _self_
+
+dataset:
+  path: "data/dummy_dataset.jsonl"
+
+verifier:
+  model: "openai/gpt-4o"
+
+generator:
+  model: "openai/gpt-4o" # Default generator model

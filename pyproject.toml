@@ -1,0 +1,31 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "reasoning_blind_spots"
+version = "0.1.0"
+description = "Benchmark for reasoning abilities of frontier AI"
+authors = [{name = "Matteo Santelmo", email = "matteo.santelmo@epfl.ch"}]
+dependencies = [
+    "inspect-ai",
+    "openai",
+    "google-genai",
+    "vllm",
+    "python-dotenv",
+    "hydra-core"
+]
+
+[project.optional-dependencies]
+dev = [
+    "pre-commit",
+    "black",
+    "isort",
+    "flake8"
+]
+
+[tool.isort]
+profile = "black"
+
+[tool.setuptools.packages.find]
+where = ["src"]
