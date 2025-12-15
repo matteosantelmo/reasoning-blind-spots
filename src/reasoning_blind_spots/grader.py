@@ -1,5 +1,8 @@
-from inspect_ai.model import GenerateConfig, get_model
-from inspect_ai.scorer import Scorer, model_graded_qa
+import re
+
+from inspect_ai.model import GenerateConfig, Model, get_model
+from inspect_ai.scorer import Score, Scorer, Target, accuracy, scorer, stderr
+from inspect_ai.solver import TaskState
 
 GRADER_PROMPT_TEMPLATE = """
 You are an expert grader. Your task is to evaluate the correctness of a submitted answer based on the provided question and ground truth answer (criterion).
@@ -26,11 +29,94 @@ First, write a step by step reasoning about the grading criterion to make sure y
 DEFAULT_GRADE_PATTERN = r"(?i)GRADE\s*:\s*([CI])(.*)$"
 
 
+def strip_thinking_tags(text: str) -> str:
+    """
+    Remove thinking/reasoning traces from model output.
+
+    If the text contains a </think> tag, return only the content after it.
+    This handles models that use <think>...</think> tags for chain-of-thought reasoning.
+
+    Args:
+        text: The model output text that may contain thinking tags.
+
+    Returns:
+        The text with thinking content removed, or the original text if no thinking tags found.
+    """
+    # Look for </think> and return everything after it
+    think_end_match = re.search(r"</think>\s*", text, re.DOTALL)
+    if think_end_match:
+        return text[think_end_match.end() :].strip()
+
+    return text
+
+
+@scorer(metrics=[accuracy(), stderr()])
+def model_graded_qa_with_reasoning_stripped(
+    grader_model: Model,
+    template: str = GRADER_PROMPT_TEMPLATE,
+    grade_pattern: str = DEFAULT_GRADE_PATTERN,
+) -> Scorer:
+    """
+    Custom scorer that enforces thinking/reasoning stripping before grading.
+
+    Args:
+        template: The grading prompt template.
+        grade_pattern: Regex pattern to extract the grade from grader output.
+        model: The model string (e.g., "openai/gpt-4") to use for grading.
+        gen_config: Generation configuration for the grader model.
+
+    Returns:
+        A Scorer function.
+    """
+
+    async def score(state: TaskState, target: Target) -> Score:
+        # Get the model's completion and strip any thinking traces
+        raw_answer = state.output.completion
+        clean_answer = strip_thinking_tags(raw_answer)
+
+        # Format the grading prompt with the cleaned answer
+        score_prompt = template.format(
+            question=state.input_text,
+            answer=clean_answer,
+            criterion=target.text,
+        )
+        metadata = {
+            "raw_answer": raw_answer,
+            "thinking_stripped": raw_answer != clean_answer,
+        }
+
+        # Query the grader model
+        result = await grader_model.generate(score_prompt)
+
+        # Extract the grade from the response
+        match = re.search(grade_pattern, result.completion, re.MULTILINE | re.DOTALL)
+        if match:
+            grade = match.group(1).upper()
+            return Score(
+                value=grade,
+                answer=clean_answer,
+                explanation=result.completion,
+                metadata=metadata,
+            )
+        else:
+            return Score(
+                value="I",
+                answer=clean_answer,
+                explanation=f"Grade not found in model output: {result.completion}",
+                metadata=metadata,
+            )
+
+    return score
+
+
 def get_grader(
     grader_config: dict = None,
 ) -> Scorer:
     """
     Returns a model-graded scorer (grader) using the specified model.
+
+    This grader automatically strips <think>...</think> reasoning traces from
+    model outputs before evaluation, ensuring only the final answer is graded.
     """
 
     if "backend" not in grader_config or "model_name" not in grader_config:
@@ -42,10 +128,9 @@ def get_grader(
     grader = get_model(
         model=model_str, role="grader", config=GenerateConfig(**gen_config)
     )
-    return model_graded_qa(
-        model=grader,
+
+    return model_graded_qa_with_reasoning_stripped(
+        grader_model=grader,
         template=GRADER_PROMPT_TEMPLATE,
         grade_pattern=DEFAULT_GRADE_PATTERN,
-        instructions=None,
-        partial_credit=False,
     )

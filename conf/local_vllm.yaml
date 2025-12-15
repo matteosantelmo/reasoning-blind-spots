@@ -7,7 +7,7 @@ hydra:
 
 dataset:
   path: "data/ms_test.jsonl"
-  limit: 3  # Limit the number of examples to evaluate (null for all)
+  limit: 6  # Limit the number of examples to evaluate (null for all)
   question_type:  # Which type/modality to include in the evaluation
   - text-only
   - multi-to-text
@@ -21,9 +21,15 @@ grader:
     reasoning_effort: null  # (OpenAI or Gemini >= 3) minimal | low | medium | high
 
 solver:
-  model_name: gemini-2.5-flash
-  backend: google # openai | google | vllm
+  model_name: Qwen/Qwen3-30B-A3B-Thinking-2507
+  backend: vllm
+  device: "0,1,2,3"
+  tensor_parallel_size: 4
+  # download_dir: ...
+  dtype: bfloat16
+  gpu_memory_utilization: 0.7
+  reasoning_parser: qwen3
 
   generate_config:
-    reasoning_tokens: 0  # (Gemini < 3) -1 for dynamic thinking budget; otherwise, number of thinking tokens
+    reasoning_tokens: -1  # (Gemini < 3) -1 for dynamic thinking budget; otherwise, number of thinking tokens
     reasoning_effort: null  # (OpenAI or Gemini >= 3) minimal | low | medium | high
