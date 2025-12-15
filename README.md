@@ -46,14 +46,17 @@ To set up the environment for this project, follow these steps:
 
 ## Running the Benchmark
 
-To **run the benchmark** using Inspect AI using Gemini-2.5-flash-lite as the solver model, execute the following command:
+To **run the benchmark** using Inspect AI you can execute the [`main.py`](./main.py) script with your chosen configuration. Default configurations are provided in [`config.yaml`](./conf/config.yaml), but parameters can be overridden via command line arguments.
+
+Example command to run the benchmark with a specific model:
 ```bash
-inspect eval benchmark.py --model google/gemini-2.5-flash-lite
-# NOTE: the verifier is hardcoded in task.py but will be configurable in the future
+python main.py \
+    solver.model_name="gemini-2.0-flash-lite" \
+    solver.backend="google" \
+    solver.generate_config.reasoning_tokens=0
 ```
 
 To **visualize the results**, you can use Inspect AI's built-in visualization tools:
 ```bash
-inspect view --log-dir ./logs    
+inspect view --log-dir ./outputs/<your-log-dir>/
 ```
-
