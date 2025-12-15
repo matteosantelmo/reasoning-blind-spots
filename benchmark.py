@@ -1,15 +1,20 @@
-import sys
-import os
-from inspect_ai import task
+import hydra
+from hydra.core.hydra_config import HydraConfig
+from inspect_ai import eval
+from omegaconf import DictConfig
 
-# Ensure src is in the path so we can import the package
-sys.path.append(os.path.join(os.path.dirname(__file__), "src"))
+from reasoning_blind_spots.task import reasoning_benchmark as rb_task
 
-from reasoning_blind_spots.task import reasoning_benchmark as rb
 
-@task
-def benchmark(dataset_path: str = "data/dummy_dataset.jsonl", verifier_model: str = "google/gemini-2.5-flash-lite"):
+@hydra.main(config_path="./conf", config_name="config")
+def run(cfg: DictConfig):
     """
     Wrapper task to run the reasoning benchmark from the root directory.
     """
-    return rb(dataset_path=dataset_path, verifier_model=verifier_model)
+    # Save Inspect AI logs in the same directory as Hydra outputs
+    log_dir = HydraConfig.get().runtime.output_dir
+    eval(rb_task(cfg), log_dir=log_dir)
+
+
+if __name__ == "__main__":
+    run()

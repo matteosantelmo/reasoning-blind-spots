@@ -1,11 +1,31 @@
 defaults:
   - _self_
 
+hydra:
+  run:
+    dir: outputs/${now:%Y-%m-%d_%H-%M-%S}
+
 dataset:
-  path: "data/dummy_dataset.jsonl"
+  path: "data/ms_test.jsonl"
+  limit: 3  # Limit the number of examples to evaluate (null for all)
+  question_type:  # Which type/modality to include in the evaluation
+  - text-only
+  - multi-to-text
+  - image-to-text
 
-verifier:
-  model: "openai/gpt-4o"
+grader:
+  model_name: gemini-2.5-flash
+  backend: google # openai | google | vllm
+  generate_config:
+    reasoning_tokens: -1  # (Gemini < 3) -1 for dynamic thinking budget; otherwise, number of thinking tokens
+    reasoning_effort: null  # (OpenAI or Gemini >= 3) minimal | low | medium | high
 
-generator:
-  model: "openai/gpt-4o" # Default generator model
+solver:
+  model_name: gemini-2.5-flash
+  backend: google # openai | google | vllm
+  model_base_url: null  # for VLLM
+  api_key: null  # for VLLM
+
+  generate_config:
+    reasoning_tokens: 0  # (Gemini < 3) -1 for dynamic thinking budget; otherwise, number of thinking tokens
+    reasoning_effort: null  # (OpenAI or Gemini >= 3) minimal | low | medium | high
