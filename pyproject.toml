@@ -13,7 +13,8 @@ dependencies = [
     "google-genai",
     "vllm",
     "python-dotenv",
-    "hydra-core"
+    "hydra-core",
+    "anthropic"
 ]
 
 [project.optional-dependencies]
