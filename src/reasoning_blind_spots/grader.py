@@ -20,7 +20,7 @@ You are an expert grader. Your task is to evaluate the correctness of a submitte
 
 ---
 
-After assessing the submitted answer, reply with 'GRADE: $LETTER' (without quotes) where LETTER is either of C or I. Please choose ONE option for the grade: either "C" for correct answers, or "I" for incorrect answers. No intermediate grades are allowed.
+After assessing the submitted answer, reply with 'GRADE: $LETTER' (without quotes) where LETTER is either of C or I. Please choose ONE option for the grade: either "C" for correct answers, or "I" for incorrect answers. No intermediate grades are allowed. If the grading criterion is met only partially, use your best judgement to assign the most appropriate grade.
 
 Start by carefully analyzing the submission and compare it against the ground truth. The ground truth will provide you with the necessary information to determine if the submission is correct or incorrect.
 First, write a step by step reasoning about the grading criterion to make sure your conclusion is correct. Avoid simply stating the correct answers at the outset. Then, once you have reached a final judgment, end with your answer formatted as 'GRADE: $LETTER' (without quotes) where LETTER is either of C or I.
@@ -125,8 +125,18 @@ def get_grader(
     model_str = grader_config.backend + "/" + grader_config.model_name
     gen_config = grader_config.get("generate_config", {})
 
+    # Any other argument in the config is passed to the model
+    model_args = {
+        k: v
+        for k, v in grader_config.items()
+        if k not in ["backend", "model_name", "generate_config"]
+    }
+
     grader = get_model(
-        model=model_str, role="grader", config=GenerateConfig(**gen_config)
+        model=model_str,
+        role="grader",
+        config=GenerateConfig(**gen_config),
+        **model_args,
     )
 
     return model_graded_qa_with_reasoning_stripped(
