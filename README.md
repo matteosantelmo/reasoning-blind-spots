@@ -8,10 +8,10 @@ Our codebase relies on [Inspect AI](https://inspect.aisi.org.uk) as the evaluati
 
 ### To-Do List
 - [ ] **Fix**: for samples with **multi-modal inputs**, make sure that visual inputs are also passed to the grader (the solver already gets them)
-- [ ] **Estimate resource usages**:
-    - [ ] create a small subset for testing (with current labels)
-    - [ ] spin few diverse open models and get API keys for closed models
-    - [ ] run eval on with this debug set and track costs
+- [x] **Estimate resource usages**:
+    - [x] create a small subset for testing (with current labels)
+    - [x] spin few diverse open models and get API keys for closed models
+    - [x] run eval on with this debug set and track costs
 - [ ] Implement the code for **solver validation**
     - [ ] use the same solver as for evaluation, but on a set of already generated solutions
     - [ ] compare the solver output with ground truth verdicts
