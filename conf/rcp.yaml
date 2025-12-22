@@ -1,0 +1,26 @@
+defaults:
+  - _self_
+
+hydra:
+  run:
+    dir: outputs/${now:%Y-%m-%d_%H-%M-%S}
+
+dataset:
+  path: "data/ms_test.jsonl"
+  limit: 3  # Limit the number of examples to evaluate (null for all)
+  question_type:  # Which type/modality to include in the evaluation
+  - text-only
+  - multi-to-text
+  - image-to-text
+
+grader:
+  model_name: mistralai/Ministral-3-8B-Reasoning-2512
+  backend: openai # openai | google | vllm
+  generate_config:
+    reasoning_effort: high  # minimal | low | medium | high
+
+solver:
+  model_name: mistralai/Ministral-3-8B-Reasoning-2512
+  backend: openai # openai | google | vllm
+  generate_config:
+    reasoning_effort: high  # minimal | low | medium | high
