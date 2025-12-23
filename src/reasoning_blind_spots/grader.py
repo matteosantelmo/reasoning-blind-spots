@@ -5,17 +5,21 @@ from inspect_ai.scorer import Score, Scorer, Target, accuracy, scorer, stderr
 from inspect_ai.solver import TaskState
 
 GRADER_PROMPT_TEMPLATE = """
-You are an expert grader. Your task is to evaluate the correctness of a submitted answer based on the provided question and ground truth answer (criterion).
+You are an expert grader. Your task is to evaluate the correctness of a submitted answer based on the provided question and ground truth answer defining grading criteria.
 
 ---
 
-## Question
+# [Question]
 {question}
 
-## Submission
+---
+
+# [Submission]
 {answer}
 
-## Ground Truth
+---
+
+# [Ground Truth]
 {criterion}
 
 ---
@@ -45,9 +49,35 @@ def strip_thinking_tags(text: str) -> str:
     # Look for </think> and return everything after it
     think_end_match = re.search(r"</think>\s*", text, re.DOTALL)
     if think_end_match:
-        return text[think_end_match.end() :].strip()
+        completion = text[think_end_match.end() :].strip()
+        if len(completion) > 0:
+            return completion
+        else:
+            # If nothing after </think> return the original text
+            return text
 
     return text
+
+
+def get_raw_answer(state: TaskState) -> str:
+    """
+    Extract the model's answer from the TaskState.
+    """
+    # First try to get the answer from the 'completion' directly
+    answer = state.output.completion
+    if len(answer) > 0:
+        return answer
+
+    # Fallback: try to reconstruct the answer from the content list
+    answer_parts = []
+    for content in state.output.choices[0].message.content:
+        if content.text and len(content.text) > 0:
+            answer_parts.append(content.text)
+        else:
+            # Unknown or empty content
+            continue
+
+    return "\n".join(answer_parts).strip()
 
 
 @scorer(metrics=[accuracy(), stderr()])
@@ -71,8 +101,11 @@ def model_graded_qa_with_reasoning_stripped(
 
     async def score(state: TaskState, target: Target) -> Score:
         # Get the model's completion and strip any thinking traces
-        raw_answer = state.output.completion
+        raw_answer = get_raw_answer(state)
         clean_answer = strip_thinking_tags(raw_answer)
+
+        if len(clean_answer) == 0:
+            raise ValueError("The cleaned answer is empty. Raw answer:\n" + raw_answer)
 
         # Format the grading prompt with the cleaned answer
         score_prompt = template.format(

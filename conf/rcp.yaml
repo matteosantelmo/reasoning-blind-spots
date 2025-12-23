@@ -5,6 +5,10 @@ hydra:
   run:
     dir: outputs/${now:%Y-%m-%d_%H-%M-%S}
 
+# Inspect AI settings
+max_connections: 4
+timeout: null
+
 dataset:
   path: "data/ms_test.jsonl"
   limit: 3  # Limit the number of examples to evaluate (null for all)
@@ -14,13 +18,16 @@ dataset:
   - image-to-text
 
 grader:
-  model_name: mistralai/Ministral-3-8B-Reasoning-2512
-  backend: openai # openai | google | vllm
+  model_name: gemini-2.5-flash-lite
+  backend: google
+  api_key: ${oc.env:GOOGLE_API_KEY,null}
   generate_config:
-    reasoning_effort: high  # minimal | low | medium | high
+    reasoning_tokens: 0
 
 solver:
   model_name: mistralai/Ministral-3-8B-Reasoning-2512
-  backend: openai # openai | google | vllm
+  backend: openai
+  base_url: ${oc.env:OPENAI_BASE_URL,null}
+  api_key: ${oc.env:OPENAI_API_KEY,null}
   generate_config:
     reasoning_effort: high  # minimal | low | medium | high

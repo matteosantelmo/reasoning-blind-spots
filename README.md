@@ -70,8 +70,13 @@ To set up the environment for this project, follow these steps:
 
 To **run the benchmark** using Inspect AI you can execute the [`main.py`](./main.py) script with your chosen configuration. Default configurations are provided in [`config.yaml`](./conf/config.yaml) or [`local_vllm.yaml`](./conf/local_vllm.yaml), but parameters can be overridden via command line arguments.
 
+Inspect AI supports various backends (OpenAI, Anthropic, Google, local models via vLLM, etc.).
+For our experiments we will mainly use Gemini/OpenAI models or open-weights models. For the latter we're using [RCP AIAAS](https://www.epfl.ch/research/facilities/rcp/ai-inference-as-a-service/) service, which hosts several open models on EPFL RCP cluster, with an API compatible with OpenAI.
+
+
 Example command to run the benchmark with a specific model:
 ```bash
+# Default config with overrides
 python main.py \
     solver.model_name="gemini-2.0-flash-lite" \
     solver.backend="google" \
@@ -79,6 +84,10 @@ python main.py \
 # Or, call the main script using a specific config file
 python main.py --config-name local_vllm
 ```
+
+**NOTE**, to use RCP AIAAS:
+- make sure to set the right values of OPENAI_BASE_URL and OPENAI_API_KEY environment variables in your `.env` file.
+- you might need to be on EPFL network (or use a VPN) to access RCP services.
 </details>
 
 <details>

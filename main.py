@@ -13,7 +13,14 @@ def run(cfg: DictConfig):
     """
     # Save Inspect AI logs in the same directory as Hydra outputs
     log_dir = HydraConfig.get().runtime.output_dir
-    eval(rb_task(cfg), log_dir=log_dir)
+
+    # Optional parameters for Inspect AI eval
+    max_connections = cfg.get("max_connections", 10)
+    timeout = cfg.get("timeout", None)
+
+    eval(
+        rb_task(cfg), log_dir=log_dir, max_connections=max_connections, timeout=timeout
+    )
 
 
 if __name__ == "__main__":
