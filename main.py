@@ -1,9 +1,12 @@
 import hydra
+from dotenv import load_dotenv
 from hydra.core.hydra_config import HydraConfig
 from inspect_ai import eval
 from omegaconf import DictConfig
 
 from reasoning_blind_spots.task import reasoning_benchmark as rb_task
+
+load_dotenv()
 
 
 @hydra.main(config_path="./conf", config_name="config")
