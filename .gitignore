@@ -209,3 +209,5 @@ __marimo__/
 # Inspect AI
 logs/*
 outputs/*
+
+.DS_Store
