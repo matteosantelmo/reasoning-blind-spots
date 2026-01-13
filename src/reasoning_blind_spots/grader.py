@@ -79,43 +79,22 @@ def get_raw_answer(state: TaskState) -> str:
 
     return "\n".join(answer_parts).strip()
 
-
 @scorer(metrics=[accuracy(), stderr()])
-def model_graded_qa_with_reasoning_stripped(
-    grader_model: Model,
-    template: str = GRADER_PROMPT_TEMPLATE,
-    grade_pattern: str = DEFAULT_GRADE_PATTERN,
-) -> Scorer:
-    """
-    Custom scorer that enforces thinking/reasoning stripping before grading.
-
-    Args:
-        template: The grading prompt template.
-        grade_pattern: Regex pattern to extract the grade from grader output.
-        model: The model string (e.g., "openai/gpt-4") to use for grading.
-        gen_config: Generation configuration for the grader model.
-
-    Returns:
-        A Scorer function.
-    """
-
-    async def score(state: TaskState, target: Target) -> Score:
-        # Get the model's completion and strip any thinking traces
-        raw_answer = get_raw_answer(state)
-        clean_answer = strip_thinking_tags(raw_answer)
-
+### Defining a score that takes inputs as strings
+async def score_str(prompt: str, ground_truth: str, solver_answer: str, grader_model: Model, template: str = GRADER_PROMPT_TEMPLATE, grade_pattern: str = DEFAULT_GRADE_PATTERN) -> Score:
+        clean_answer = strip_thinking_tags(solver_answer)
         if len(clean_answer) == 0:
-            raise ValueError("The cleaned answer is empty. Raw answer:\n" + raw_answer)
+            raise ValueError("The cleaned answer is empty. Raw answer:\n" + solver_answer)
 
         # Format the grading prompt with the cleaned answer
         score_prompt = template.format(
-            question=state.input_text,
+            question= prompt,
             answer=clean_answer,
-            criterion=target.text,
+            criterion=ground_truth,
         )
         metadata = {
-            "raw_answer": raw_answer,
-            "thinking_stripped": raw_answer != clean_answer,
+            "raw_answer": solver_answer,
+            "thinking_stripped": solver_answer != clean_answer,
         }
 
         # Query the grader model
@@ -139,12 +118,39 @@ def model_graded_qa_with_reasoning_stripped(
                 metadata=metadata,
             )
 
+
+
+def model_graded_qa_with_reasoning_stripped(
+    grader_model: Model,
+    template: str = GRADER_PROMPT_TEMPLATE,
+    grade_pattern: str = DEFAULT_GRADE_PATTERN,
+) -> Scorer:
+    """
+    Custom scorer that enforces thinking/reasoning stripping before grading.
+
+    Args:
+        template: The grading prompt template.
+        grade_pattern: Regex pattern to extract the grade from grader output.
+        model: The model string (e.g., "openai/gpt-4") to use for grading.
+        gen_config: Generation configuration for the grader model.
+
+    Returns:
+        A Scorer function.
+    """
+
+    async def score(state: TaskState, target: Target) -> Score:
+        # Get the model's completion and strip any thinking traces
+        raw_answer = get_raw_answer(state)
+
+        return await score_str(state.input_text, target.text, raw_answer, grader_model, template=template, grade_pattern=grade_pattern)
+
     return score
 
 
 def get_grader(
     grader_config: dict = None,
-) -> Scorer:
+    str_input = False
+):
     """
     Returns a model-graded scorer (grader) using the specified model.
 
@@ -172,8 +178,17 @@ def get_grader(
         **model_args,
     )
 
-    return model_graded_qa_with_reasoning_stripped(
-        grader_model=grader,
-        template=GRADER_PROMPT_TEMPLATE,
-        grade_pattern=DEFAULT_GRADE_PATTERN,
-    )
+    if str_input == False:
+        return model_graded_qa_with_reasoning_stripped(
+            grader_model=grader,
+            template=GRADER_PROMPT_TEMPLATE,
+            grade_pattern=DEFAULT_GRADE_PATTERN,
+        )
+    else: 
+        async def grader_str(prompt: str,ground_truth: str,solver_answer: str):
+            return await score_str(prompt,ground_truth,solver_answer,
+                                  grader_model=grader,
+                                template=GRADER_PROMPT_TEMPLATE,
+                                grade_pattern=DEFAULT_GRADE_PATTERN )
+        return grader_str
+        
