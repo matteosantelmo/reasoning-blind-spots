@@ -41,20 +41,29 @@ def compute_metrics(grader_scores,human_scores):
 The evaluation.jsonl file contains the prompt, groundtruth answer, solver answer, solver model and human grading. 
 This is passed with the Config for the grader. It returns the evaluation of the grader.
 """
-async def grader_validation(cfg: DictConfig, val_path):
+async def grader_validation(cfg: DictConfig):
     grader_scores = []
     human_scores = []
     grader = get_grader(cfg.grader,str_input=True)
+    val_path = cfg.dataset.path
     with open(val_path,"r") as f:
         for line in f:
             sample = json.loads(line)
             prompt = sample["prompt"]
             solver_answer = sample["solver_answer"]
             solution = sample["solution"]
-            human_score = sample["human_score"]
+            human_score = sample["human_grade"]
             human_scores.append(human_score)
             score = await grader(prompt,solver_answer,solution)
             grader_scores.append(score.value)
 
     return compute_metrics(grader_scores,human_scores)
+
+@hydra.main(config_path="conf", config_name="config_val", version_base=None)
+def main(cfg: DictConfig):
+    results = asyncio.run(grader_validation(cfg))
+    print(results)
+
+if __name__ == "__main__":
+    main()
 
