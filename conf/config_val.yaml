@@ -1,0 +1,18 @@
+defaults:
+  - _self_
+
+
+dataset:
+  path: "validation_questions/validation_set_1.jsonl"
+  limit: 3  # Limit the number of examples to evaluate (null for all)
+  question_type:  # Which type/modality to include in the evaluation
+  - text-only
+  - multi-to-text
+  - image-to-text
+
+grader:
+  model_name: gemini-2.5-flash
+  backend: google # openai | google | vllm
+  generate_config:
+    reasoning_tokens: -1  # (Gemini < 3) -1 for dynamic thinking budget; otherwise, number of thinking tokens
+    reasoning_effort: null  # (OpenAI or Gemini >= 3) minimal | low | medium | high
