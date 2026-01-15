@@ -1,7 +1,7 @@
 import re
 
 from inspect_ai.model import GenerateConfig, Model, get_model
-from inspect_ai.scorer import Score, Scorer, Target, accuracy, scorer, stderr
+from inspect_ai.scorer import Score, Scorer, Target
 from inspect_ai.solver import TaskState
 
 GRADER_PROMPT_TEMPLATE = """
@@ -62,6 +62,15 @@ def strip_thinking_tags(text: str) -> str:
 def get_raw_answer(state: TaskState) -> str:
     """
     Extract the model's answer from the TaskState.
+
+    Attempts to get the completion string directly. If empty, falls back
+    to joining text content from choices.
+
+    Args:
+        state: The current TaskState.
+
+    Returns:
+        str: The extracted answer string.
     """
     # First try to get the answer from the 'completion' directly
     answer = state.output.completion
@@ -79,45 +88,71 @@ def get_raw_answer(state: TaskState) -> str:
 
     return "\n".join(answer_parts).strip()
 
-@scorer(metrics=[accuracy(), stderr()])
-### Defining a score that takes inputs as strings
-async def score_str(prompt: str, ground_truth: str, solver_answer: str, grader_model: Model, template: str = GRADER_PROMPT_TEMPLATE, grade_pattern: str = DEFAULT_GRADE_PATTERN) -> Score:
-        clean_answer = strip_thinking_tags(solver_answer)
-        if len(clean_answer) == 0:
-            raise ValueError("The cleaned answer is empty. Raw answer:\n" + solver_answer)
 
-        # Format the grading prompt with the cleaned answer
-        score_prompt = template.format(
-            question= prompt,
+async def score_str(
+    prompt: str,
+    ground_truth: str,
+    solver_answer: str,
+    grader_model: Model,
+    template: str = GRADER_PROMPT_TEMPLATE,
+    grade_pattern: str = DEFAULT_GRADE_PATTERN,
+) -> Score:
+    """
+    Grading logic that takes raw strings as input and returns a Score object.
+
+    This function handles stripping thinking tags, formatting the prompt,
+    querying the grader model, and parsing the result.
+
+    Args:
+        prompt: The input question/prompt.
+        ground_truth: The ground truth answer/criterion.
+        solver_answer: The answer provided by the solver model.
+        grader_model: The model to use for grading.
+        template: The grading prompt template.
+        grade_pattern: Regex pattern to extract the grade.
+
+    Returns:
+        Score: A Score object containing the grade (C/I), explanation, and metadata.
+
+    Raises:
+        ValueError: If the cleaned answer is empty.
+    """
+
+    clean_answer = strip_thinking_tags(solver_answer)
+    if len(clean_answer) == 0:
+        raise ValueError("The cleaned answer is empty. Raw answer:\n" + solver_answer)
+
+    # Format the grading prompt with the cleaned answer
+    score_prompt = template.format(
+        question=prompt,
+        answer=clean_answer,
+        criterion=ground_truth,
+    )
+    metadata = {
+        "raw_answer": solver_answer,
+        "thinking_stripped": solver_answer != clean_answer,
+    }
+
+    # Query the grader model
+    result = await grader_model.generate(score_prompt)
+
+    # Extract the grade from the response
+    match = re.search(grade_pattern, result.completion, re.MULTILINE | re.DOTALL)
+    if match:
+        grade = match.group(1).upper()
+        return Score(
+            value=grade,
             answer=clean_answer,
-            criterion=ground_truth,
+            explanation=result.completion,
+            metadata=metadata,
         )
-        metadata = {
-            "raw_answer": solver_answer,
-            "thinking_stripped": solver_answer != clean_answer,
-        }
-
-        # Query the grader model
-        result = await grader_model.generate(score_prompt)
-
-        # Extract the grade from the response
-        match = re.search(grade_pattern, result.completion, re.MULTILINE | re.DOTALL)
-        if match:
-            grade = match.group(1).upper()
-            return Score(
-                value=grade,
-                answer=clean_answer,
-                explanation=result.completion,
-                metadata=metadata,
-            )
-        else:
-            return Score(
-                value="I",
-                answer=clean_answer,
-                explanation=f"Grade not found in model output: {result.completion}",
-                metadata=metadata,
-            )
-
+    else:
+        return Score(
+            value="I",
+            answer=clean_answer,
+            explanation=f"Grade not found in model output: {result.completion}",
+            metadata=metadata,
+        )
 
 
 def model_graded_qa_with_reasoning_stripped(
@@ -129,28 +164,31 @@ def model_graded_qa_with_reasoning_stripped(
     Custom scorer that enforces thinking/reasoning stripping before grading.
 
     Args:
+        grader_model: The Model instance to use for grading.
         template: The grading prompt template.
         grade_pattern: Regex pattern to extract the grade from grader output.
-        model: The model string (e.g., "openai/gpt-4") to use for grading.
-        gen_config: Generation configuration for the grader model.
 
     Returns:
-        A Scorer function.
+        Scorer: A Scorer function compatible with inspect_ai.
     """
 
     async def score(state: TaskState, target: Target) -> Score:
         # Get the model's completion and strip any thinking traces
         raw_answer = get_raw_answer(state)
 
-        return await score_str(state.input_text, target.text, raw_answer, grader_model, template=template, grade_pattern=grade_pattern)
+        return await score_str(
+            state.input_text,
+            target.text,
+            raw_answer,
+            grader_model,
+            template=template,
+            grade_pattern=grade_pattern,
+        )
 
     return score
 
 
-def get_grader(
-    grader_config: dict = None,
-    str_input = False
-):
+def get_grader(grader_config: dict = None, str_input=False):
     """
     Returns a model-graded scorer (grader) using the specified model.
 
@@ -184,11 +222,16 @@ def get_grader(
             template=GRADER_PROMPT_TEMPLATE,
             grade_pattern=DEFAULT_GRADE_PATTERN,
         )
-    else: 
-        async def grader_str(prompt: str,ground_truth: str,solver_answer: str):
-            return await score_str(prompt,ground_truth,solver_answer,
-                                  grader_model=grader,
-                                template=GRADER_PROMPT_TEMPLATE,
-                                grade_pattern=DEFAULT_GRADE_PATTERN )
+    else:
+
+        async def grader_str(prompt: str, ground_truth: str, solver_answer: str):
+            return await score_str(
+                prompt,
+                ground_truth,
+                solver_answer,
+                grader_model=grader,
+                template=GRADER_PROMPT_TEMPLATE,
+                grade_pattern=DEFAULT_GRADE_PATTERN,
+            )
+
         return grader_str
-        

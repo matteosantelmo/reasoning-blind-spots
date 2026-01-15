@@ -1,10 +1,13 @@
 defaults:
   - _self_
 
+hydra:
+  run:
+    dir: outputs/${now:%Y-%m-%d_%H-%M-%S}
 
 dataset:
   path: "validation_questions/validation_set_1.jsonl"
-  limit: 3  # Limit the number of examples to evaluate (null for all)
+  limit: null  # Limit the number of examples to evaluate (null for all)
   question_type:  # Which type/modality to include in the evaluation
   - text-only
   - multi-to-text
