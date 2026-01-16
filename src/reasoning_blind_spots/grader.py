@@ -1,7 +1,15 @@
 import re
+from typing import Optional
 
-from inspect_ai.model import GenerateConfig, Model, get_model
-from inspect_ai.scorer import Score, Scorer, Target
+from inspect_ai.model import (
+    ChatMessageUser,
+    ContentImage,
+    ContentText,
+    GenerateConfig,
+    Model,
+    get_model,
+)
+from inspect_ai.scorer import Score, Scorer, Target, accuracy, scorer
 from inspect_ai.solver import TaskState
 
 GRADER_PROMPT_TEMPLATE = """
@@ -26,8 +34,8 @@ You are an expert grader. Your task is to evaluate the correctness of a submitte
 
 After assessing the submitted answer, reply with 'GRADE: $LETTER' (without quotes) where LETTER is either of C or I. Please choose ONE option for the grade: either "C" for correct answers, or "I" for incorrect answers. No intermediate grades are allowed. If the grading criterion is met only partially, use your best judgement to assign the most appropriate grade.
 
-Start by carefully analyzing the submission and compare it against the ground truth. The ground truth will provide you with the necessary information to determine if the submission is correct or incorrect.
-First, write a step by step reasoning about the grading criterion to make sure your conclusion is correct. Avoid simply stating the correct answers at the outset. Then, once you have reached a final judgment, end with your answer formatted as 'GRADE: $LETTER' (without quotes) where LETTER is either of C or I.
+Start by analyzing the submission and compare it against the ground truth. The ground truth will provide you with the necessary information to determine if the submission is correct or incorrect.
+Write a minimal explanation of your reasoning. Then, once you have reached a final judgment, end with your answer formatted as 'GRADE: $LETTER' (without quotes) where LETTER is either of C or I.
 """
 
 DEFAULT_GRADE_PATTERN = r"(?i)GRADE\s*:\s*([CI])(.*)$"
@@ -94,6 +102,7 @@ async def score_str(
     ground_truth: str,
     solver_answer: str,
     grader_model: Model,
+    image: Optional[str] = None,
     template: str = GRADER_PROMPT_TEMPLATE,
     grade_pattern: str = DEFAULT_GRADE_PATTERN,
 ) -> Score:
@@ -108,6 +117,7 @@ async def score_str(
         ground_truth: The ground truth answer/criterion.
         solver_answer: The answer provided by the solver model.
         grader_model: The model to use for grading.
+        image: Optional path or url to an image to be included in the prompt.
         template: The grading prompt template.
         grade_pattern: Regex pattern to extract the grade.
 
@@ -134,7 +144,21 @@ async def score_str(
     }
 
     # Query the grader model
-    result = await grader_model.generate(score_prompt)
+    if image:
+        content = [
+            ContentText(text=score_prompt),
+            ContentImage(image=image),
+        ]
+        result = await grader_model.generate([ChatMessageUser(content=content)])
+    else:
+        result = await grader_model.generate(score_prompt)
+
+    if result.usage:
+        metadata["usage"] = {
+            "input_tokens": result.usage.input_tokens,
+            "output_tokens": result.usage.output_tokens,
+            "total_tokens": result.usage.total_tokens,
+        }
 
     # Extract the grade from the response
     match = re.search(grade_pattern, result.completion, re.MULTILINE | re.DOTALL)
@@ -155,6 +179,7 @@ async def score_str(
         )
 
 
+@scorer(metrics=[accuracy()])
 def model_graded_qa_with_reasoning_stripped(
     grader_model: Model,
     template: str = GRADER_PROMPT_TEMPLATE,
@@ -176,11 +201,23 @@ def model_graded_qa_with_reasoning_stripped(
         # Get the model's completion and strip any thinking traces
         raw_answer = get_raw_answer(state)
 
+        # Extract image from state.messages
+        image = None
+        for message in state.messages:
+            if message.role == "user" and isinstance(message.content, list):
+                for content in message.content:
+                    if isinstance(content, ContentImage):
+                        image = content.image
+                        break
+            if image:
+                break
+
         return await score_str(
             state.input_text,
             target.text,
             raw_answer,
             grader_model,
+            image=image,
             template=template,
             grade_pattern=grade_pattern,
         )
@@ -224,12 +261,18 @@ def get_grader(grader_config: dict = None, str_input=False):
         )
     else:
 
-        async def grader_str(prompt: str, ground_truth: str, solver_answer: str):
+        async def grader_str(
+            prompt: str,
+            ground_truth: str,
+            solver_answer: str,
+            image: Optional[str] = None,
+        ):
             return await score_str(
                 prompt,
                 ground_truth,
                 solver_answer,
                 grader_model=grader,
+                image=image,
                 template=GRADER_PROMPT_TEMPLATE,
                 grade_pattern=DEFAULT_GRADE_PATTERN,
             )

@@ -1,5 +1,6 @@
 import asyncio
 import json
+import logging
 import os
 from typing import Dict, List
 
@@ -11,6 +12,9 @@ from omegaconf import DictConfig
 from reasoning_blind_spots.grader import get_grader
 
 load_dotenv()
+
+logging.basicConfig(level=logging.INFO, format="%(message)s")
+logger = logging.getLogger("grader_validation")
 
 
 def compute_metrics(
@@ -72,8 +76,14 @@ async def grader_validation(cfg: DictConfig) -> List[Dict]:
             solver_answer = sample["solver_answer"]
             solution = sample["solution"]
             human_score = sample["human_grade"]
+            image = sample.get("image")
 
-            score = await grader(prompt, solution, solver_answer)
+            score = await grader(
+                prompt=prompt,
+                ground_truth=solution,
+                solver_answer=solver_answer,
+                image=image,
+            )
 
             # Store all information
             sample_result = {
@@ -83,8 +93,16 @@ async def grader_validation(cfg: DictConfig) -> List[Dict]:
                 "human_score": human_score,
                 "grader_score": score.value,
                 "grader_explanation": score.explanation,
+                "usage": score.metadata.get("usage", {}),
             }
             results.append(sample_result)
+
+            if sample_result["usage"]:
+                logger.info(
+                    f"Sample {i}: Grader Score={sample_result['grader_score']},\tHuman Score={sample_result['human_score']}\t- "
+                    f"Input Tokens={sample_result['usage'].get('input_tokens', 0)},\t"
+                    f"Output Tokens={sample_result['usage'].get('output_tokens', 0)}"
+                )
 
     return results
 
@@ -100,6 +118,14 @@ def main(cfg: DictConfig):
     """
     results = asyncio.run(grader_validation(cfg))
 
+    # Calculate total token usage
+    total_input_tokens = sum(r["usage"].get("input_tokens", 0) for r in results)
+    total_output_tokens = sum(r["usage"].get("output_tokens", 0) for r in results)
+
+    logger.info(f"Total Input Tokens: {total_input_tokens}")
+    logger.info(f"Total Output Tokens: {total_output_tokens}")
+    logger.info(f"Total Token Usage: {total_input_tokens + total_output_tokens}")
+
     # Save results to file as JSONL
     output_dir = HydraConfig.get().runtime.output_dir
     output_file_path = os.path.join(output_dir, "validation_results.jsonl")
@@ -114,7 +140,11 @@ def main(cfg: DictConfig):
 
     # Compute and print metrics
     metrics = compute_metrics(g_scores, h_scores)
-    print(metrics)
+    logger.info(
+        "Grader Validation Metrics: {}".format(
+            ", ".join([f"{k}: {v:.4f}" for k, v in metrics.items()])
+        )
+    )
 
 
 if __name__ == "__main__":
