@@ -34,7 +34,7 @@ You are an expert grader. Your task is to evaluate the correctness of a submitte
 
 After assessing the submitted answer, reply with 'GRADE: $LETTER' (without quotes) where LETTER is either of C or I. Please choose ONE option for the grade: either "C" for correct answers, or "I" for incorrect answers. No intermediate grades are allowed. If the grading criterion is met only partially, use your best judgement to assign the most appropriate grade.
 
-Start by analyzing the submission and compare it against the ground truth. The ground truth will provide you with the necessary information to determine if the submission is correct or incorrect.
+Start by briefly analyzing the submission and compare it against the ground truth. The ground truth will provide you with the necessary information to determine if the submission is correct or incorrect.
 Write a minimal explanation of your reasoning. Then, once you have reached a final judgment, end with your answer formatted as 'GRADE: $LETTER' (without quotes) where LETTER is either of C or I.
 """
 
@@ -156,9 +156,14 @@ async def score_str(
     if result.usage:
         metadata["usage"] = {
             "input_tokens": result.usage.input_tokens,
+            "reasoning_tokens": (
+                result.usage.reasoning_tokens
+                if result.usage.reasoning_tokens is not None
+                else 0
+            ),
             "output_tokens": result.usage.output_tokens,
-            "total_tokens": result.usage.total_tokens,
         }
+        metadata["total_tokens"] = sum(metadata["usage"].values())
 
     # Extract the grade from the response
     match = re.search(grade_pattern, result.completion, re.MULTILINE | re.DOTALL)
@@ -278,13 +283,15 @@ def get_grader(grader_config: dict = None, str_input=False):
             )
 
         return grader_str
-    
+
+
 @scorer(metrics=[accuracy(), stderr()])
 def dummy_scorer() -> Scorer:
     """
     Custom dummy scorer that returns score I for any task state and target
     It is used to generate just solver answers without grading
     """
+
     async def score_dummy(state: TaskState, target: Target) -> Score:
         # Get the model's completion and strip any thinking traces
         raw_answer = get_raw_answer(state)
@@ -294,15 +301,16 @@ def dummy_scorer() -> Scorer:
         metadata = {
             "raw_answer": raw_answer,
             "thinking_stripped": raw_answer != clean_answer,
-            }
+        }
         return Score(
             value="I",
             answer=clean_answer,
             explanation="Grading disabled (solver-only run)",
             metadata=metadata,
         )
+
     return score_dummy
+
 
 def get_grader_dummy() -> Scorer:
     return dummy_scorer()
-

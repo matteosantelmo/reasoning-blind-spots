@@ -101,7 +101,8 @@ async def grader_validation(cfg: DictConfig) -> List[Dict]:
                 logger.info(
                     f"Sample {i}: Grader Score={sample_result['grader_score']},\tHuman Score={sample_result['human_score']}\t- "
                     f"Input Tokens={sample_result['usage'].get('input_tokens', 0)},\t"
-                    f"Output Tokens={sample_result['usage'].get('output_tokens', 0)}"
+                    f"Reasoning Tokens={sample_result['usage'].get('reasoning_tokens', 0)},\t"
+                    f"Output Tokens={sample_result['usage'].get('output_tokens', 0)}\t"
                 )
 
     return results
@@ -120,7 +121,9 @@ def main(cfg: DictConfig):
 
     # Calculate total token usage
     total_input_tokens = sum(r["usage"].get("input_tokens", 0) for r in results)
-    total_output_tokens = sum(r["usage"].get("output_tokens", 0) for r in results)
+    total_output_tokens = sum(
+        r["usage"].get("output_tokens", 0) for r in results
+    ) + sum(r["usage"].get("reasoning_tokens", 0) for r in results)
 
     logger.info(f"Total Input Tokens: {total_input_tokens}")
     logger.info(f"Total Output Tokens: {total_output_tokens}")

@@ -3,7 +3,7 @@ defaults:
 
 hydra:
   run:
-    dir: outputs/${now:%Y-%m-%d_%H-%M-%S}
+    dir: outputs/validation/${now:%Y-%m-%d_%H-%M-%S}
 
 dataset:
   path: "validation_questions/validation_set_1.jsonl"
@@ -14,8 +14,7 @@ dataset:
   - image-to-text
 
 grader:
-  model_name: gemini-2.5-flash
-  backend: google # openai | google | vllm
+  model_name: gemini-3-flash-preview
+  backend: google
   generate_config:
-    reasoning_tokens: -1  # (Gemini < 3) -1 for dynamic thinking budget; otherwise, number of thinking tokens
-    reasoning_effort: null  # (OpenAI or Gemini >= 3) minimal | low | medium | high
+    reasoning_effort: minimal
