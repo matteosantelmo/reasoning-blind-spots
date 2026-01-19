@@ -6,7 +6,9 @@ hydra:
     dir: outputs/${now:%Y-%m-%d_%H-%M-%S}
 
 dataset:
-  path: "data/ms_test.jsonl"
+  # path: "data/ms_test.jsonl"
+  path: "matsant01/blind-spots-bench"
+  split: "test"
   limit: 3  # Limit the number of examples to evaluate (null for all)
   question_type:  # Which type/modality to include in the evaluation
   - text-only
