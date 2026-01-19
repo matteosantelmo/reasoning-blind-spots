@@ -2,11 +2,13 @@ import hydra
 from dotenv import load_dotenv
 from hydra.core.hydra_config import HydraConfig
 from inspect_ai import eval
-from omegaconf import DictConfig
+from omegaconf import DictConfig, OmegaConf
 
 from reasoning_blind_spots.task import reasoning_benchmark as rb_task
 
 load_dotenv()
+
+OmegaConf.register_new_resolver("clean_model_name", lambda s: s.split("/")[-1])
 
 
 @hydra.main(config_path="./conf", config_name="config")
