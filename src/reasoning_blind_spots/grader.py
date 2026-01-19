@@ -9,7 +9,7 @@ from inspect_ai.model import (
     Model,
     get_model,
 )
-from inspect_ai.scorer import Score, Scorer, Target, accuracy, scorer
+from inspect_ai.scorer import Score, Scorer, Target, accuracy, scorer, stderr
 from inspect_ai.solver import TaskState
 
 GRADER_PROMPT_TEMPLATE = """
@@ -278,3 +278,31 @@ def get_grader(grader_config: dict = None, str_input=False):
             )
 
         return grader_str
+    
+@scorer(metrics=[accuracy(), stderr()])
+def dummy_scorer() -> Scorer:
+    """
+    Custom dummy scorer that returns score I for any task state and target
+    It is used to generate just solver answers without grading
+    """
+    async def score_dummy(state: TaskState, target: Target) -> Score:
+        # Get the model's completion and strip any thinking traces
+        raw_answer = get_raw_answer(state)
+        clean_answer = strip_thinking_tags(raw_answer)
+        if len(clean_answer) == 0:
+            raise ValueError("The cleaned answer is empty. Raw answer:\n" + raw_answer)
+        metadata = {
+            "raw_answer": raw_answer,
+            "thinking_stripped": raw_answer != clean_answer,
+            }
+        return Score(
+            value="I",
+            answer=clean_answer,
+            explanation="Grading disabled (solver-only run)",
+            metadata=metadata,
+        )
+    return score_dummy
+
+def get_grader_dummy() -> Scorer:
+    return dummy_scorer()
+
