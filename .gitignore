@@ -208,6 +208,7 @@ __marimo__/
 
 # Inspect AI
 logs/*
-outputs/*
 
 .DS_Store
+data/*images/*
+outputs/eval_text/*/.hydra/
