@@ -20,11 +20,20 @@ def run(cfg: DictConfig):
     log_dir = HydraConfig.get().runtime.output_dir
 
     # Optional parameters for Inspect AI eval
-    max_connections = cfg.get("max_connections", 10)
-    timeout = cfg.get("timeout", None)
+    max_connections = cfg.get("max_connections", 15)
+
+    # Eval resilience and limits
+    time_limit = cfg.get("time_limit", cfg.get("timeout", None))
+    fail_on_error = cfg.get("fail_on_error", True)
+    retry_on_error = cfg.get("retry_on_error", 0)
 
     eval(
-        rb_task(cfg), log_dir=log_dir, max_connections=max_connections, timeout=timeout
+        rb_task(cfg),
+        log_dir=log_dir,
+        max_connections=max_connections,
+        time_limit=time_limit,
+        fail_on_error=fail_on_error,
+        retry_on_error=retry_on_error,
     )
 
 
