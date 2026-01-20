@@ -1,0 +1,28 @@
+defaults:
+  - _self_
+
+hydra:
+  run:
+    dir: outputs/${now:%Y-%m-%d_%H-%M-%S}
+
+# Inspect AI settings
+max_connections: 4
+timeout: null
+
+dataset:
+  path: "data/chengkun_questions.jsonl"
+  limit: null
+  question_type:
+  - text-only
+  - multi-to-text
+  - image-to-text
+
+grader:
+  enabled: false  # Skip grading
+
+solver:
+  model_name: gpt-5-mini
+  backend: openai
+  api_key: ${oc.env:OPENAI_API_KEY,null}
+  generate_config:
+    reasoning_effort: null
