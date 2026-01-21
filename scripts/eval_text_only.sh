@@ -38,6 +38,13 @@ python main.py --config-name text_only \
 	+solver.generate_config.reasoning_effort=medium \
 	++solver.api_key=${OPENAI_API_KEY}
 
+# o3
+python main.py --config-name text_only \
+	++solver.model_name=o3 \
+	++solver.backend=openai \
+	+solver.generate_config.reasoning_effort=medium \
+	++solver.api_key=${OPENAI_API_KEY}
+
 # gpt-5.2
 python main.py --config-name text_only \
 	++solver.model_name=gpt-5.2 \
@@ -48,6 +55,13 @@ python main.py --config-name text_only \
 # gpt-5-mini
 python main.py --config-name text_only \
 	++solver.model_name=gpt-5-mini \
+	++solver.backend=openai \
+	+solver.generate_config.reasoning_effort=medium \
+	++solver.api_key=${OPENAI_API_KEY}
+
+# gpt-4.1
+python main.py --config-name text_only \
+	++solver.model_name=gpt-4.1 \
 	++solver.backend=openai \
 	+solver.generate_config.reasoning_effort=medium \
 	++solver.api_key=${OPENAI_API_KEY}
@@ -115,6 +129,14 @@ python main.py --config-name text_only \
 # deepseek-ai/DeepSeek-V3.2-Speciale
 python main.py --config-name text_only \
 	++solver.model_name=deepseek-ai/DeepSeek-V3.2-Speciale \
+	++solver.backend=openai \
+	+solver.base_url=https://inference.rcp.epfl.ch/v1 \
+	++solver.api_key=${RCP_OPENAI_API_KEY} \
+	+solver.generate_config.max_tokens=32768
+
+# Mistral-Large-3-675B-Instruct-2512
+python main.py --config-name text_only \
+	++solver.model_name=mistralai/Mistral-Large-3-675B-Instruct-2512 \
 	++solver.backend=openai \
 	+solver.base_url=https://inference.rcp.epfl.ch/v1 \
 	++solver.api_key=${RCP_OPENAI_API_KEY} \

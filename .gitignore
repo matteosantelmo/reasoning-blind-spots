@@ -211,4 +211,4 @@ logs/*
 
 .DS_Store
 data/*images/*
-outputs/eval_text/*/.hydra/
+outputs/*/*/.hydra/
