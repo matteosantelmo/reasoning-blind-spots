@@ -21,6 +21,7 @@ dataset:
   - image-to-text
 
 grader:
+  enabled: true
   model_name: gemini-2.5-flash
   backend: google # openai | google | vllm
   generate_config:

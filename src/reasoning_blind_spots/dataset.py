@@ -22,7 +22,12 @@ def load_dataset(cfg: DictConfig) -> MemoryDataset:
     """
     Loads the dataset from a JSONL file or Hugging Face Hub and converts it to Inspect Samples.
     Handles multimodal inputs by checking the 'modality' field.
-    NOTE: image-gen is not supported yet.
+
+    Supported question types:
+    - text-only: Text input, text output
+    - multi-to-text / image-to-text: Image+text input, text output
+    - text-to-image / image-gen: Text input, image output
+    - multi-to-image / image-to-image: Image+text input, image output
 
     Args:
         cfg: Configuration dictionary containing dataset parameters.
@@ -93,7 +98,15 @@ def load_dataset(cfg: DictConfig) -> MemoryDataset:
 
 
 def create_sample(record: dict, question_type: str) -> Sample:
-    """Helper to create a Sample from a record dictionary."""
+    """
+    Helper to create a Sample from a record dictionary.
+
+    Handles different question types:
+    - text-only: Text input, text output
+    - multi-to-text / image-to-text: Image+text input, text output
+    - text-to-image / image-gen: Text input, image output
+    - multi-to-image / image-to-image: Image+text input, image output
+    """
     prompt = record["prompt"]
     input_content = None
 
@@ -127,17 +140,64 @@ def create_sample(record: dict, question_type: str) -> Sample:
                 ]
             )
         ]
+    elif question_type in ["text-to-image", "image-gen"]:
+        # Text-to-image: only text input, expect image output
+        # The prompt is the input, the solver will generate an image
+        input_content = prompt
+    elif question_type in ["multi-to-image", "image-to-image"]:
+        # Image-to-image: image+text input, expect image output
+        if "image" not in record or record["image"] is None:
+            raise ValueError(
+                f"Record {record.get('index')} missing 'image' field for image-to-image question."
+            )
+
+        image_content = None
+
+        # Check if it is a local path (string)
+        if "image_source" in record:
+            image_content = record["image_source"]
+        # Check if it is a PIL Image
+        elif isinstance(record["image"], PILImage.Image):
+            image_content = pil_image_to_base64_url(record["image"])
+        # Check if it is a string (e.g. path or base64)
+        elif isinstance(record["image"], str):
+            image_content = record["image"]
+        else:
+            raise ValueError(f"Unknown image format in record {record.get('index')}")
+
+        input_content = [
+            ChatMessageUser(
+                content=[
+                    ContentText(text=prompt),
+                    ContentImage(image=image_content),
+                ]
+            )
+        ]
     else:
         raise ValueError(f"Unsupported question_type: {question_type}")
+
+    # Build metadata
+    metadata = {
+        "question_type": question_type,
+        "prompt": prompt,
+        "categories": record.get("categories", ""),
+        "failure_modes": record.get("failure_modes", ""),
+    }
+
+    # Mark if this is an image generation task
+    if question_type in [
+        "text-to-image",
+        "image-gen",
+        "multi-to-image",
+        "image-to-image",
+    ]:
+        metadata["is_image_generation"] = True
+    else:
+        metadata["is_image_generation"] = False
 
     return Sample(
         input=input_content,
         target=record["solution"],
         id=record["index"],
-        metadata={
-            "question_type": question_type,
-            "prompt": prompt,
-            "categories": record.get("categories", ""),
-            "failure_modes": record.get("failure_modes", ""),
-        },
+        metadata=metadata,
     )

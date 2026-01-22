@@ -58,8 +58,10 @@ Our codebase relies on [Inspect AI](https://inspect.aisi.org.uk) as the evaluati
 -  `outputs/`: Outputs from evaluations and experiments.
 -   `src/reasoning_blind_spots/`: Source code package.
     -   `dataset.py`: Dataset loading logic.
-    -   `grader.py`: Scorer/Grader/Verifier logic.
-    -  `solver.py`: Solver/Generator logic.
+    -   `grader.py`: Scorer/Grader/Verifier logic for text outputs.
+    -   `solver.py`: Solver/Generator logic for text outputs.
+    -   `image_solver.py`: Custom solver for image generation tasks (OpenAI/Google).
+    -   `image_grader.py`: Scorer/Grader for image generation outputs.
     -   `task.py`: Inspect AI task definition.
 -   [`main.py`](main.py): Entry point for running the benchmark with Inspect AI.
 -   [`grader_validation.py`](grader_validation.py): Script to validate the grader's performance on a subset of human-labeled data.
@@ -119,9 +121,31 @@ python main.py \
 python main.py --config-name local_vllm
 ```
 
+**Image Generation Tasks:**
+The benchmark also supports image generation tasks (text-to-image, image-gen). To run image generation evaluations:
+```bash
+# Using OpenAI GPT-Image
+python main.py --config-name image_gen \
+    solver.model_name="gpt-image-1" \
+    solver.backend="openai"
+
+# Using Google Imagen
+python main.py --config-name image_gen \
+    solver.model_name="gemini-2.5-flash-image" \
+    solver.backend="google"
+```
+
 **NOTE**, to use RCP AIAAS:
 - make sure to set the right values of OPENAI_BASE_URL and OPENAI_API_KEY environment variables in your `.env` file.
 - you might need to be on EPFL network (or use a VPN) to access RCP services.
+
+**Solver-only mode (skip grading):**
+To run the benchmark without grading (useful for collecting solver outputs), set `grader.enabled: false` in your config:
+```yaml
+grader:
+  enabled: false
+```
+
 </details>
 
 <details>

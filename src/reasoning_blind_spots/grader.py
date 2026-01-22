@@ -268,7 +268,7 @@ def get_grader(grader_config: dict = None, str_input=False):
     model_args = {
         k: v
         for k, v in grader_config.items()
-        if k not in ["backend", "model_name", "generate_config"]
+        if k not in ["backend", "model_name", "generate_config", "enabled"]
     }
 
     grader = get_model(
