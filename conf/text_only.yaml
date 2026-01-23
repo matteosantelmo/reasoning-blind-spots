@@ -1,0 +1,28 @@
+defaults:
+  - _self_
+
+hydra:
+  run:
+    dir: outputs/eval_text/${clean_model_name:${solver.model_name}}_${now:%Y-%m-%d_%H-%M-%S}
+
+# Inspect AI settings
+fail_on_error: false
+retry_on_error: 1
+time_limit: 600
+
+dataset:
+  path: "matsant01/blind-spots-bench"
+  split: "test"
+  limit: null
+  question_type:
+  - text-only
+
+grader:
+  model_name: gemini-3-flash-preview
+  backend: google
+  generate_config:
+    reasoning_effort: minimal
+
+solver:
+  model_name: override
+  backend: override

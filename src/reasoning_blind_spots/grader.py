@@ -11,6 +11,8 @@ from inspect_ai.model import (
 )
 from inspect_ai.scorer import Score, Scorer, Target, accuracy, scorer, stderr
 from inspect_ai.solver import TaskState
+from inspect_ai.tool import code_execution
+from inspect_ai.util import message_limit
 
 GRADER_PROMPT_TEMPLATE = """
 You are an expert grader. Your task is to evaluate the correctness of a submitted answer based on the provided question and ground truth answer defining grading criteria.
@@ -32,9 +34,9 @@ You are an expert grader. Your task is to evaluate the correctness of a submitte
 
 ---
 
-After assessing the submitted answer, reply with 'GRADE: $LETTER' (without quotes) where LETTER is either of C or I. Please choose ONE option for the grade: either "C" for correct answers, or "I" for incorrect answers. No intermediate grades are allowed. If the grading criterion is met only partially, use your best judgement to assign the most appropriate grade.
+After assessing the submitted answer, reply with 'GRADE: $LETTER' (without quotes) where LETTER is either of C or I. Please choose ONE option for the grade: either "C" for correct answers, or "I" for incorrect answers. No intermediate grades are allowed. If the grading criterion is met only partially or the ground truth is ambiguous, use your best judgement to assign the most appropriate grade.
 
-Start by analyzing the submission and compare it against the ground truth. The ground truth will provide you with the necessary information to determine if the submission is correct or incorrect.
+Start by briefly analyzing the submission and compare it against the ground truth. The ground truth will provide you with the necessary information to determine if the submission is correct or incorrect. If needed, execute code snippets to verify the correctness of the submission.
 Write a minimal explanation of your reasoning. Then, once you have reached a final judgment, end with your answer formatted as 'GRADE: $LETTER' (without quotes) where LETTER is either of C or I.
 """
 
@@ -85,16 +87,19 @@ def get_raw_answer(state: TaskState) -> str:
     if len(answer) > 0:
         return answer
 
-    # Fallback: try to reconstruct the answer from the content list
-    answer_parts = []
-    for content in state.output.choices[0].message.content:
-        if content.text and len(content.text) > 0:
-            answer_parts.append(content.text)
-        else:
-            # Unknown or empty content
-            continue
+    try:
+        # Fallback: try to reconstruct the answer from the content list
+        answer_parts = []
+        for content in state.output.choices[0].message.content:
+            if content.text and len(content.text) > 0:
+                answer_parts.append(content.text)
+            else:
+                # Unknown or empty content
+                continue
 
-    return "\n".join(answer_parts).strip()
+        return "\n".join(answer_parts).strip()
+    except Exception as e:
+        return ""
 
 
 async def score_str(
@@ -143,22 +148,42 @@ async def score_str(
         "thinking_stripped": solver_answer != clean_answer,
     }
 
-    # Query the grader model
+    # Prepare the input message(s) for the grader model
     if image:
-        content = [
-            ContentText(text=score_prompt),
-            ContentImage(image=image),
+        loop_input = [
+            ChatMessageUser(
+                content=[ContentText(text=score_prompt), ContentImage(image=image)]
+            )
         ]
-        result = await grader_model.generate([ChatMessageUser(content=content)])
     else:
-        result = await grader_model.generate(score_prompt)
+        loop_input = score_prompt
+
+    # Query the grader in a generation loop to allow tool use (code execution)
+    max_grader_messages = 5
+    try:
+        with message_limit(max_grader_messages):
+            _, result = await grader_model.generate_loop(
+                loop_input, tools=[code_execution()]
+            )
+    except Exception as e:
+        return Score(
+            value="I",
+            answer=clean_answer,
+            explanation=f"Grader error (possibly exceeded message limit): {str(e)}",
+            metadata=metadata,
+        )
 
     if result.usage:
         metadata["usage"] = {
             "input_tokens": result.usage.input_tokens,
+            "reasoning_tokens": (
+                result.usage.reasoning_tokens
+                if result.usage.reasoning_tokens is not None
+                else 0
+            ),
             "output_tokens": result.usage.output_tokens,
-            "total_tokens": result.usage.total_tokens,
         }
+        metadata["total_tokens"] = sum(metadata["usage"].values())
 
     # Extract the grade from the response
     match = re.search(grade_pattern, result.completion, re.MULTILINE | re.DOTALL)

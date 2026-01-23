@@ -5,6 +5,11 @@ hydra:
   run:
     dir: outputs/${now:%Y-%m-%d_%H-%M-%S}
 
+# Inspect AI evaluation settings
+fail_on_error: false  # Fail on error: false for gentler handling of errors
+retry_on_error: 2 # Retry on error: number of retries per sample failure
+time_limit: 600 # Time limit per sample in seconds
+
 dataset:
   path: "matsant01/blind-spots-bench"
   split: "test"
