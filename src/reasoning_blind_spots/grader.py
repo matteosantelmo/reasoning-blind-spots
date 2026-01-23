@@ -1,6 +1,14 @@
 import re
+from typing import Optional
 
-from inspect_ai.model import GenerateConfig, Model, get_model
+from inspect_ai.model import (
+    ChatMessageUser,
+    ContentImage,
+    ContentText,
+    GenerateConfig,
+    Model,
+    get_model,
+)
 from inspect_ai.scorer import Score, Scorer, Target, accuracy, scorer, stderr
 from inspect_ai.solver import TaskState
 
@@ -26,8 +34,8 @@ You are an expert grader. Your task is to evaluate the correctness of a submitte
 
 After assessing the submitted answer, reply with 'GRADE: $LETTER' (without quotes) where LETTER is either of C or I. Please choose ONE option for the grade: either "C" for correct answers, or "I" for incorrect answers. No intermediate grades are allowed. If the grading criterion is met only partially, use your best judgement to assign the most appropriate grade.
 
-Start by carefully analyzing the submission and compare it against the ground truth. The ground truth will provide you with the necessary information to determine if the submission is correct or incorrect.
-First, write a step by step reasoning about the grading criterion to make sure your conclusion is correct. Avoid simply stating the correct answers at the outset. Then, once you have reached a final judgment, end with your answer formatted as 'GRADE: $LETTER' (without quotes) where LETTER is either of C or I.
+Start by analyzing the submission and compare it against the ground truth. The ground truth will provide you with the necessary information to determine if the submission is correct or incorrect.
+Write a minimal explanation of your reasoning. Then, once you have reached a final judgment, end with your answer formatted as 'GRADE: $LETTER' (without quotes) where LETTER is either of C or I.
 """
 
 DEFAULT_GRADE_PATTERN = r"(?i)GRADE\s*:\s*([CI])(.*)$"
@@ -62,6 +70,15 @@ def strip_thinking_tags(text: str) -> str:
 def get_raw_answer(state: TaskState) -> str:
     """
     Extract the model's answer from the TaskState.
+
+    Attempts to get the completion string directly. If empty, falls back
+    to joining text content from choices.
+
+    Args:
+        state: The current TaskState.
+
+    Returns:
+        str: The extracted answer string.
     """
     # First try to get the answer from the 'completion' directly
     answer = state.output.completion
@@ -80,7 +97,89 @@ def get_raw_answer(state: TaskState) -> str:
     return "\n".join(answer_parts).strip()
 
 
-@scorer(metrics=[accuracy(), stderr()])
+async def score_str(
+    prompt: str,
+    ground_truth: str,
+    solver_answer: str,
+    grader_model: Model,
+    image: Optional[str] = None,
+    template: str = GRADER_PROMPT_TEMPLATE,
+    grade_pattern: str = DEFAULT_GRADE_PATTERN,
+) -> Score:
+    """
+    Grading logic that takes raw strings as input and returns a Score object.
+
+    This function handles stripping thinking tags, formatting the prompt,
+    querying the grader model, and parsing the result.
+
+    Args:
+        prompt: The input question/prompt.
+        ground_truth: The ground truth answer/criterion.
+        solver_answer: The answer provided by the solver model.
+        grader_model: The model to use for grading.
+        image: Optional path or url to an image to be included in the prompt.
+        template: The grading prompt template.
+        grade_pattern: Regex pattern to extract the grade.
+
+    Returns:
+        Score: A Score object containing the grade (C/I), explanation, and metadata.
+
+    Raises:
+        ValueError: If the cleaned answer is empty.
+    """
+
+    clean_answer = strip_thinking_tags(solver_answer)
+    if len(clean_answer) == 0:
+        raise ValueError("The cleaned answer is empty. Raw answer:\n" + solver_answer)
+
+    # Format the grading prompt with the cleaned answer
+    score_prompt = template.format(
+        question=prompt,
+        answer=clean_answer,
+        criterion=ground_truth,
+    )
+    metadata = {
+        "raw_answer": solver_answer,
+        "thinking_stripped": solver_answer != clean_answer,
+    }
+
+    # Query the grader model
+    if image:
+        content = [
+            ContentText(text=score_prompt),
+            ContentImage(image=image),
+        ]
+        result = await grader_model.generate([ChatMessageUser(content=content)])
+    else:
+        result = await grader_model.generate(score_prompt)
+
+    if result.usage:
+        metadata["usage"] = {
+            "input_tokens": result.usage.input_tokens,
+            "output_tokens": result.usage.output_tokens,
+            "total_tokens": result.usage.total_tokens,
+        }
+
+    # Extract the grade from the response
+    match = re.search(grade_pattern, result.completion, re.MULTILINE | re.DOTALL)
+    if match:
+        grade = match.group(1).upper()
+        return Score(
+            value=grade,
+            answer=clean_answer,
+            explanation=result.completion,
+            metadata=metadata,
+        )
+    else:
+        return Score(
+            value="I",
+            answer=clean_answer,
+            explanation=f"Grade not found in model output: {result.completion}",
+            metadata=metadata,
+        )
+
+
+@scorer(metrics=[accuracy()])
 def model_graded_qa_with_reasoning_stripped(
     grader_model: Model,
     template: str = GRADER_PROMPT_TEMPLATE,
@@ -90,61 +189,43 @@ def model_graded_qa_with_reasoning_stripped(
     Custom scorer that enforces thinking/reasoning stripping before grading.
 
     Args:
+        grader_model: The Model instance to use for grading.
         template: The grading prompt template.
         grade_pattern: Regex pattern to extract the grade from grader output.
-        model: The model string (e.g., "openai/gpt-4") to use for grading.
-        gen_config: Generation configuration for the grader model.
 
     Returns:
-        A Scorer function.
+        Scorer: A Scorer function compatible with inspect_ai.
     """
 
     async def score(state: TaskState, target: Target) -> Score:
         # Get the model's completion and strip any thinking traces
         raw_answer = get_raw_answer(state)
-        clean_answer = strip_thinking_tags(raw_answer)
 
-        if len(clean_answer) == 0:
-            raise ValueError("The cleaned answer is empty. Raw answer:\n" + raw_answer)
+        # Extract image from state.messages
+        image = None
+        for message in state.messages:
+            if message.role == "user" and isinstance(message.content, list):
+                for content in message.content:
+                    if isinstance(content, ContentImage):
+                        image = content.image
+                        break
+            if image:
+                break
 
-        # Format the grading prompt with the cleaned answer
-        score_prompt = template.format(
-            question=state.input_text,
-            answer=clean_answer,
-            criterion=target.text,
+        return await score_str(
+            state.input_text,
+            target.text,
+            raw_answer,
+            grader_model,
+            image=image,
+            template=template,
+            grade_pattern=grade_pattern,
         )
-        metadata = {
-            "raw_answer": raw_answer,
-            "thinking_stripped": raw_answer != clean_answer,
-        }
-
-        # Query the grader model
-        result = await grader_model.generate(score_prompt)
-
-        # Extract the grade from the response
-        match = re.search(grade_pattern, result.completion, re.MULTILINE | re.DOTALL)
-        if match:
-            grade = match.group(1).upper()
-            return Score(
-                value=grade,
-                answer=clean_answer,
-                explanation=result.completion,
-                metadata=metadata,
-            )
-        else:
-            return Score(
-                value="I",
-                answer=clean_answer,
-                explanation=f"Grade not found in model output: {result.completion}",
-                metadata=metadata,
-            )
 
     return score
 
 
-def get_grader(
-    grader_config: dict = None,
-) -> Scorer:
+def get_grader(grader_config: dict = None, str_input=False):
     """
     Returns a model-graded scorer (grader) using the specified model.
 
@@ -162,7 +243,7 @@ def get_grader(
     model_args = {
         k: v
         for k, v in grader_config.items()
-        if k not in ["backend", "model_name", "generate_config"]
+        if k not in ["backend", "model_name", "generate_config", "enabled"]
     }
 
     grader = get_model(
@@ -172,8 +253,28 @@ def get_grader(
         **model_args,
     )
 
-    return model_graded_qa_with_reasoning_stripped(
-        grader_model=grader,
-        template=GRADER_PROMPT_TEMPLATE,
-        grade_pattern=DEFAULT_GRADE_PATTERN,
-    )
+    if str_input == False:
+        return model_graded_qa_with_reasoning_stripped(
+            grader_model=grader,
+            template=GRADER_PROMPT_TEMPLATE,
+            grade_pattern=DEFAULT_GRADE_PATTERN,
+        )
+    else:
+
+        async def grader_str(
+            prompt: str,
+            ground_truth: str,
+            solver_answer: str,
+            image: Optional[str] = None,
+        ):
+            return await score_str(
+                prompt,
+                ground_truth,
+                solver_answer,
+                grader_model=grader,
+                image=image,
+                template=GRADER_PROMPT_TEMPLATE,
+                grade_pattern=DEFAULT_GRADE_PATTERN,
+            )
+
+        return grader_str

@@ -88,6 +88,13 @@ python main.py --config-name local_vllm
 **NOTE**, to use RCP AIAAS:
 - make sure to set the right values of OPENAI_BASE_URL and OPENAI_API_KEY environment variables in your `.env` file.
 - you might need to be on EPFL network (or use a VPN) to access RCP services.
+
+**Solver-only mode (skip grading):**
+To run the benchmark without grading (useful for collecting solver outputs), set `grader.enabled: false` in your config:
+```yaml
+grader:
+  enabled: false
+```
 </details>
 
 <details>

@@ -1,0 +1,21 @@
+defaults:
+  - _self_
+
+hydra:
+  run:
+    dir: outputs/validation/text-out-${now:%Y-%m-%d_%H-%M-%S}
+
+dataset:
+  path: "data/validation/text-out.jsonl"
+  limit: null  # Limit the number of examples to evaluate (null for all)
+  question_type:  # Which type/modality to include in the evaluation
+  - text-only
+  - multi-to-text
+  - image-to-text
+
+grader:
+  enabled: true
+  model_name: gemini-3-flash-preview
+  backend: google
+  generate_config:
+    reasoning_effort: minimal

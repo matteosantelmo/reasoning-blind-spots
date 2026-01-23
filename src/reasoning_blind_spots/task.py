@@ -18,6 +18,5 @@ def reasoning_benchmark(cfg: DictConfig):
 
     dataset = load_dataset(cfg.dataset)
     solver = get_solver(cfg.solver)
-    grader = get_grader(cfg.grader)
-
+    grader = get_grader(cfg.grader) if cfg.grader.get("enabled", True) else None
     return Task(model=solver, dataset=dataset, plan=[generate()], scorer=grader)

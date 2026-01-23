@@ -6,7 +6,6 @@ hydra:
     dir: outputs/${now:%Y-%m-%d_%H-%M-%S}
 
 dataset:
-  # path: "data/ms_test.jsonl"
   path: "matsant01/blind-spots-bench"
   split: "test"
   limit: 3  # Limit the number of examples to evaluate (null for all)
@@ -16,6 +15,7 @@ dataset:
   - image-to-text
 
 grader:
+  enabled: true  # Set to false to skip grading (solver-only run)
   model_name: gemini-2.5-flash
   backend: google # openai | google | vllm
   generate_config:
