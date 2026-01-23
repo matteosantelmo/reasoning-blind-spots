@@ -108,7 +108,7 @@ async def grader_validation(cfg: DictConfig) -> List[Dict]:
     return results
 
 
-@hydra.main(config_path="conf", config_name="config_val", version_base=None)
+@hydra.main(config_path="conf", config_name="validation_text_out", version_base=None)
 def main(cfg: DictConfig):
     """
     Main entry point for the grader validation script.
@@ -145,6 +145,14 @@ def main(cfg: DictConfig):
 
     # Compute and print metrics
     metrics = compute_metrics(g_scores, h_scores)
+    logger.info(
+        "Validation Dataset Ground Truth Distribution:\n\tCorrect (C): {} ({}%),\n\tIncorrect (I): {} ({}%)".format(
+            h_scores.count("C"),
+            100 * h_scores.count("C") / len(h_scores),
+            h_scores.count("I"),
+            100 * h_scores.count("I") / len(h_scores),
+        )
+    )
     logger.info(
         "Grader Validation Metrics: {}".format(
             ", ".join([f"{k}: {v:.4f}" for k, v in metrics.items()])

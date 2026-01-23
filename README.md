@@ -6,7 +6,7 @@ The questions are crafted to highlight the limitations of current AI systems and
 This benchmark was developed as part of the _"Reasoning in AI"_ course at EPFL ([MATH-700](https://edu.epfl.ch/coursebook/en/reasoning-in-artificial-intelligence-MATH-700)).
 Our codebase relies on [Inspect AI](https://inspect.aisi.org.uk) as the evaluation framework.
 
-### Leaderboard
+### 🏆 Leaderboard
 <!-- LEADERBOARD-START -->
 
 #### Multimodal-to-text Evaluation
@@ -51,7 +51,19 @@ Our codebase relies on [Inspect AI](https://inspect.aisi.org.uk) as the evaluati
 
 ---
 
-### Codebase Structure
+### 🧐 Pipeline Validation
+To ensure the reliability of the automated grading pipeline (relying on `gemini-3-flash` with code execution capabilities and access to ground truth annotation), we validated its performance on manually annotated question-answer pairs that we refer to as the [pipeline validation set](data/validation/). Below are the results of this validation.
+
+##### Pipeline Validation Results
+| Question Type      | Sample Size | Class Balance               | Accuracy | Precision | Recall | FPR  |
+|--------------------|-------------|-----------------------------|----------|-----------|--------|------|
+| multi/text-to-text | 59          | 66% correct - 34% incorrect | 0.983    | 0.975     | 1.00   | 0.05 |
+| multi/text-to-image | 8          | 50% correct - 50% incorrect   |          |           |        |      |
+
+
+---
+
+### 🗂️ Codebase Structure
 -   `conf/`: Configuration files (Hydra).
 -  `notebooks/`: Jupyter notebooks for analysis and visualization.
 -  `scripts/`: Scripts for reproducing evaluations.
@@ -65,7 +77,7 @@ Our codebase relies on [Inspect AI](https://inspect.aisi.org.uk) as the evaluati
 -   [`grader_validation.py`](grader_validation.py): Script to validate the grader's performance on a subset of human-labeled data.
 
 
-### Development
+### 🛠️ Development
 If you want to contribute to the codebase or modify it, you can follow the instructions below to set up your development environment and run the evaluation pipeline.
 
 <details>
