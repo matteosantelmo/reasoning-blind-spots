@@ -7,8 +7,8 @@ hydra:
 
 dataset:
   path: "data/validation/text-out.jsonl"
-  limit: null  # Limit the number of examples to evaluate (null for all)
-  question_type:  # Which type/modality to include in the evaluation
+  limit: null
+  question_type:
   - text-only
   - multi-to-text
   - image-to-text

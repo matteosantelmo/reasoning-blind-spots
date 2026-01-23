@@ -49,6 +49,9 @@ Our codebase relies on [Inspect AI](https://inspect.aisi.org.uk) as the evaluati
 
 <!-- LEADERBOARD-END -->
 
+
+🔃 **Reproducibility:** all the results of our evaluations are saved under [`outputs/`](outputs/) and can be reproduced by running the evaluation scripts in [`scripts/`](scripts/).
+
 ---
 
 ### 🧐 Pipeline Validation
@@ -111,7 +114,6 @@ To set up the environment for this project, follow these steps:
     ```
     OPENAI_API_KEY=...
     GOOGLE_API_KEY=...
-    ANTHROPIC_API_KEY=...
     ```
 </details>
 
