@@ -55,11 +55,13 @@ Our codebase relies on [Inspect AI](https://inspect.aisi.org.uk) as the evaluati
 To ensure the reliability of the automated grading pipeline (relying on `gemini-3-flash` with code execution capabilities and access to ground truth annotation), we validated its performance on manually annotated question-answer pairs that we refer to as the [pipeline validation set](data/validation/). Below are the results of this validation.
 
 ##### Pipeline Validation Results
-| Question Type      | Sample Size | Class Balance               | Accuracy | Precision | Recall | FPR  |
-|--------------------|-------------|-----------------------------|----------|-----------|--------|------|
-| multi/text-to-text | 59          | 66% correct - 34% incorrect | 0.983    | 0.975     | 1.00   | 0.05 |
-| multi/text-to-image | 8          | 50% correct - 50% incorrect   |          |           |        |      |
+| Question Type       | Sample Size | Class Balance               | Accuracy | Precision | Recall | FPR  |
+|---------------------|-------------|-----------------------------|----------|-----------|--------|------|
+| multi/text-to-text  | 59          | 66% correct - 34% incorrect | 0.983    | 0.975     | 1.00   | 0.05 |
+| multi/text-to-image | 8           | 50% correct - 50% incorrect | 1.00     | 1.00      | 1.00   | 0.00 |
 
+
+The outputs produced by the grader during this validation can be found in [`outputs/validation/`](outputs/validation/). To reproduce the validation pipeline, you can run the [`validate_pipeline.sh`](scripts/validate_pipeline.sh) script.
 
 ---
 

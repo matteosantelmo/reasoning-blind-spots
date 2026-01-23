@@ -271,7 +271,7 @@ def image_generation_grader(
     return score
 
 
-def get_image_grader(grader_config: dict) -> Scorer:
+def get_image_grader(grader_config: dict, use_pregenerated_input: bool = False):
     """
     Factory function to create an image generation grader from configuration.
 
@@ -280,9 +280,10 @@ def get_image_grader(grader_config: dict) -> Scorer:
             - backend: Model backend (e.g., "google", "openai")
             - model_name: Model name (must be a VLM)
             - generate_config: Optional generation configuration
+        use_pregenerated_input: If True, returns a callable that takes inputs directly
 
     Returns:
-        Configured image generation grader (Scorer).
+        Configured image generation grader (Scorer) or callable if use_pregenerated_input=True.
     """
     if "backend" not in grader_config or "model_name" not in grader_config:
         raise ValueError("grader_config must contain 'backend' and 'model_name' keys.")
@@ -304,8 +305,29 @@ def get_image_grader(grader_config: dict) -> Scorer:
         **model_args,
     )
 
-    return image_generation_grader(
-        grader_model=grader_model,
-        template=IMAGE_GRADER_PROMPT_TEMPLATE,
-        grade_pattern=DEFAULT_GRADE_PATTERN,
-    )
+    if not use_pregenerated_input:
+        # Return the Scorer function to be used with a solver model
+        return image_generation_grader(
+            grader_model=grader_model,
+            template=IMAGE_GRADER_PROMPT_TEMPLATE,
+            grade_pattern=DEFAULT_GRADE_PATTERN,
+        )
+    else:
+        # Return a callable that takes pregenerated inputs
+        async def grader_str(
+            prompt: str,
+            ground_truth: str,
+            generated_image_path: str,
+            input_image: Optional[str] = None,
+        ):
+            return await score_image_generation(
+                prompt=prompt,
+                ground_truth=ground_truth,
+                generated_image_path=generated_image_path,
+                grader_model=grader_model,
+                input_image=input_image,
+                template=IMAGE_GRADER_PROMPT_TEMPLATE,
+                grade_pattern=DEFAULT_GRADE_PATTERN,
+            )
+
+        return grader_str

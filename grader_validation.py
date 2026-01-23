@@ -10,6 +10,7 @@ from hydra.core.hydra_config import HydraConfig
 from omegaconf import DictConfig
 
 from reasoning_blind_spots.grader import get_grader
+from reasoning_blind_spots.image_grader import get_image_grader
 
 load_dotenv()
 
@@ -55,6 +56,10 @@ async def grader_validation(cfg: DictConfig) -> List[Dict]:
     Reads the validation dataset and evaluates the defined grader on it.
     The configuration of the grader is passed with the cfg argument.
 
+    Supports both text-output tasks (using the text grader) and image generation
+    tasks (using the image grader). The task type is determined by the
+    'question_type' field in each sample.
+
     Args:
         cfg (DictConfig): Configuration containing grader settings and dataset path.
 
@@ -62,9 +67,20 @@ async def grader_validation(cfg: DictConfig) -> List[Dict]:
         List[Dict]: List of dictionaries containing the evaluation results for each sample.
     """
     results = []
-    grader = get_grader(cfg.grader, str_input=True)
     val_path = cfg.dataset.path
     limit = cfg.dataset.get("limit", None)
+
+    # Determine if this is an image generation validation based on dataset path or config
+    is_image_gen = (
+        "image" in val_path.lower()
+        or cfg.dataset.get("task_type", "") == "image-generation"
+    )
+
+    # Initialize the appropriate grader
+    if is_image_gen:
+        grader = get_image_grader(cfg.grader, use_pregenerated_input=True)
+    else:
+        grader = get_grader(cfg.grader, use_pregenerated_input=True)
 
     with open(val_path, "r") as f:
         for i, line in enumerate(f):
@@ -73,17 +89,30 @@ async def grader_validation(cfg: DictConfig) -> List[Dict]:
 
             sample = json.loads(line)
             prompt = sample["prompt"]
-            solver_answer = sample["solver_answer"]
+            # Handle both 'solver_answer' and 'solver_solution' keys (some samples use different keys)
+            solver_answer = sample.get("solver_answer") or sample.get("solver_solution")
             solution = sample["solution"]
             human_score = sample["human_grade"]
             image = sample.get("image")
+            question_type = sample.get("question_type", "")
 
-            score = await grader(
-                prompt=prompt,
-                ground_truth=solution,
-                solver_answer=solver_answer,
-                image=image,
-            )
+            # Use the appropriate grading method based on task type
+            if question_type == "text-to-image" or is_image_gen:
+                # Image generation task: solver_answer is the generated image path
+                score = await grader(
+                    prompt=prompt,
+                    ground_truth=solution,
+                    generated_image_path=solver_answer,
+                    input_image=image,  # Input image from the question, if any
+                )
+            else:
+                # Text output task
+                score = await grader(
+                    prompt=prompt,
+                    ground_truth=solution,
+                    solver_answer=solver_answer,
+                    image=image,
+                )
 
             # Store all information
             sample_result = {
@@ -94,6 +123,7 @@ async def grader_validation(cfg: DictConfig) -> List[Dict]:
                 "grader_score": score.value,
                 "grader_explanation": score.explanation,
                 "usage": score.metadata.get("usage", {}),
+                "question_type": question_type,
             }
             results.append(sample_result)
 
@@ -117,8 +147,6 @@ def main(cfg: DictConfig):
     Args:
         cfg (DictConfig): Hydra configuration object.
     """
-    # TODO: add support for generate image scorer
-
     results = asyncio.run(grader_validation(cfg))
 
     # Calculate total token usage

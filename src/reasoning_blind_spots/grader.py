@@ -250,7 +250,7 @@ def model_graded_qa_with_reasoning_stripped(
     return score
 
 
-def get_grader(grader_config: dict = None, str_input=False):
+def get_grader(grader_config: dict = None, use_pregenerated_input=False):
     """
     Returns a model-graded scorer (grader) using the specified model.
 
@@ -278,14 +278,15 @@ def get_grader(grader_config: dict = None, str_input=False):
         **model_args,
     )
 
-    if str_input == False:
+    if use_pregenerated_input == False:
+        # Return the Scorer function to be used with a solver model
         return model_graded_qa_with_reasoning_stripped(
             grader_model=grader,
             template=GRADER_PROMPT_TEMPLATE,
             grade_pattern=DEFAULT_GRADE_PATTERN,
         )
     else:
-
+        # Return a callable that takes pregenerated inputs
         async def grader_str(
             prompt: str,
             ground_truth: str,

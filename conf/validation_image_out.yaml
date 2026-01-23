@@ -1,0 +1,21 @@
+defaults:
+  - _self_
+
+hydra:
+  run:
+    dir: outputs/validation/image-out-${now:%Y-%m-%d_%H-%M-%S}
+
+dataset:
+  path: "data/validation/image-out.jsonl"
+  limit: null
+  task_type: image-generation
+  question_type:
+  - text-to-image
+  - multi-to-image
+
+grader:
+  enabled: true
+  model_name: gemini-3-flash-preview
+  backend: google
+  generate_config:
+    reasoning_effort: minimal
