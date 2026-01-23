@@ -70,8 +70,10 @@ To ensure the reliability of the automated grading pipeline (relying on `gemini-
 -  `outputs/`: Outputs from evaluations and experiments.
 -   `src/reasoning_blind_spots/`: Source code package.
     -   `dataset.py`: Dataset loading logic.
-    -   `grader.py`: Scorer/Grader/Verifier logic.
-    -  `solver.py`: Solver/Generator logic.
+    -   `grader.py`: Scorer/Grader/Verifier logic for text outputs.
+    -   `solver.py`: Solver/Generator logic for text outputs.
+    -   `image_solver.py`: Custom solver for image generation tasks (OpenAI/Google).
+    -   `image_grader.py`: Scorer/Grader for image generation outputs.
     -   `task.py`: Inspect AI task definition.
 -   [`main.py`](main.py): Entry point for running the benchmark with Inspect AI.
 -   [`grader_validation.py`](grader_validation.py): Script to validate the grader's performance on a subset of human-labeled data.
@@ -129,6 +131,20 @@ python main.py \
     solver.generate_config.reasoning_tokens=0
 # Or, call the main script using a specific config file
 python main.py --config-name local_vllm
+```
+
+**Image Generation Tasks:**
+The benchmark also supports image generation tasks (text-to-image, image-gen). To run image generation evaluations:
+```bash
+# Using OpenAI GPT-Image
+python main.py --config-name image_gen \
+    solver.model_name="gpt-image-1" \
+    solver.backend="openai"
+
+# Using Google Imagen
+python main.py --config-name image_gen \
+    solver.model_name="gemini-2.5-flash-image" \
+    solver.backend="google"
 ```
 
 **NOTE**, to use RCP AIAAS:

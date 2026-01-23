@@ -18,6 +18,7 @@ dataset:
   - text-only
 
 grader:
+  enabled: true
   model_name: gemini-3-flash-preview
   backend: google
   generate_config:
