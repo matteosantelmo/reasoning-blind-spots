@@ -116,6 +116,8 @@ def main(cfg: DictConfig):
     Args:
         cfg (DictConfig): Hydra configuration object.
     """
+    # TODO: add support for generate image scorer
+
     results = asyncio.run(grader_validation(cfg))
 
     # Calculate total token usage
