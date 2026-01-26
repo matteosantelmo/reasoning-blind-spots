@@ -78,6 +78,15 @@ python main.py --config-name text_only \
 	+solver.generate_config.reasoning_effort=medium \
 	+solver.generate_config.max_tokens=32768
 
+# gpt-oss-20b
+python main.py --config-name text_only \
+	++solver.model_name=openai/gpt-oss-20b \
+	++solver.backend=openai \
+	+solver.base_url=https://inference.rcp.epfl.ch/v1 \
+	++solver.api_key=${RCP_OPENAI_API_KEY} \
+	+solver.generate_config.reasoning_effort=medium \
+	+solver.generate_config.max_tokens=32768
+
 # Qwen3-VL-30B-A3B-Instruct
 python main.py --config-name text_only \
 	++solver.model_name=Qwen/Qwen3-VL-30B-A3B-Instruct \
@@ -118,7 +127,23 @@ python main.py --config-name text_only \
 	++solver.api_key=${RCP_OPENAI_API_KEY} \
 	+solver.generate_config.max_tokens=32768
 
-# deepseek-ai/DeepSeek-V3.2
+# Llama-3.3-70B-Instruct
+python main.py --config-name text_only \
+	++solver.model_name=meta-llama/Llama-3.3-70B-Instruct \
+	++solver.backend=openai \
+	+solver.base_url=https://inference.rcp.epfl.ch/v1 \
+	++solver.api_key=${RCP_OPENAI_API_KEY} \
+	+solver.generate_config.max_tokens=32768
+
+# Llama-4-Maverick-17B-128E-Instruct
+python main.py --config-name text_only \
+	++solver.model_name=meta-llama/Llama-4-Maverick-17B-128E-Instruct \
+	++solver.backend=openai \
+	+solver.base_url=https://inference.rcp.epfl.ch/v1 \
+	++solver.api_key=${RCP_OPENAI_API_KEY} \
+	+solver.generate_config.max_tokens=32768
+
+# DeepSeek-V3.2
 python main.py --config-name text_only \
 	++solver.model_name=deepseek-ai/DeepSeek-V3.2 \
 	++solver.backend=openai \
@@ -126,7 +151,7 @@ python main.py --config-name text_only \
 	++solver.api_key=${RCP_OPENAI_API_KEY} \
 	+solver.generate_config.max_tokens=32768
 
-# deepseek-ai/DeepSeek-V3.2-Speciale
+# DeepSeek-V3.2-Speciale
 python main.py --config-name text_only \
 	++solver.model_name=deepseek-ai/DeepSeek-V3.2-Speciale \
 	++solver.backend=openai \

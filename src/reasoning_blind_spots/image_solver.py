@@ -407,7 +407,7 @@ def image_generation_solver(
         if input_images:
             # For image-to-image tasks, be more specific
             image_generation_prompt = (
-                f"Based on the provided reference image(s), generate a new image that "
+                f"Based on the provided input image(s), generate a new image that "
                 f"addresses the following request:\n\n"
                 f"{raw_prompt}\n\n"
                 f"Create a clear, detailed image as your response."

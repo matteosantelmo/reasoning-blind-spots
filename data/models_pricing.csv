@@ -1,5 +1,6 @@
 model_name,model_type,input_price,output_price
 gpt-oss-120b,LM,0.0381,0.1143
+gpt-oss-20b,LM,0.0160,0.0479
 MiniMaxAI/MiniMax-M2,LM,0.1721,0.5162
 deepseek-ai/DeepSeek-V3.2,LM,0.6147,1.844
 deepseek-ai/DeepSeek-V3.2-Speciale,LM,0.6147,1.844
@@ -19,3 +20,5 @@ gpt-5.2,VLM,1.75,14.00
 gpt-4.1,VLM,2,8
 mistralai/Mistral-Large-3-675B-Instruct-2512,VLM,0.4882,1.4646
 o3,VLM,2,8
+meta-llama/Llama-3.3-70B-Instruct,LLM,0.1742,0.5227
+meta-llama/Llama-4-Maverick-17B-128E-Instruct,VLM,0.1919,0.5757
