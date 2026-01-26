@@ -9,6 +9,7 @@ hydra:
 fail_on_error: false
 retry_on_error: 1
 time_limit: 600
+n_epochs: 2
 
 dataset:
   path: "matsant01/blind-spots-bench"

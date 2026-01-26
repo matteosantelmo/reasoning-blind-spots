@@ -21,6 +21,7 @@ def run(cfg: DictConfig):
 
     # Optional parameters for Inspect AI eval
     max_connections = cfg.get("max_connections", 15)
+    n_epochs = cfg.get("n_epochs", 1)
 
     # Eval resilience and limits
     time_limit = cfg.get("time_limit", cfg.get("timeout", None))
@@ -34,6 +35,7 @@ def run(cfg: DictConfig):
         time_limit=time_limit,
         fail_on_error=fail_on_error,
         retry_on_error=retry_on_error,
+        epochs=n_epochs,
     )
 
 
