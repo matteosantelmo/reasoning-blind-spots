@@ -24,3 +24,5 @@ mistralai/Mistral-Large-3-675B-Instruct-2512,VLM,0.4882,1.4646,12-2025,675.0,Fal
 o3,VLM,2.0,8.0,04-2025,,True
 meta-llama/Llama-3.3-70B-Instruct,LLM,0.1742,0.5227,12-2024,70.0,False
 meta-llama/Llama-4-Maverick-17B-128E-Instruct,LLM,0.1919,0.5757,04-2025,17.0,False
+gemini-2.5-flash-image,GEN,0.3,30,08-2025,,
+gemini-3-pro-image-preview,GEN,2.0,120,11-2025,,

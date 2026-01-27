@@ -1,0 +1,33 @@
+defaults:
+  - _self_
+
+hydra:
+  run:
+    dir: outputs/eval_image_gen/${clean_model_name:${solver.model_name}}_${now:%Y-%m-%d_%H-%M-%S}
+
+# Inspect AI settings
+fail_on_error: false
+retry_on_error: 3
+time_limit: 600
+
+dataset:
+  path: "matsant01/blind-spots-bench"
+  split: "test"
+  limit: null
+  question_type:
+  - multi-to-image
+  - text-to-image
+
+grader:
+  enabled: true
+  model_name: gemini-3-flash-preview
+  backend: google
+  generate_config:
+    reasoning_effort: low
+
+solver:
+  model_name: gemini-2.5-flash-image
+  backend: google
+  output_dir: ./generated_images  # Output directory for generated images (relative to run directory)
+  size: "1024x1024" # Image size: 1024x1024, 1536x1024, 1024x1536
+  quality: medium # Quality: low, medium, high, auto (OpenAI only)

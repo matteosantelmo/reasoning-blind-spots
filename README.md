@@ -9,7 +9,7 @@ Our codebase relies on [Inspect AI](https://inspect.aisi.org.uk) as the evaluati
 ### 🏆 Leaderboard
 <!-- LEADERBOARD-START -->
 
-#### 🖼️→📝 Multimodal-to-text Evaluation
+#### 📝/🖼️→📝 Multimodal-to-text Evaluation
 | Model                              | Pass@1   | Pass@2   | Price / 100 Sample   |   Output Tks / Sample |
 |:-----------------------------------|:---------|:---------|:---------------------|----------------------:|
 | gemini-3-pro-preview               | 64.63%   | 70.73%   | $4.688               |                3722.9 |
@@ -53,6 +53,12 @@ Our codebase relies on [Inspect AI](https://inspect.aisi.org.uk) as the evaluati
 | Llama-4-Maverick-17B-128E-Instruct | 35.65%   | 41.74%   | $0.030               |                 483.5 |
 | Llama-3.3-70B-Instruct             | 27.39%   | 31.30%   | $0.016               |                 274.7 |
 | Apertus-70B-Instruct-2509          | 15.22%   | 20.87%   | $0.060               |                 940.5 |
+
+#### 📝/🖼️→🖼️ Image Generation Evaluation
+| Model                      | Pass@1   | Price / 100 Sample   |   Output Tks / Sample |
+|:---------------------------|:---------|:---------------------|----------------------:|
+| gemini-3-pro-image-preview | 54.65%   | $18.415              |                1533.4 |
+| gemini-2.5-flash-image     | 24.42%   | $3.872               |                1290   |
 
 <!-- LEADERBOARD-END -->
 
