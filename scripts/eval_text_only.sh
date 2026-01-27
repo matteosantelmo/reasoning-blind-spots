@@ -133,7 +133,7 @@ python main.py --config-name text_only \
 	++solver.backend=openai \
 	+solver.base_url=https://inference.rcp.epfl.ch/v1 \
 	++solver.api_key=${RCP_OPENAI_API_KEY} \
-	+solver.generate_config.max_tokens=32768
+	+solver.generate_config.max_tokens=24576	# smaller context window
 
 # Llama-4-Maverick-17B-128E-Instruct
 python main.py --config-name text_only \
@@ -162,6 +162,22 @@ python main.py --config-name text_only \
 # Mistral-Large-3-675B-Instruct-2512
 python main.py --config-name text_only \
 	++solver.model_name=mistralai/Mistral-Large-3-675B-Instruct-2512 \
+	++solver.backend=openai \
+	+solver.base_url=https://inference.rcp.epfl.ch/v1 \
+	++solver.api_key=${RCP_OPENAI_API_KEY} \
+	+solver.generate_config.max_tokens=32768
+
+# Qwen3-Next-80B-A3B-Instruct
+python main.py --config-name text_only \
+	++solver.model_name=Qwen/Qwen3-Next-80B-A3B-Instruct \
+	++solver.backend=openai \
+	+solver.base_url=https://inference.rcp.epfl.ch/v1 \
+	++solver.api_key=${RCP_OPENAI_API_KEY} \
+	+solver.generate_config.max_tokens=32768
+
+# Qwen3-Next-80B-A3B-Thinking
+python main.py --config-name text_only \
+	++solver.model_name=Qwen/Qwen3-Next-80B-A3B-Thinking \
 	++solver.backend=openai \
 	+solver.base_url=https://inference.rcp.epfl.ch/v1 \
 	++solver.api_key=${RCP_OPENAI_API_KEY} \

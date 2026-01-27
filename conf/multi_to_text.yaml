@@ -7,7 +7,7 @@ hydra:
 
 # Inspect AI settings
 fail_on_error: false
-retry_on_error: 1
+retry_on_error: 2
 time_limit: 600
 n_epochs: 2
 

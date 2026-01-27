@@ -108,11 +108,3 @@ python main.py --config-name multi_to_text \
 	+solver.base_url=https://inference.rcp.epfl.ch/v1 \
 	++solver.api_key=${RCP_OPENAI_API_KEY} \
 	+solver.generate_config.max_tokens=32768
-
-# Llama-4-Maverick-17B-128E-Instruct
-python main.py --config-name multi_to_text \
-	++solver.model_name=meta-llama/Llama-4-Maverick-17B-128E-Instruct \
-	++solver.backend=openai \
-	+solver.base_url=https://inference.rcp.epfl.ch/v1 \
-	++solver.api_key=${RCP_OPENAI_API_KEY} \
-	+solver.generate_config.max_tokens=32768

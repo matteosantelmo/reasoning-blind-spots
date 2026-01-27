@@ -1,0 +1,2 @@
+**/*.eval filter=lfs diff=lfs merge=lfs -text
+outputs/*.eval filter=lfs diff=lfs merge=lfs -text

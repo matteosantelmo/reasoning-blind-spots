@@ -8,6 +8,8 @@ Qwen/Qwen3-VL-235B-A22B-Thinking,VLM,0.2428,0.7285
 Qwen/Qwen3-VL-235B-A22B-Instruct,VLM,0.2428,0.7285
 Qwen/Qwen3-VL-30B-A3B-Thinking,VLM,0.0497,0.1492
 Qwen/Qwen3-VL-30B-A3B-Instruct,VLM,0.0503,0.1509
+Qwen/Qwen3-Next-80B-A3B-Instruct,LM,0.1071,0.3214
+Qwen/Qwen3-Next-80B-A3B-Thinking,LM,0.1071,0.3214
 mistralai/Mistral-Large-3-675B-Instruct-2512,VLM,0.4882,1.4646
 swiss-ai/Apertus-70B-Instruct-2509,LM,0.2009,0.6026
 gemini-2.5-flash,VLM,0.30,2.50
@@ -21,4 +23,4 @@ gpt-4.1,VLM,2,8
 mistralai/Mistral-Large-3-675B-Instruct-2512,VLM,0.4882,1.4646
 o3,VLM,2,8
 meta-llama/Llama-3.3-70B-Instruct,LLM,0.1742,0.5227
-meta-llama/Llama-4-Maverick-17B-128E-Instruct,VLM,0.1919,0.5757
+meta-llama/Llama-4-Maverick-17B-128E-Instruct,LLM,0.1919,0.5757
