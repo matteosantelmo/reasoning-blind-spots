@@ -58,7 +58,9 @@ Our codebase relies on [Inspect AI](https://inspect.aisi.org.uk) as the evaluati
 | Model                      | Pass@1   | Price / 100 Sample   |   Output Tks / Sample |
 |:---------------------------|:---------|:---------------------|----------------------:|
 | gemini-3-pro-image-preview | 54.65%   | $18.415              |                1533.4 |
+| gpt-image-1.5              | 37.21%   | $4.742               |                1469.7 |
 | gemini-2.5-flash-image     | 24.42%   | $3.872               |                1290   |
+| gpt-image-1-mini           | 20.93%   | $0.857               |                1056   |
 
 <!-- LEADERBOARD-END -->
 

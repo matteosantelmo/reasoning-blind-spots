@@ -19,26 +19,22 @@ python main.py --config-name image_gen \
 # Gemini 3 Pro Image Preview (Nano Banana Pro)
 python main.py --config-name image_gen \
 	++solver.model_name=gemini-3-pro-image-preview \
-	++solver.backend=google
+	++solver.backend=google \
+	++max_connections=4
 
-# #######################################################
-# #                OpenAI Image Models
-# #######################################################
+# # #######################################################
+# # #                OpenAI Image Models
+# # #######################################################
 
 # GPT Image 1.5
 python main.py --config-name image_gen \
 	++solver.model_name=gpt-image-1.5 \
 	++solver.backend=openai \
-	++solver.quality=medium
-
-# GPT Image 1
-python main.py --config-name image_gen \
-	++solver.model_name=gpt-image-1 \
-	++solver.backend=openai \
-	++solver.quality=medium
+	++solver.quality=medium \
+	++max_connections=4
 
 # GPT Image 1 Mini
 python main.py --config-name image_gen \
 	++solver.model_name=gpt-image-1-mini \
 	++solver.backend=openai \
-	++solver.quality=auto
+	++solver.quality=medium
