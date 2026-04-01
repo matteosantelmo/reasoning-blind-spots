@@ -11,8 +11,9 @@ Our codebase relies on [Inspect AI](https://inspect.aisi.org.uk) as the evaluati
 ## TODOs:
 - [x] Add support for code execution (both local and with hosted tool runtime)
 - [ ] Modify models list to identify models that have tool-calling capabilities
-- [ ] Add web search tooling
-- [ ] Add support for CSCS hosted models
+- [x] Add web search tooling
+- [x] Add support for CSCS hosted models
+- [x] Modify the prompt to the grader so that solver's attempts that only contain code/tool-calls but do not clearly report an answer are considered incorrect. A correct answer should be clearly formulated, therefore being able to define the code that potentially outputs the correct answer is not itself a correct solution, but using that code to then report the final answer is.
 
 ---
 
@@ -190,12 +191,19 @@ python main.py --config-name cscs
 ```
 
 **Tool-enabled text evaluations:**
-Inspect AI can now expose `code_execution()` to solver models on text-output tasks with a bounded multi-step loop.
+Inspect AI can now expose `code_execution()` and `web_search()` to solver models on text-output tasks with a bounded multi-step loop.
 
 For tool-enabled runs, the relevant knobs are:
 - `solver.tools.enabled`
+- `solver.tools.code_execution`
+- `solver.tools.web_search`
+- `solver.tools.web_search_providers`
 - `solver.tools.max_additional_messages`
 - `sandbox` (required for client-side tool execution, e.g. `sandbox: docker`)
+
+For `solver.tools.web_search`, native OpenAI and Gemini backends automatically use their internal web-search tool when no provider override is given. Self-hosted and OpenAI-compatible endpoints such as `openai-api/...`, RCP, CSCS, and local vLLM require an explicit external provider, for example `solver.tools.web_search_providers=["tavily"]`. For that, a TAVILY_API_KEY will also be needed.
+
+The model catalog in [`data/models_pricing.csv`](data/models_pricing.csv) includes a `tool_calling` column indicating whether a model can be used with text-mode tools in this benchmark, either natively or through Inspect AI tool emulation.
 
 **Solver-only mode (skip grading):**
 To run the benchmark without grading (useful for collecting solver outputs), set `grader.enabled: false` in your config:

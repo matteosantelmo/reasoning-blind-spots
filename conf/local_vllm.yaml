@@ -37,6 +37,8 @@ solver:
     enabled: false
     code_execution: true
     providers: null
+    web_search: false
+    web_search_providers: null
     max_additional_messages: 5
     tool_choice: auto
 

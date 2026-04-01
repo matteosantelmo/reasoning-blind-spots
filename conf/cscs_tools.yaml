@@ -10,8 +10,7 @@ fail_on_error: false
 retry_on_error: 2
 time_limit: 600
 n_epochs: 1
-sandbox: null
-# sandbox: docker
+sandbox: docker
 
 dataset:
   path: "matsant01/blind-spots-bench"
@@ -36,5 +35,8 @@ solver:
     enabled: true
     code_execution: true
     providers: null
-    max_additional_messages: 5
+    web_search: true
+    web_search_providers:
+    - tavily
+    max_additional_messages: 6
     tool_choice: auto

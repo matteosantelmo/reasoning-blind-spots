@@ -1,6 +1,23 @@
 from inspect_ai.model import GenerateConfig, Model, get_model
-from inspect_ai.solver import Generate, Solver, TaskState, solver
+from inspect_ai.solver import Generate, Solver, TaskState, prompt_template, solver
 from inspect_ai.util import message_limit
+
+SOLVER_PROMPT_TEMPLATE = """
+Answer the user's question as accurately as possible.
+State your final answer explicitly and clearly.
+
+Question:
+{prompt}
+"""
+
+TOOL_ENABLED_SOLVER_PROMPT_TEMPLATE = """
+Answer the user's question as accurately as possible.
+Use tools only when they are necessary to compute or verify the answer.
+State your final answer explicitly and clearly.
+
+Question:
+{prompt}
+"""
 
 
 def get_solver(
@@ -33,6 +50,17 @@ def get_solver(
         config=GenerateConfig(**gen_config),
         **model_args,
     )
+
+
+def get_text_solver_prompt(tool_enabled: bool = False) -> Solver:
+    """
+    Returns a minimal prompt prefix for text solvers.
+    """
+
+    template = (
+        TOOL_ENABLED_SOLVER_PROMPT_TEMPLATE if tool_enabled else SOLVER_PROMPT_TEMPLATE
+    )
+    return prompt_template(template)
 
 
 @solver
