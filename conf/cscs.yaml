@@ -1,0 +1,40 @@
+defaults:
+  - _self_
+
+hydra:
+  run:
+    dir: outputs/cscs_tools/${clean_model_name:${solver.model_id}}_${now:%Y-%m-%d_%H-%M-%S}
+
+# Inspect AI settings
+fail_on_error: false
+retry_on_error: 2
+time_limit: 600
+n_epochs: 1
+sandbox: null
+# sandbox: docker
+
+dataset:
+  path: "matsant01/blind-spots-bench"
+  split: "test"
+  limit: 10
+  question_type:
+  - text-only
+
+grader:
+  enabled: true
+  model_name: gemini-3.1-flash-lite-preview
+  backend: google
+  generate_config:
+    reasoning_effort: minimal
+
+solver:
+  model_id: openai-api/cscs/Qwen/Qwen3-Coder-30B-A3B-Instruct
+  base_url: ${oc.env:CSCS_BASE_URL,https://api.swissai.svc.cscs.ch/v1}
+  api_key: ${oc.env:CSCS_SERVING_API,null}
+  emulate_tools: true
+  tools:
+    enabled: true
+    code_execution: true
+    providers: null
+    max_additional_messages: 5
+    tool_choice: auto
