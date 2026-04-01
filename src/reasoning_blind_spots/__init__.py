@@ -5,6 +5,10 @@ This package provides tools for evaluating AI models on reasoning tasks,
 including support for both text generation and image generation tasks.
 """
 
+from reasoning_blind_spots.inspect_patches import patch_inspect_tool_emulation
+
+patch_inspect_tool_emulation()
+
 from reasoning_blind_spots.dataset import load_dataset
 from reasoning_blind_spots.grader import get_grader
 from reasoning_blind_spots.image_grader import get_image_grader

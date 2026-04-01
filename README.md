@@ -6,6 +6,16 @@ The questions are crafted to highlight the limitations of current AI systems and
 This benchmark was developed as part of the _"Reasoning in AI"_ course at EPFL ([MATH-700](https://edu.epfl.ch/coursebook/en/reasoning-in-artificial-intelligence-MATH-700)).
 Our codebase relies on [Inspect AI](https://inspect.aisi.org.uk) as the evaluation framework.
 
+---
+
+## TODOs:
+- [x] Add support for code execution (both local and with hosted tool runtime)
+- [ ] Modify models list to identify models that have tool-calling capabilities
+- [ ] Add web search tooling
+- [ ] Add support for CSCS hosted models
+
+---
+
 ### 🏆 Leaderboard
 <!-- LEADERBOARD-START -->
 
@@ -169,6 +179,14 @@ python main.py --config-name image_gen \
 **NOTE**, to use RCP AIAAS:
 - make sure to set the right values of OPENAI_BASE_URL and OPENAI_API_KEY environment variables in your `.env` file.
 - you might need to be on EPFL network (or use a VPN) to access RCP services.
+
+**Tool-enabled text evaluations:**
+Inspect AI can now expose `code_execution()` to solver models on text-output tasks with a bounded multi-step loop.
+
+For tool-enabled runs, the relevant knobs are:
+- `solver.tools.enabled`
+- `solver.tools.max_additional_messages`
+- `sandbox` (required for client-side tool execution, e.g. `sandbox: docker`)
 
 **Solver-only mode (skip grading):**
 To run the benchmark without grading (useful for collecting solver outputs), set `grader.enabled: false` in your config:

@@ -9,6 +9,7 @@ hydra:
 fail_on_error: false  # Fail on error: false for gentler handling of errors
 retry_on_error: 2 # Retry on error: number of retries per sample failure
 time_limit: 600 # Time limit per sample in seconds
+sandbox: null # Optional sandbox configuration for local tool execution (e.g. "docker")
 
 dataset:
   path: "matsant01/blind-spots-bench"
@@ -30,6 +31,13 @@ grader:
 solver:
   model_name: gemini-2.5-flash
   backend: google # openai | google | vllm
+  model_id: null  # Optional explicit Inspect model id override
+  tools:
+    enabled: false
+    code_execution: true
+    providers: null
+    max_additional_messages: 5
+    tool_choice: auto
 
   generate_config:
     reasoning_tokens: 0  # (Gemini < 3) -1 for dynamic thinking budget; otherwise, number of thinking tokens

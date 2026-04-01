@@ -11,7 +11,7 @@ load_dotenv()
 OmegaConf.register_new_resolver("clean_model_name", lambda s: s.split("/")[-1])
 
 
-@hydra.main(config_path="./conf", config_name="config")
+@hydra.main(config_path="./conf", config_name="config", version_base=None)
 def run(cfg: DictConfig):
     """
     Wrapper task to run the reasoning benchmark from the root directory.
