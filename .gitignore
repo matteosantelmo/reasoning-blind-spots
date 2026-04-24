@@ -211,6 +211,7 @@ logs/*
 
 .DS_Store
 outputs/*/*/.hydra/
+outputs/*/*/*/.hydra/
 outputs/debug/
 outputs_old/
 data/original_images/*
