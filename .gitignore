@@ -213,3 +213,4 @@ logs/*
 outputs/*/*/.hydra/
 outputs/debug/
 outputs_old/
+data/original_images/*
