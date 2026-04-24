@@ -6,6 +6,17 @@ The questions are crafted to highlight the limitations of current AI systems and
 This benchmark was developed as part of the _"Reasoning in AI"_ course at EPFL ([MATH-700](https://edu.epfl.ch/coursebook/en/reasoning-in-artificial-intelligence-MATH-700)).
 Our codebase relies on [Inspect AI](https://inspect.aisi.org.uk) as the evaluation framework.
 
+---
+
+## TODOs:
+- [x] Add support for code execution (both local and with hosted tool runtime)
+- [ ] Modify models list to identify models that have tool-calling capabilities
+- [x] Add web search tooling
+- [x] Add support for CSCS hosted models
+- [x] Modify the prompt to the grader so that solver's attempts that only contain code/tool-calls but do not clearly report an answer are considered incorrect. A correct answer should be clearly formulated, therefore being able to define the code that potentially outputs the correct answer is not itself a correct solution, but using that code to then report the final answer is.
+
+---
+
 ### 🏆 Leaderboard
 <!-- LEADERBOARD-START -->
 
@@ -138,7 +149,7 @@ To set up the environment for this project, follow these steps:
 To **run the benchmark** using Inspect AI you can execute the [`main.py`](./main.py) script with your chosen configuration. Default configurations are provided in [`config.yaml`](./conf/config.yaml) or [`local_vllm.yaml`](./conf/local_vllm.yaml), but parameters can be overridden via command line arguments.
 
 Inspect AI supports various backends (OpenAI, Anthropic, Google, local models via vLLM, etc.).
-For our experiments we will mainly use Gemini/OpenAI models or open-weights models. For the latter we're using [RCP AIAAS](https://www.epfl.ch/research/facilities/rcp/ai-inference-as-a-service/) service, which hosts several open models on EPFL RCP cluster, with an API compatible with OpenAI.
+For our experiments we will mainly use Gemini/OpenAI models or open-weights models. For the latter we support OpenAI-compatible endpoints such as [RCP AIAAS](https://www.epfl.ch/research/facilities/rcp/ai-inference-as-a-service/) and Swiss AI serving on CSCS.
 
 
 Example command to run the benchmark with a specific model:
@@ -169,6 +180,30 @@ python main.py --config-name image_gen \
 **NOTE**, to use RCP AIAAS:
 - make sure to set the right values of OPENAI_BASE_URL and OPENAI_API_KEY environment variables in your `.env` file.
 - you might need to be on EPFL network (or use a VPN) to access RCP services.
+
+**NOTE**, to use CSCS Swiss AI serving:
+- set `CSCS_SERVING_API` in your `.env` file.
+- optionally set `CSCS_BASE_URL`; the default is `https://api.swissai.svc.cscs.ch/v1`.
+- use the `openai-api/cscs/<vendor>/<model>` model id pattern when configuring the solver directly.
+
+```bash
+python main.py --config-name cscs
+```
+
+**Tool-enabled text evaluations:**
+Inspect AI can now expose `code_execution()` and `web_search()` to solver models on text-output tasks with a bounded multi-step loop.
+
+For tool-enabled runs, the relevant knobs are:
+- `solver.tools.enabled`
+- `solver.tools.code_execution`
+- `solver.tools.web_search`
+- `solver.tools.web_search_providers`
+- `solver.tools.max_additional_messages`
+- `sandbox` (required for client-side tool execution, e.g. `sandbox: docker`)
+
+For `solver.tools.web_search`, native OpenAI and Gemini backends automatically use their internal web-search tool when no provider override is given. Self-hosted and OpenAI-compatible endpoints such as `openai-api/...`, RCP, CSCS, and local vLLM require an explicit external provider, for example `solver.tools.web_search_providers=["tavily"]`. For that, a TAVILY_API_KEY will also be needed.
+
+The model catalog in [`data/models_pricing.csv`](data/models_pricing.csv) includes a `tool_calling` column indicating whether a model can be used with text-mode tools in this benchmark, either natively or through Inspect AI tool emulation.
 
 **Solver-only mode (skip grading):**
 To run the benchmark without grading (useful for collecting solver outputs), set `grader.enabled: false` in your config:

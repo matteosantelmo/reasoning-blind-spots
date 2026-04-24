@@ -401,22 +401,27 @@ def image_generation_solver(
                     if isinstance(content, ContentImage):
                         input_images.append(content.image)
 
-        # Wrap the prompt in an explicit image generation instruction
-        # This helps Gemini understand that we want an image, not a text answer
-        # The model may refuse to generate images if the prompt looks like a question
+        # Wrap the prompt in an explicit single-image instruction.
+        # The previous wording ("answers or addresses") was loose enough to invite
+        # contact sheets, multi-panel layouts, or repeated variants in one image.
+        single_image_instruction = (
+            "Return exactly one final image. Do not create a grid, collage, "
+            "multiple panels, or repeated variants unless the "
+            "request explicitly asks for that."
+        )
+
         if input_images:
-            # For image-to-image tasks, be more specific
             image_generation_prompt = (
-                f"Based on the provided input image(s), generate a new image that "
-                f"addresses the following request:\n\n"
+                f"Create exactly one edited image that fulfills this request:\n\n"
                 f"{raw_prompt}\n\n"
-                f"Create a clear, detailed image as your response."
+                f"Preserve the original scene and layout unless the request "
+                f"explicitly asks to change them. {single_image_instruction}"
             )
         else:
             image_generation_prompt = (
-                f"Generate an image that answers or addresses the following:\n\n"
+                f"Generate exactly one image that fulfills the following request:\n\n"
                 f"{raw_prompt}\n\n"
-                f"Create a clear, detailed image as your response."
+                f"{single_image_instruction}"
             )
 
         # Get sample ID for filename

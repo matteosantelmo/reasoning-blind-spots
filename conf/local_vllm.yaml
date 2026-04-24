@@ -5,6 +5,8 @@ hydra:
   run:
     dir: outputs/${now:%Y-%m-%d_%H-%M-%S}
 
+sandbox: null
+
 dataset:
   path: "data/ms_test.jsonl"
   limit: 6  # Limit the number of examples to evaluate (null for all)
@@ -24,12 +26,21 @@ grader:
 solver:
   model_name: Qwen/Qwen3-30B-A3B-Thinking-2507
   backend: vllm
+  model_id: null
   device: "0,1,2,3"
   tensor_parallel_size: 4
   # download_dir: ...
   dtype: bfloat16
   gpu_memory_utilization: 0.7
   reasoning_parser: qwen3
+  tools:
+    enabled: false
+    code_execution: true
+    providers: null
+    web_search: false
+    web_search_providers: null
+    max_additional_messages: 5
+    tool_choice: auto
 
   generate_config:
     reasoning_tokens: -1  # (Gemini < 3) -1 for dynamic thinking budget; otherwise, number of thinking tokens

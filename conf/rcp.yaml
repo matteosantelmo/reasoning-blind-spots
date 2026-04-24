@@ -8,6 +8,7 @@ hydra:
 # Inspect AI settings
 max_connections: 4
 timeout: null
+sandbox: null
 
 dataset:
   path: "data/ms_test.jsonl"
@@ -28,7 +29,16 @@ grader:
 solver:
   model_name: mistralai/Ministral-3-8B-Reasoning-2512
   backend: openai
+  model_id: null
   base_url: ${oc.env:OPENAI_BASE_URL,null}
   api_key: ${oc.env:OPENAI_API_KEY,null}
+  tools:
+    enabled: false
+    code_execution: true
+    providers: null
+    web_search: false
+    web_search_providers: null
+    max_additional_messages: 5
+    tool_choice: auto
   generate_config:
     reasoning_effort: high  # minimal | low | medium | high
