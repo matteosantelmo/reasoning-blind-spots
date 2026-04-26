@@ -3,7 +3,7 @@ defaults:
 
 hydra:
   run:
-    dir: outputs/eval_image_gen/${clean_model_name:${solver.model_name}}_${now:%Y-%m-%d_%H-%M-%S}
+    dir: outputs/first_epoch/image_gen/${clean_model_name:${solver.model_name}}_${now:%Y-%m-%d_%H-%M-%S}
 
 # Inspect AI settings
 fail_on_error: false
@@ -17,6 +17,7 @@ dataset:
   question_type:
   - multi-to-image
   - text-to-image
+  - text-to-multi
 
 grader:
   enabled: true
@@ -26,8 +27,8 @@ grader:
     reasoning_effort: low
 
 solver:
-  model_name: gemini-2.5-flash-image
-  backend: google
+  model_name: override
+  backend: override
   output_dir: ./generated_images  # Output directory for generated images (relative to run directory)
   size: "1024x1024" # Image size: 1024x1024, 1536x1024, 1024x1536
   quality: medium # Quality: low, medium, high, auto (OpenAI only)
