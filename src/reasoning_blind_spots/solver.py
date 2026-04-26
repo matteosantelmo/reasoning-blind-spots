@@ -1,6 +1,9 @@
+from copy import deepcopy
+
 from inspect_ai.model import GenerateConfig, Model, get_model
 from inspect_ai.solver import Generate, Solver, TaskState, prompt_template, solver
 from inspect_ai.util import message_limit
+from omegaconf import DictConfig, OmegaConf
 
 SOLVER_PROMPT_TEMPLATE = """
 Answer the user's question as accurately as possible.
@@ -20,8 +23,14 @@ Question:
 """
 
 
+def _to_python(value):
+    if OmegaConf.is_config(value):
+        return OmegaConf.to_container(value, resolve=True)
+    return deepcopy(value)
+
+
 def get_solver(
-    solver_config: dict = None,
+    solver_config: DictConfig = None,
 ) -> Model:
     """
     Returns the model
@@ -35,14 +44,25 @@ def get_solver(
         )
 
     model_str = model_id or (solver_config.backend + "/" + solver_config.model_name)
-    gen_config = solver_config.get("generate_config", {})
+    gen_config = _to_python(solver_config.get("generate_config", {})) or {}
 
     # Any other argument in the config is passed to the model
     model_args = {
-        k: v
+        k: _to_python(v)
         for k, v in solver_config.items()
         if k not in ["backend", "model_name", "model_id", "generate_config", "tools"]
     }
+
+    if "gemma-4" in model_str:
+        extra_body = dict(gen_config.get("extra_body") or {})
+        chat_template_kwargs = dict(extra_body.get("chat_template_kwargs") or {})
+        chat_template_kwargs.setdefault("enable_thinking", True)
+        extra_body["chat_template_kwargs"] = chat_template_kwargs
+        gen_config["extra_body"] = extra_body
+
+    print(
+        f"Initializing solver model '{model_str}' with config: {gen_config} and args: {model_args}"
+    )
 
     return get_model(
         model=model_str,

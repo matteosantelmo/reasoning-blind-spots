@@ -106,6 +106,7 @@ def create_sample(record: dict, question_type: str) -> Sample:
     - multi-to-text / image-to-text: Image+text input, text output
     - text-to-image / image-gen: Text input, image output
     - multi-to-image / image-to-image: Image+text input, image output
+    - text-to-multi: Text input, image+text output
     """
     prompt = record["prompt"]
     input_content = None
@@ -140,7 +141,7 @@ def create_sample(record: dict, question_type: str) -> Sample:
                 ]
             )
         ]
-    elif question_type in ["text-to-image", "image-gen"]:
+    elif question_type in ["text-to-image", "image-gen", "text-to-multi"]:
         # Text-to-image: only text input, expect image output
         # The prompt is the input, the solver will generate an image
         input_content = prompt
@@ -190,6 +191,7 @@ def create_sample(record: dict, question_type: str) -> Sample:
         "image-gen",
         "multi-to-image",
         "image-to-image",
+        "text-to-multi",
     ]:
         metadata["is_image_generation"] = True
     else:

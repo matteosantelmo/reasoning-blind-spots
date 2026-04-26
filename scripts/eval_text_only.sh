@@ -7,6 +7,25 @@ set +a
 #######################################################
 #			  		Frontier Models
 #######################################################
+
+# gemini-3.1-flash-lite-preview
+python main.py --config-name text_only \
+	++solver.model_name=gemini-3.1-flash-lite-preview \
+	++solver.backend=google \
+	+solver.generate_config.reasoning_effort=medium
+
+# gemini-3-flash-preview
+python main.py --config-name text_only \
+	++solver.model_name=gemini-3-flash-preview \
+	++solver.backend=google \
+	+solver.generate_config.reasoning_effort=medium
+
+# gemini-3.1-pro-preview
+python main.py --config-name text_only \
+	++solver.model_name=gemini-3.1-pro-preview \
+	++solver.backend=google \
+	+solver.generate_config.reasoning_effort=medium
+
 # gemini-2.5-flash (dynamic reasoning)
 python main.py --config-name text_only \
 	++solver.model_name=gemini-2.5-flash \
@@ -19,35 +38,10 @@ python main.py --config-name text_only \
 	++solver.backend=google \
 	+solver.generate_config.reasoning_tokens=-1
 
-# gemini-3-flash-preview
-python main.py --config-name text_only \
-	++solver.model_name=gemini-3-flash-preview \
-	++solver.backend=google \
-	+solver.generate_config.reasoning_effort=medium
-
-# gemini-3-pro-preview
-python main.py --config-name text_only \
-	++solver.model_name=gemini-3-pro-preview \
-	++solver.backend=google \
-	+solver.generate_config.reasoning_effort=medium
 
 # gpt-5
 python main.py --config-name text_only \
 	++solver.model_name=gpt-5 \
-	++solver.backend=openai \
-	+solver.generate_config.reasoning_effort=medium \
-	++solver.api_key=${OPENAI_API_KEY}
-
-# o3
-python main.py --config-name text_only \
-	++solver.model_name=o3 \
-	++solver.backend=openai \
-	+solver.generate_config.reasoning_effort=medium \
-	++solver.api_key=${OPENAI_API_KEY}
-
-# gpt-5.2
-python main.py --config-name text_only \
-	++solver.model_name=gpt-5.2 \
 	++solver.backend=openai \
 	+solver.generate_config.reasoning_effort=medium \
 	++solver.api_key=${OPENAI_API_KEY}
@@ -59,117 +53,158 @@ python main.py --config-name text_only \
 	+solver.generate_config.reasoning_effort=medium \
 	++solver.api_key=${OPENAI_API_KEY}
 
-# gpt-4.1
+# gpt-5.2
 python main.py --config-name text_only \
-	++solver.model_name=gpt-4.1 \
+	++solver.model_name=gpt-5.2 \
 	++solver.backend=openai \
 	+solver.generate_config.reasoning_effort=medium \
 	++solver.api_key=${OPENAI_API_KEY}
 
-#######################################################
-#			  Open Source Models on RCP
-#######################################################
-# gpt-oss-120b
+# gpt-5.4
 python main.py --config-name text_only \
-	++solver.model_name=openai/gpt-oss-120b \
+	++solver.model_name=gpt-5.4 \
+	++solver.backend=openai \
+	+solver.generate_config.reasoning_effort=medium \
+	++solver.api_key=${OPENAI_API_KEY}
+
+# gpt-5.4-mini
+python main.py --config-name text_only \
+	++solver.model_name=gpt-5.4-mini \
+	++solver.backend=openai \
+	+solver.generate_config.reasoning_effort=medium \
+	++solver.api_key=${OPENAI_API_KEY}
+
+# gpt-5.4-nano
+python main.py --config-name text_only \
+	++solver.model_name=gpt-5.4-nano \
+	++solver.backend=openai \
+	+solver.generate_config.reasoning_effort=medium \
+	++solver.api_key=${OPENAI_API_KEY}
+
+
+# #######################################################
+# #			  Open Source Models on RCP
+# #######################################################
+
+# moonshotai/Kimi-K2.5
+python main.py --config-name text_only \
+	++solver.model_name=moonshotai/Kimi-K2.5 \
 	++solver.backend=openai \
 	+solver.base_url=https://inference.rcp.epfl.ch/v1 \
 	++solver.api_key=${RCP_OPENAI_API_KEY} \
-	+solver.generate_config.reasoning_effort=medium \
 	+solver.generate_config.max_tokens=32768
 
-# gpt-oss-20b
+# moonshotai/Kimi-K2.6
+python main.py --config-name text_only \
+	++solver.model_name=moonshotai/Kimi-K2.6 \
+	++solver.backend=openai \
+	+solver.base_url=https://inference.rcp.epfl.ch/v1 \
+	++solver.api_key=${RCP_OPENAI_API_KEY} \
+	+solver.generate_config.max_tokens=32768
+
+# openai/gpt-oss-20b
 python main.py --config-name text_only \
 	++solver.model_name=openai/gpt-oss-20b \
 	++solver.backend=openai \
 	+solver.base_url=https://inference.rcp.epfl.ch/v1 \
 	++solver.api_key=${RCP_OPENAI_API_KEY} \
-	+solver.generate_config.reasoning_effort=medium \
-	+solver.generate_config.max_tokens=32768
+	+solver.generate_config.reasoning_effort=medium
 
-# Qwen3-VL-30B-A3B-Instruct
+# openai/gpt-oss-120b
 python main.py --config-name text_only \
-	++solver.model_name=Qwen/Qwen3-VL-30B-A3B-Instruct \
+	++solver.model_name=openai/gpt-oss-120b \
+	++solver.backend=openai \
+	+solver.base_url=https://inference.rcp.epfl.ch/v1 \
+	++solver.api_key=${RCP_OPENAI_API_KEY} \
+	+solver.generate_config.reasoning_effort=medium
+
+# google/gemma-4-E2B-it
+python main.py --config-name text_only \
+	++solver.model_name=google/gemma-4-E2B-it \
+	++solver.backend=openai \
+	+solver.base_url=https://inference.rcp.epfl.ch/v1 \
+	++solver.api_key=${RCP_OPENAI_API_KEY} \
+	+solver.generate_config.max_tokens=32768 \
+	+solver.generate_config.extra_body.chat_template_kwargs.enable_thinking=true
+
+# google/gemma-4-E4B-it
+python main.py --config-name text_only \
+	++solver.model_name=google/gemma-4-E4B-it \
+	++solver.backend=openai \
+	+solver.base_url=https://inference.rcp.epfl.ch/v1 \
+	++solver.api_key=${RCP_OPENAI_API_KEY} \
+	+solver.generate_config.max_tokens=32768 \
+	+solver.generate_config.extra_body.chat_template_kwargs.enable_thinking=true
+
+# google/gemma-4-26B-A4B-it
+python main.py --config-name text_only \
+	++solver.model_name=google/gemma-4-26B-A4B-it \
+	++solver.backend=openai \
+	+solver.base_url=https://inference.rcp.epfl.ch/v1 \
+	++solver.api_key=${RCP_OPENAI_API_KEY} \
+	+solver.generate_config.max_tokens=32768 \
+	+solver.generate_config.extra_body.chat_template_kwargs.enable_thinking=true
+
+# google/gemma-4-31B-it
+python main.py --config-name text_only \
+	++solver.model_name=google/gemma-4-31B-it \
+	++solver.backend=openai \
+	+solver.base_url=https://inference.rcp.epfl.ch/v1 \
+	++solver.api_key=${RCP_OPENAI_API_KEY} \
+	+solver.generate_config.max_tokens=32768 \
+	+solver.generate_config.extra_body.chat_template_kwargs.enable_thinking=true
+
+# zai-org/GLM-4.7
+python main.py --config-name text_only \
+	++solver.model_name=zai-org/GLM-4.7 \
 	++solver.backend=openai \
 	+solver.base_url=https://inference.rcp.epfl.ch/v1 \
 	++solver.api_key=${RCP_OPENAI_API_KEY} \
 	+solver.generate_config.max_tokens=32768
 
-# Qwen3-VL-30B-A3B-Thinking
+# zai-org/GLM-5
+python main.py --config-name text_only \
+	++solver.model_name=zai-org/GLM-5 \
+	++solver.backend=openai \
+	+solver.base_url=https://inference.rcp.epfl.ch/v1 \
+	++solver.api_key=${RCP_OPENAI_API_KEY} \
+	+solver.generate_config.max_tokens=32768
+
+# zai-org/GLM-5.1
+python main.py --config-name text_only \
+	++solver.model_name=zai-org/GLM-5.1 \
+	++solver.backend=openai \
+	+solver.base_url=https://inference.rcp.epfl.ch/v1 \
+	++solver.api_key=${RCP_OPENAI_API_KEY} \
+	+solver.generate_config.max_tokens=32768
+
+# Qwen/Qwen3.5-35B-A3B
+python main.py --config-name text_only \
+	++solver.model_name=Qwen/Qwen3.5-35B-A3B \
+	++solver.backend=openai \
+	+solver.base_url=https://inference.rcp.epfl.ch/v1 \
+	++solver.api_key=${RCP_OPENAI_API_KEY} \
+	+solver.generate_config.max_tokens=32768
+
+# Qwen/Qwen3.5-122B-A10B
+python main.py --config-name text_only \
+	++solver.model_name=Qwen/Qwen3.5-122B-A10B \
+	++solver.backend=openai \
+	+solver.base_url=https://inference.rcp.epfl.ch/v1 \
+	++solver.api_key=${RCP_OPENAI_API_KEY} \
+	+solver.generate_config.max_tokens=32768
+
+# Qwen/Qwen3.5-397B-A17B
+python main.py --config-name text_only \
+	++solver.model_name=Qwen/Qwen3.5-397B-A17B \
+	++solver.backend=openai \
+	+solver.base_url=https://inference.rcp.epfl.ch/v1 \
+	++solver.api_key=${RCP_OPENAI_API_KEY} \
+	+solver.generate_config.max_tokens=32768
+
+# Qwen/Qwen3-VL-30B-A3B-Thinking
 python main.py --config-name text_only \
 	++solver.model_name=Qwen/Qwen3-VL-30B-A3B-Thinking \
-	++solver.backend=openai \
-	+solver.base_url=https://inference.rcp.epfl.ch/v1 \
-	++solver.api_key=${RCP_OPENAI_API_KEY} \
-	+solver.generate_config.max_tokens=32768
-
-# Qwen3-VL-235B-A22B-Instruct
-python main.py --config-name text_only \
-	++solver.model_name=Qwen/Qwen3-VL-235B-A22B-Instruct \
-	++solver.backend=openai \
-	+solver.base_url=https://inference.rcp.epfl.ch/v1 \
-	++solver.api_key=${RCP_OPENAI_API_KEY} \
-	+solver.generate_config.max_tokens=32768
-
-# Qwen3-VL-235B-A22B-Thinking
-python main.py --config-name text_only \
-	++solver.model_name=Qwen/Qwen3-VL-235B-A22B-Thinking \
-	++solver.backend=openai \
-	+solver.base_url=https://inference.rcp.epfl.ch/v1 \
-	++solver.api_key=${RCP_OPENAI_API_KEY} \
-	+solver.generate_config.max_tokens=32768
-
-# Apertus-70B-Instruct-2509
-python main.py --config-name text_only \
-	++solver.model_name=swiss-ai/Apertus-70B-Instruct-2509 \
-	++solver.backend=openai \
-	+solver.base_url=https://inference.rcp.epfl.ch/v1 \
-	++solver.api_key=${RCP_OPENAI_API_KEY} \
-	+solver.generate_config.max_tokens=32768
-
-# Llama-3.3-70B-Instruct
-python main.py --config-name text_only \
-	++solver.model_name=meta-llama/Llama-3.3-70B-Instruct \
-	++solver.backend=openai \
-	+solver.base_url=https://inference.rcp.epfl.ch/v1 \
-	++solver.api_key=${RCP_OPENAI_API_KEY} \
-	+solver.generate_config.max_tokens=24576	# smaller context window
-
-# Llama-4-Maverick-17B-128E-Instruct
-python main.py --config-name text_only \
-	++solver.model_name=meta-llama/Llama-4-Maverick-17B-128E-Instruct \
-	++solver.backend=openai \
-	+solver.base_url=https://inference.rcp.epfl.ch/v1 \
-	++solver.api_key=${RCP_OPENAI_API_KEY} \
-	+solver.generate_config.max_tokens=32768
-
-# DeepSeek-V3.2
-python main.py --config-name text_only \
-	++solver.model_name=deepseek-ai/DeepSeek-V3.2 \
-	++solver.backend=openai \
-	+solver.base_url=https://inference.rcp.epfl.ch/v1 \
-	++solver.api_key=${RCP_OPENAI_API_KEY} \
-	+solver.generate_config.max_tokens=32768
-
-# DeepSeek-V3.2-Speciale
-python main.py --config-name text_only \
-	++solver.model_name=deepseek-ai/DeepSeek-V3.2-Speciale \
-	++solver.backend=openai \
-	+solver.base_url=https://inference.rcp.epfl.ch/v1 \
-	++solver.api_key=${RCP_OPENAI_API_KEY} \
-	+solver.generate_config.max_tokens=32768
-
-# Mistral-Large-3-675B-Instruct-2512
-python main.py --config-name text_only \
-	++solver.model_name=mistralai/Mistral-Large-3-675B-Instruct-2512 \
-	++solver.backend=openai \
-	+solver.base_url=https://inference.rcp.epfl.ch/v1 \
-	++solver.api_key=${RCP_OPENAI_API_KEY} \
-	+solver.generate_config.max_tokens=32768
-
-# Qwen3-Next-80B-A3B-Instruct
-python main.py --config-name text_only \
-	++solver.model_name=Qwen/Qwen3-Next-80B-A3B-Instruct \
 	++solver.backend=openai \
 	+solver.base_url=https://inference.rcp.epfl.ch/v1 \
 	++solver.api_key=${RCP_OPENAI_API_KEY} \
@@ -182,3 +217,29 @@ python main.py --config-name text_only \
 	+solver.base_url=https://inference.rcp.epfl.ch/v1 \
 	++solver.api_key=${RCP_OPENAI_API_KEY} \
 	+solver.generate_config.max_tokens=32768
+
+# Qwen/Qwen3-VL-235B-A22B-Thinking
+python main.py --config-name text_only \
+	++solver.model_name=Qwen/Qwen3-VL-235B-A22B-Thinking \
+	++solver.backend=openai \
+	+solver.base_url=https://inference.rcp.epfl.ch/v1 \
+	++solver.api_key=${RCP_OPENAI_API_KEY} \
+	+solver.generate_config.max_tokens=32768
+
+# deepseek-ai/DeepSeek-V4-Flash
+python main.py --config-name text_only \
+	++solver.model_name=deepseek-ai/DeepSeek-V4-Flash \
+	++solver.backend=openai \
+	+solver.base_url=https://inference.rcp.epfl.ch/v1 \
+	++solver.api_key=${RCP_OPENAI_API_KEY} \
+	+solver.generate_config.extra_body.chat_template_kwargs.thinking=true \
+	+solver.generate_config.extra_body.chat_template_kwargs.reasoning_effort="medium"
+
+# deepseek-ai/DeepSeek-V4-Pro
+python main.py --config-name text_only \
+	++solver.model_name=deepseek-ai/DeepSeek-V4-Pro \
+	++solver.backend=openai \
+	+solver.base_url=https://inference.rcp.epfl.ch/v1 \
+	++solver.api_key=${RCP_OPENAI_API_KEY} \
+	+solver.generate_config.extra_body.chat_template_kwargs.thinking=true \
+	+solver.generate_config.extra_body.chat_template_kwargs.reasoning_effort="medium"

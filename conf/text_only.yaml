@@ -3,13 +3,13 @@ defaults:
 
 hydra:
   run:
-    dir: outputs/eval_text/${clean_model_name:${solver.model_name}}_${now:%Y-%m-%d_%H-%M-%S}
+    dir: outputs/first_epoch/text/${clean_model_name:${solver.model_name}}_${now:%Y-%m-%d_%H-%M-%S}
 
 # Inspect AI settings
 fail_on_error: false
 retry_on_error: 2
 time_limit: 600
-n_epochs: 2
+n_epochs: 1
 sandbox: null
 
 dataset:
@@ -32,7 +32,7 @@ solver:
   model_id: null
   tools:
     enabled: false
-    code_execution: true
+    code_execution: false
     providers: null
     web_search: false
     web_search_providers: null
