@@ -8,10 +8,9 @@ version = "0.1.0"
 description = "Benchmark for reasoning abilities of frontier AI"
 authors = [{name = "Matteo Santelmo", email = "matteo.santelmo@epfl.ch"}]
 dependencies = [
-    "inspect-ai",
+    "inspect-ai>=0.3.160",
     "openai",
-    "google-genai",
-    "vllm",
+    "google-genai>=1.56",
     "python-dotenv",
     "hydra-core",
     "anthropic"
@@ -23,6 +22,9 @@ dev = [
     "black",
     "isort",
     "flake8"
+]
+vllm = [
+    "vllm"
 ]
 
 [tool.isort]
