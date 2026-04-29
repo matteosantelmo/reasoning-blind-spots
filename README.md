@@ -8,70 +8,8 @@ Our codebase relies on [Inspect AI](https://inspect.aisi.org.uk) as the evaluati
 
 ---
 
-## TODOs:
-- [x] Add support for code execution (both local and with hosted tool runtime)
-- [ ] Modify models list to identify models that have tool-calling capabilities
-- [x] Add web search tooling
-- [x] Add support for CSCS hosted models
-- [x] Modify the prompt to the grader so that solver's attempts that only contain code/tool-calls but do not clearly report an answer are considered incorrect. A correct answer should be clearly formulated, therefore being able to define the code that potentially outputs the correct answer is not itself a correct solution, but using that code to then report the final answer is.
-
----
-
 ### 🏆 Leaderboard
 <!-- LEADERBOARD-START -->
-
-#### 📝/🖼️→📝 Multimodal-to-text Evaluation
-| Model                              | Pass@1   | Pass@2   | Price / 100 Sample   |   Output Tks / Sample |
-|:-----------------------------------|:---------|:---------|:---------------------|----------------------:|
-| gemini-3-pro-preview               | 64.63%   | 70.73%   | $4.688               |                3722.9 |
-| gemini-3-flash-preview             | 62.20%   | 73.17%   | $0.856               |                2670.5 |
-| gpt-5.2                            | 46.34%   | 53.66%   | $1.263               |                 820   |
-| gpt-5-mini                         | 40.24%   | 46.34%   | $0.253               |                1185   |
-| Qwen3-VL-235B-A22B-Thinking        | 39.02%   | 43.90%   | $0.214               |                2761.7 |
-| gemini-2.5-pro                     | 34.15%   | 41.46%   | $2.484               |                2449.7 |
-| gpt-5                              | 34.15%   | 39.02%   | $2.162               |                2094.9 |
-| gemini-2.5-flash                   | 34.15%   | 39.02%   | $0.888               |                3520   |
-| o3                                 | 29.27%   | 31.71%   | $1.906               |                2239.1 |
-| Qwen3-VL-30B-A3B-Thinking          | 24.39%   | 26.83%   | $0.046               |                2869.2 |
-| Qwen3-VL-30B-A3B-Instruct          | 23.17%   | 26.83%   | $0.009               |                 447   |
-| gpt-4.1                            | 21.95%   | 31.71%   | $0.259               |                 161.7 |
-| Qwen3-VL-235B-A22B-Instruct        | 20.73%   | 24.39%   | $0.064               |                 694.5 |
-| Mistral-Large-3-675B-Instruct-2512 | 7.32%    | 9.76%    | $0.072               |                 244.4 |
-
-#### 📝→📝 Text-only Evaluation
-| Model                              | Pass@1   | Pass@2   | Price / 100 Sample   |   Output Tks / Sample |
-|:-----------------------------------|:---------|:---------|:---------------------|----------------------:|
-| gemini-3-flash-preview             | 78.70%   | 85.22%   | $2.038               |                6780.9 |
-| gemini-3-pro-preview               | 73.04%   | 77.39%   | $4.857               |                4033.4 |
-| gpt-5.2                            | 72.17%   | 80.00%   | $2.446               |                1736.6 |
-| gpt-5                              | 68.26%   | 75.65%   | $3.132               |                3121.7 |
-| o3                                 | 65.22%   | 74.78%   | $2.643               |                3283.1 |
-| gpt-5-mini                         | 63.48%   | 71.30%   | $0.442               |                2199.8 |
-| DeepSeek-V3.2-Speciale             | 59.57%   | 64.35%   | $1.183               |                6389.8 |
-| Qwen3-Next-80B-A3B-Thinking        | 58.26%   | 66.09%   | $0.243               |                7534.2 |
-| gemini-2.5-pro                     | 56.96%   | 66.09%   | $3.308               |                3297.2 |
-| Qwen3-VL-235B-A22B-Thinking        | 56.09%   | 64.35%   | $0.308               |                4195   |
-| gpt-oss-120b                       | 53.48%   | 63.48%   | $0.018               |                1537.4 |
-| Qwen3-Next-80B-A3B-Instruct        | 51.30%   | 60.00%   | $0.090               |                2774.2 |
-| gemini-2.5-flash                   | 49.57%   | 59.13%   | $1.131               |                4513.9 |
-| DeepSeek-V3.2                      | 49.57%   | 58.26%   | $0.186               |                 980.5 |
-| gpt-oss-20b                        | 46.52%   | 58.26%   | $0.016               |                3317.4 |
-| Qwen3-VL-30B-A3B-Thinking          | 42.61%   | 50.43%   | $0.060               |                4011   |
-| Qwen3-VL-235B-A22B-Instruct        | 42.61%   | 52.17%   | $0.104               |                1395.7 |
-| gpt-4.1                            | 41.74%   | 53.04%   | $0.509               |                 615.2 |
-| Qwen3-VL-30B-A3B-Instruct          | 36.09%   | 45.22%   | $0.026               |                1683.2 |
-| Mistral-Large-3-675B-Instruct-2512 | 35.65%   | 42.61%   | $0.159               |                1049.9 |
-| Llama-4-Maverick-17B-128E-Instruct | 35.65%   | 41.74%   | $0.030               |                 483.5 |
-| Llama-3.3-70B-Instruct             | 27.39%   | 31.30%   | $0.016               |                 274.7 |
-| Apertus-70B-Instruct-2509          | 15.22%   | 20.87%   | $0.060               |                 940.5 |
-
-#### 📝/🖼️→🖼️ Image Generation Evaluation
-| Model                      | Pass@1   | Price / 100 Sample   |   Output Tks / Sample |
-|:---------------------------|:---------|:---------------------|----------------------:|
-| gemini-3-pro-image-preview | 54.65%   | $18.415              |                1533.4 |
-| gpt-image-1.5              | 37.21%   | $4.742               |                1469.7 |
-| gemini-2.5-flash-image     | 24.42%   | $3.872               |                1290   |
-| gpt-image-1-mini           | 20.93%   | $0.857               |                1056   |
 
 <!-- LEADERBOARD-END -->
 

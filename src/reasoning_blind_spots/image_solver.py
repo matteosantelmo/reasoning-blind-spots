@@ -13,6 +13,7 @@ import os
 import uuid
 from typing import Optional
 
+from hydra.core.hydra_config import HydraConfig
 from inspect_ai.model import (
     ChatMessageAssistant,
     ContentImage,
@@ -20,6 +21,7 @@ from inspect_ai.model import (
     ModelOutput,
 )
 from inspect_ai.solver import Solver, TaskState, solver
+from omegaconf.errors import InterpolationKeyError, InterpolationResolutionError
 
 try:
     from openai import AsyncOpenAI
@@ -64,6 +66,29 @@ def save_base64_image(
         f.write(image_bytes)
 
     return os.path.abspath(filepath)
+
+
+def _current_run_output_dir() -> Optional[str]:
+    """Return the active Hydra run directory when running under Hydra."""
+    try:
+        if HydraConfig.initialized():
+            return HydraConfig.get().runtime.output_dir
+    except Exception:
+        return None
+    return None
+
+
+def _resolve_image_output_dir(output_dir: Optional[str]) -> str:
+    """Resolve generated image output directories relative to the current run."""
+    output_dir = output_dir or "generated_images"
+    if os.path.isabs(output_dir):
+        return output_dir
+
+    run_output_dir = _current_run_output_dir()
+    if run_output_dir:
+        return os.path.join(run_output_dir, output_dir)
+
+    return output_dir
 
 
 def pil_image_to_base64(image) -> str:
@@ -544,10 +569,15 @@ def get_image_generation_solver(solver_config: dict) -> Solver:
     if "backend" not in solver_config or "model_name" not in solver_config:
         raise ValueError("solver_config must contain 'backend' and 'model_name' keys.")
 
+    try:
+        output_dir = solver_config.get("output_dir", "generated_images")
+    except (InterpolationKeyError, InterpolationResolutionError):
+        output_dir = "generated_images"
+
     return image_generation_solver(
         backend=solver_config["backend"],
         model_name=solver_config["model_name"],
-        output_dir=solver_config.get("output_dir", "./outputs/generated_images"),
+        output_dir=_resolve_image_output_dir(output_dir),
         size=solver_config.get("size", "1024x1024"),
         quality=solver_config.get("quality", "auto"),
         api_key=solver_config.get("api_key"),
