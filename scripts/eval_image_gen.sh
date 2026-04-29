@@ -22,9 +22,15 @@ python main.py --config-name image_gen \
 	++solver.backend=google \
 	++max_connections=4
 
-# # #######################################################
-# # #                OpenAI Image Models
-# # #######################################################
+# Gemini 3.1 Flash Image (Nano Banana 2)
+python main.py --config-name image_gen \
+	++solver.model_name=gemini-3.1-flash-image-preview \
+	++solver.backend=google \
+	++max_connections=4
+
+#######################################################
+#                OpenAI Image Models
+#######################################################
 
 # GPT Image 1.5
 python main.py --config-name image_gen \
@@ -38,3 +44,10 @@ python main.py --config-name image_gen \
 	++solver.model_name=gpt-image-1-mini \
 	++solver.backend=openai \
 	++solver.quality=medium
+
+# GPT Image 2
+python main.py --config-name image_gen \
+	++solver.model_name=gpt-image-2 \
+	++solver.backend=openai \
+	++solver.quality=medium \
+	++max_connections=4
