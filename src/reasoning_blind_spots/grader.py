@@ -170,13 +170,39 @@ async def score_str(
             _, result = await grader_model.generate_loop(
                 loop_input, tools=[code_execution()]
             )
-    except Exception as e:
-        return Score(
-            value="I",
-            answer=clean_answer,
-            explanation=f"Grader error (possibly exceeded message limit): {str(e)}",
-            metadata=metadata,
+    except Exception as first_error:
+        print(
+            "Grader failed with tools; retrying with high reasoning effort. "
+            f"Error: {first_error}"
         )
+        try:
+            with message_limit(max_grader_messages):
+                _, result = await grader_model.generate_loop(
+                    loop_input,
+                    tools=[code_execution()],
+                    config=GenerateConfig(reasoning_effort="low"),
+                )
+        except Exception as second_error:
+            print(
+                "Grader failed again; retrying with high reasoning effort "
+                f"and no tools. Error: {second_error}"
+            )
+            try:
+                _, result = await grader_model.generate_loop(
+                    loop_input,
+                    tools=[],  # NOTE: disable tools
+                    config=GenerateConfig(reasoning_effort="medium"),
+                )
+            except Exception as final_error:
+                return Score(
+                    value="I",
+                    answer=clean_answer,
+                    explanation=(
+                        "Grader error after fallback attempts "
+                        f"(possibly exceeded message limit): {str(final_error)}"
+                    ),
+                    metadata=metadata,
+                )
 
     if result.usage:
         metadata["usage"] = {
