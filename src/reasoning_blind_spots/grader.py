@@ -137,6 +137,13 @@ async def score_str(
     Raises:
         ValueError: If the cleaned answer is empty.
     """
+    if solver_answer is None or len(solver_answer) == 0:
+        return Score(
+            value="I",
+            answer=solver_answer,
+            explanation=f"Empty answer provided by solver model.",
+            metadata={},
+        )
 
     clean_answer = strip_thinking_tags(solver_answer)
     if len(clean_answer) == 0:
