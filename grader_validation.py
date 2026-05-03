@@ -92,7 +92,7 @@ async def grader_validation(cfg: DictConfig) -> List[Dict]:
             # Handle both 'solver_answer' and 'solver_solution' keys (some samples use different keys)
             solver_answer = sample.get("solver_answer") or sample.get("solver_solution")
             solution = sample["solution"]
-            human_score = sample["human_grade"]
+            human_score = "I" # sample["human_grade"]
             image = sample.get("image")
             question_type = sample.get("question_type", "")
 
@@ -116,6 +116,7 @@ async def grader_validation(cfg: DictConfig) -> List[Dict]:
 
             # Store all information
             sample_result = {
+                "index": sample.get("index", ""),
                 "prompt": prompt,
                 "solver_answer": solver_answer,
                 "solution": solution,
