@@ -12,7 +12,7 @@ time_limit: 600 # Time limit per sample in seconds
 sandbox: null # Optional sandbox configuration for local tool execution (e.g. "docker")
 
 dataset:
-  path: "matsant01/blind-spots-bench"
+  path: "blind-spots-neurips/blind-spots-bench"
   split: "test"
   limit: 3  # Limit the number of examples to evaluate (null for all)
   question_type:  # Which type/modality to include in the evaluation

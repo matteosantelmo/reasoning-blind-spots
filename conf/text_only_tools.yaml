@@ -13,7 +13,7 @@ n_epochs: 2
 sandbox: null
 
 dataset:
-  path: "matsant01/blind-spots-bench"
+  path: "blind-spots-neurips/blind-spots-bench"
   split: "test"
   limit: null
   question_type:
