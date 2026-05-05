@@ -1,0 +1,395 @@
+model,run,id,question,target,verifier_score,verifier_correct,verifier_explanation,human_score,human_correct
+gpt-image-2,gpt-image-2_2026-04-26_16-57-23,58,Draw a calendar for February with 29 days,"The correct output is a February calendar that explicitly includes a 29th day (i.e., days labeled 1 through 29). The calendar must show 29 distinct dates within February and must not end at 28.
+
+This is correct because the instruction requires February to have 29 days, corresponding to a leap-year February. Any calendar missing the 29th day, or showing only 28 days, violates the requirement.
+
+A common incorrect behavior is producing a standard February calendar with 28 days or omitting the 29th even while mentioning leap years.",C,True,"The generated image shows a calendar for February that explicitly includes days labeled from 1 to 29. It follows the instruction to include a 29th day and represents a leap-year February correctly. The text is clear, the layout is standard for a calendar, and all dates are sequential and legible.
+
+GRADE: C",C,True
+gpt-image-1-mini,gpt-image-1-mini_2026-04-26_16-52-44,29,Generate an image of a cat with 4 eyes,"The correct output is an image of a cat that clearly has exactly four eyes. This is correct because the instruction specifies an exact eye count. The image must depict four distinct eyes on the cat (not just multiple pupils, reflections, or decorative markings). A common incorrect behavior is generating a normal two-eyed cat, producing an ambiguous face where some “eyes” are actually spots, or drawing extra eye-like shapes that are not clearly eyes.",C,True,"The generated image depicts a cat that clearly has exactly four distinct eyes. The eyes are arranged in two vertical pairs on the cat's face, and each eye is well-defined with an iris and pupil, adhering perfectly to the instruction. The image quality is high and the subject is unmistakably a cat.
+
+GRADE: C",C,True
+gemini-3.1-flash-image-preview,gemini-3.1-flash-image-preview_2026-04-26_16-02-37,255,"The first year of PhD studies is for literature review and topic definition. Then comes the candidacy. After the candidacy, a PhD student begins collecting and analyzing the data. In the course of the three years that follow the candidacy, a PhD student needs to write three papers, and usually the first paper takes the longest to write; and integrate the written into a coherent thesis. Provide a visual Gantt diagram depicting the stages of PhD journey","The image must be a Gantt diagram containing the stages described in the prompt: literature review and topic definition, candidacy, data collection and analysis, three papers, and thesis integration. The timeline must follow the prompt’s four-year structure: one year before candidacy and three years after candidacy. The first paper must be the longest of the three. Any diagram that assumes a longer PhD duration, omits a required stage, violates the ordering constraints, or does not make the first paper the longest should be considered incorrect.",I,False,"The generated image is a Gantt diagram depicting a PhD journey, but it fails to meet the specific duration requirements set out in the prompt and grading criteria.
+
+### Analysis:
+1.  **Stages Presence**: The image includes all required stages: literature review, topic definition, candidacy, data collection and analysis, three papers, and thesis integration.
+2.  **Timeline Duration**: The prompt specifies a four-year structure (one year for literature review and topic definition, followed by three years for the remaining tasks). The generated image explicitly displays a **five-year** timeline (Year 1 through Year 5), which violates the requirement. The grading criteria state that any diagram assuming a longer PhD duration should be considered incorrect.
+3.  **Sequential Constraints**: While the ""Topic Definition"" starts in Year 1, it extends into Year 2, overlapping with the Candidacy milestone. The candidacy diamond itself is placed within Year 2 rather than at the transition between Year 1 and the following three years.
+4.  **Paper Length**: Paper 1 is visually the longest of the three papers, which satisfies that specific instruction.
+5.  **Visual Quality**: The diagram is clear and legible, but the inclusion of an extra year (Year 5) is a direct contradiction of the ""four-year structure"" requirement.
+
+Because the diagram assumes a 5-year duration instead of the requested 4-year structure (1 year before candidacy + 3 years after), it does not satisfy the task requirements.
+
+GRADE: I",I,False
+gpt-image-2,gpt-image-2_2026-04-26_16-57-23,98,Generate a picture of keyboard with letters on the right side and numbers on the left side,"The correct output must depict a keyboard in which letters and numbers positions are inverted, with the numbers being on the left side and letters on the right side.
+
+A common incorrect behavior is defaulting to a conventional keyboard layout based on prior knowledge, instead of following the instructions given by the question. That would be incorrect because a standard keyboard layout has letter keys on the left and the number pad on the right side.",C,True,"The generated image shows a keyboard with a distinct layout change compared to a standard keyboard. On the left side of the keyboard, there is a numeric keypad containing the numbers 0-9. On the right side of the keyboard, there is a letter block containing the QWERTY layout. This is the inverse of a conventional full-sized keyboard, where the letter block is on the left and the numeric keypad is on the right. The image is of high quality, and the text on the keys is legible and accurate. It perfectly follows the instruction to have letters on the right and numbers on the left.
+
+GRADE: C",I,False
+gpt-image-1-mini,gpt-image-1-mini_2026-04-26_16-52-44,72,"Generate an image containing a stoplight which includes 5 lights; orange, red, yellow, green, and purple in this exact order from top to bottom.","The correct output is a traffic light containing exactly five distinct lights arranged in a single vertical stack, in this exact top-to-bottom order: orange, red, yellow, green, purple.
+
+This is correct because the prompt requires (1) five lights, (2) the specified set of colors, and (3) the exact order. A response is correct only if all five colors are present exactly once and appear in the required sequence.
+
+Any output is incorrect if it is missing any color, includes extra lights, repeats a color, or places the colors in a different order (including swapping adjacent colors). A common incorrect behavior is omitting green or purple, or generating only the standard three-light traffic signal.",I,False,"The generated image shows a traffic light with four vertical lights. The colors from top to bottom are orange, red, yellow, and green.
+
+The task specifically required **five lights** in the exact order: orange, red, yellow, green, and **purple**. The generated image is missing the fifth (purple) light. Since it failed to include all five required colors and the exact count specified in the prompt, it does not satisfy the requirements.
+
+GRADE: I",I,False
+gemini-3.1-flash-image-preview,gemini-3.1-flash-image-preview_2026-04-26_16-02-37,176,Can you draw a man and a woman each on the right of each other ?,"The correct output is an image where both statements are simultaneously satisfied: the man is to the right of the woman and the woman is to the right of the man. The only way to satisfy “each on the right of each other” is to interpret “right” relative to each person’s own facing direction (e.g., they face opposite directions so each can be on the other’s right). This is correct because in a single fixed frame (viewer’s right), it is impossible for two people to both be to the right of each other at once. A common incorrect behavior is placing one person on the viewer’s right and claiming it satisfies both directions without addressing the ambiguity.",I,False,"The generated image fails to satisfy the specific logic puzzle presented in the prompt.
+
+According to the grading criteria, the only way for a man and a woman to both be ""to the right of each other"" is for ""right"" to be interpreted relative to each person's own facing direction. This typically requires them to be facing opposite directions (e.g., back-to-back or side-by-side facing opposite ways).
+
+In the provided image:
+- The **woman is on the left** and the **man is on the right** from the viewer's perspective.
+- From the viewer's perspective, the man is to the right of the woman, but the woman is to the *left* of the man. Thus, the condition is not satisfied for both from a fixed frame.
+- From the **subjects' perspectives**, they are facing each other. For the woman, the man is directly in front of her. For the man, the woman is directly in front of him. Neither is to the right of the other in this orientation.
+
+To correctly satisfy the prompt, the woman (on the left) should be facing away from the camera (making the man to her right) and the man (on the right) should be facing towards the camera (making the woman to his right), or vice versa with switched positions. Simply placing them facing each other is a standard ""incorrect"" interpretation of this prompt.
+
+GRADE: I",I,False
+gemini-3-pro-image-preview,gemini-3-pro-image-preview_2026-04-26_15-46-30,232,"[ChatMessageUser(id='F4FMhM5aJwwP7nJe4KFA8C', content=[ContentText(internal=None, type='text', text='Mirror the input image', refusal=None, citations=None), ContentText(internal=None, type='text', text='(Image)', refusal=None, citations=None)], source=None, metadata=None, role='user', tool_call_id=None)]","The output image should be a mirrored version of the input image, which means that by reflecting the output image once more, one should be able to obtain the original input image.
+
+To verify if a solution is correct or not, load both input image and output image on code, and make sure that reflecting one yields the other, i.e. the pixel-wise value of the reflected input is equal to the value of the same pixel in the output (accounting for small numerical inconsistencies).",I,False,"The generated image is a re-imagined and mirrored version of the scene from the input image, rather than a direct geometric reflection.
+
+According to the **Grading Criteria**:
+1.  **Reflectivity**: Reflecting the output image once more should obtain the original input image. This is not possible because the generated image has a different aspect ratio ($1024 \times 1024$ vs $771 \times 1024$) and contains outpainted elements (such as more of the shed on the right and more ground on the left) that are not present in the original.
+2.  **Pixel-wise Accuracy**: The criteria specify that the pixel-wise value of the reflected input should be equal to the output (accounting for small inconsistencies). In this case, the sky and clouds are entirely different, and many textures and details have been re-rendered by the AI rather than simply flipped. For example, the cloud formations in the top-right of the input are not present as a mirrored version in the top-left of the output.
+
+While the image successfully mirrors the general composition of the scene (placing the white car on the left and the shed on the right), it fails the strict geometric and pixel-wise requirements set out in the instructions.
+
+GRADE: I",I,False
+gemini-2.5-flash-image,gemini-2.5-flash-image_2026-04-26_15-03-57,114,"Generate an image of an engineering girl, working on her laptop. Add the Euler's identity in blue color written with a marker on the whiteboard of the image provided.","Image should both depict a girl working on her laptop, and display ""exp(i pi) + 1 = 0"" on the whiteboard. If any of these conditions is not met, the answer is incorrect.",C,True,"The generated image successfully satisfies the task requirements. It depicts an engineering girl (indicated by her workshop environment, wrench-logo hoodie, and safety goggles) sitting on a bean bag and working on her laptop. In the background, there is a whiteboard that clearly displays Euler's identity ($e^{i \pi} + 1 = 0$) written in blue marker. Although there is a stray dollar sign and the exponent is not perfectly superscripted, the identity is mathematically recognizable and follows the prompt's instruction regarding content and color.
+
+1.  **Content Accuracy**: The image includes the engineering girl, the laptop, and the specific mathematical formula on a whiteboard.
+2.  **Instruction Following**: The girl is ""working on her laptop"" and the identity is in ""blue color"" on the ""whiteboard"".
+3.  **Quality**: The image is high quality, with consistent lighting and clear details.
+4.  **Relevance**: The scene perfectly matches the requested theme.
+
+GRADE: C",I,False
+gemini-3-pro-image-preview,gemini-3-pro-image-preview_2026-04-26_15-46-30,160,What is the text in this image?,"The correct answer is ""unrexc"".
+
+Any other answer is incorrect.",I,False,"The generated image fails to meet the grading criteria. The task was to produce or represent text based on a specific requirement, and the grading criteria explicitly states that the correct answer is ""unrexc"". The generated image shows a UI-like design that repeats the prompt ""What is the text in this image?"" in both the question and answer sections, and it does not contain the required text ""unrexc"".
+
+GRADE: I",I,False
+gpt-image-1.5,gpt-image-1.5_2026-04-26_16-29-02,26,Generate an image of a dog with 5 legs,"The correct output is an image of a dog that clearly has exactly five legs. This is correct because the instruction specifies an exact leg count (5). Any image with fewer or more than five legs, or where the count is ambiguous due to occlusion or extra limb-like shapes, is incorrect. A common incorrect behavior is generating a dog with the standard four legs, generating six legs, or adding a “fifth leg” that is actually a tail or shadow rather than a distinct leg.",I,False,"The generated image shows a dog with an incorrect number of legs. Upon close inspection of the image and the zoomed-in view of the paws, there are at least six distinct legs visible:
+1.  Front left (white)
+2.  A second leg directly behind the front left (white)
+3.  Front right (white)
+4.  A tan leg directly behind the front right
+5.  A back left leg (mostly white)
+6.  A back right leg (tan)
+
+The prompt specifically requested a dog with exactly 5 legs. Since the image contains more than five legs (at least six are clearly visible), it fails to meet the specific count requirement defined in the task and grading criteria.
+
+GRADE: I",I,False
+gpt-image-1.5,gpt-image-1.5_2026-04-26_16-29-02,284,Generate an image of a calculator where the numbers are eastern arabic numerals. Make sure to include all 0-9 numbers.,"The model should generate an image of a calculator in which the digits shown on the buttons and, if visible, on the display are Eastern Arabic numerals (e.g., ٠١٢٣٤٥٦٧٨٩), rather than Western Arabic numerals (0–9). A correct image should clearly show that the calculator’s number keys use Eastern Arabic numeral forms. If the calculator instead shows standard Western digits on the keys or display, the response is incorrect, even if there is Arabic text elsewhere in the image. The presence of Arabic script alone does not satisfy the requirement; the numerals themselves must be Eastern Arabic numerals.",I,False,"To evaluate the generated image, let's compare it against the prompt and grading criteria.
+
+### Analysis of the Image:
+1.  **Eastern Arabic Numerals (1-9):** The calculator buttons for digits 1 through 9 use Eastern Arabic numerals:
+    *   ١ (1)
+    *   ٢ (2)
+    *   ٣ (3)
+    *   ٤ (4)
+    *   ٥ (5)
+    *   ٦ (6)
+    *   ٧ (7)
+    *   ٨ (8)
+    *   ٩ (9)
+    These are correctly represented on the main keypad.
+2.  **Number 0:** The instruction specifies that all numbers 0-9 must be included as Eastern Arabic numerals. The Eastern Arabic numeral for zero is a dot (٠).
+    *   On the keypad, the button that should represent zero contains a standard **Western Arabic numeral '0'** (and a dot).
+    *   There is a separate button with a dot (.), which could be interpreted as the Eastern Arabic zero or a decimal point, but since it's next to a button clearly labeled with a Western '0', it implies a mix of numeral systems.
+3.  **Display:** The display contains Eastern Arabic numerals (٩, ٠, ٣, ٥, ٦, ٨), but it also contains a Western character that looks like an '**S**'.
+4.  **Grading Criteria Adherence:** The grading criteria explicitly state: *""If the calculator instead shows standard Western digits on the keys or display, the response is incorrect... The presence of Arabic script alone does not satisfy the requirement; the numerals themselves must be Eastern Arabic numerals.""*
+    *   Since the zero button clearly shows a standard Western '0', the image fails this criterion.
+
+### Conclusion:
+While the model correctly generated digits 1-9 in Eastern Arabic script, it failed to provide the digit 0 in the correct script on the buttons, opting for a Western '0' instead. Additionally, there is a non-numeral character ('S') on the display. Based on the strict grading criteria provided, the inclusion of Western digits on the keys makes the response incorrect.
+
+GRADE: I",C,True
+gpt-image-2,gpt-image-2_2026-04-26_16-57-23,160,What is the text in this image?,"The correct answer is ""unrexc"".
+
+Any other answer is incorrect.",I,False,"The generated image contains the text ""NOTICE PLEASE DO NOT BLOCK THIS DOOR THANK YOU FOR YOUR COOPERATION"". However, the grading criteria explicitly state that the correct answer is ""unrexc"" and any other answer is incorrect. Since the text in the generated image does not match the required text ""unrexc"", it fails to meet the criteria.
+
+GRADE: I",I,False
+gpt-image-2,gpt-image-2_2026-04-26_16-57-23,164,"[ChatMessageUser(id='NCc9eBCNREDqwy3ZP5keMY', content=[ContentText(internal=None, type='text', text='Given an image, highlight the route one could take in this city layout to travel from point A to point B ', refusal=None, citations=None), ContentText(internal=None, type='text', text='(Image)', refusal=None, citations=None)], source=None, metadata=None, role='user', tool_call_id=None)]","A valid route follows the existing road network from point A to point B by moving east along the horizontal road segment, passing through the nearest intersection, and continuing east to reach point B. The path stays entirely on roads and uses real intersections without cutting across blocks, grass, or water.
+
+In detail, the answer is correct if and only if the highlighted route:
+1) Starts exactly at point A and ends exactly at point B.
+2) Lies entirely on roads shown in the original city layout.
+3) Forms a continuous path using existing intersections and road geometry.
+4) Preserves the original map exactly, adding only a visual highlight for the route.
+
+Any answer is incorrect if it invents roads, alters the layout, draws a disconnected or implausible path, or substitutes a different city map. Common incorrect behavior includes drawing arbitrary red lines that do not follow the road network, hallucinating shortcuts, or recreating the scene with a different layout.",I,False,"The generated image is a completely different city layout and map from the one provided in the input image. The instructions explicitly state that the route must be highlighted in the ""original city layout"" and that the answer is incorrect if it ""substitutes a different city map."" The input image shows a large-scale, somewhat abstract or city-builder style suburban/industrial layout with lots of green space and highway-like roads, whereas the generated image is a detailed, square-tiled cartoon/illustrated town with specific buildings like ""City Hall"" and ""Riverside Park"" that do not exist in the original. Furthermore, points A and B in the generated image are in entirely different relative positions compared to the original markers.
+
+GRADE: I",I,False
+gpt-image-1.5,gpt-image-1.5_2026-04-26_16-29-02,9,Generate an image of a clock infront of a mirror with the reflection of the clock appearing in the mirror. ,"The correct output is an image of a clock infront of a mirror with its reflection. The reflection must be left-right reversed while preserving the actual time shown, the size of the clock and its color. This is correct because a mirror flips horizontal orientation but does not change the time itself or even the size and color of object. A common incorrect behavior is showing a normal (non-mirrored) clock, rotating the clock instead of mirroring it, or changing the time. clock, mirror, correct in mirror.",I,False,"The image shows a clock in front of what appears to be a mirror. However, the reflection fails to meet the specific requirements outlined in the grading criteria:
+
+1.  **Mirroring (Left-Right Reversal):** The criteria specify that the reflection must be left-right reversed. In the generated image, the reflection is not mirrored. The numbers on the clock face in the reflection follow the same clockwise order (1, 2, 3...) as the original clock, and the hands point in the same directions. In a real mirror, the number '3' would appear on the left side of the reflection, and the minute hand (pointing right at 3 o'clock on the real clock) would point left (towards the 9 o'clock position) in the reflection.
+2.  **Accuracy of Reflection:** Since the reflection is essentially a copy of the front-facing clock without the horizontal flip, it fails the ""common incorrect behavior"" test mentioned in the criteria (showing a normal, non-mirrored clock).
+
+Because the reflection is not left-right reversed, the image does not satisfy the task requirements.
+
+GRADE: I",I,False
+gpt-image-2,gpt-image-2_2026-04-26_16-57-23,56,Draw a die with sixes on each side of the dice,"The correct output is a drawing of a dice in which every visible face shows six pips (i.e., six dots arranged in the standard 3×2 pattern). If multiple faces are shown, each shown face must display exactly six pips.
+
+This is correct because the instruction requires “sixes on each side,” meaning the face value must be 6 on every depicted side. Any face showing a different number of pips, an incorrect pip count, or an invalid pip arrangement does not satisfy the instruction. A common incorrect behavior is drawing a normal dice with different face values like 5 or 6.",C,True,"The generated image shows a single white die on a dark surface. Based on the task requirements and grading criteria, here is the evaluation:
+
+1.  **Instruction Following**: The prompt asks for ""sixes on each side of the dice."" In the image, three faces of the die are visible (the top face, the front-left face, and the front-right face).
+2.  **Content Accuracy**:
+    *   The **top face** displays six pips arranged in two rows of three.
+    *   The **left face** displays six pips arranged in two columns of three.
+    *   The **right face** displays six pips arranged in two columns of three.
+    Every visible face of the die correctly shows exactly six pips in the standard pattern.
+3.  **Quality**: The image is of high quality, with realistic textures, lighting, and clear representation of the die and its pips.
+
+Since all visible faces of the die show the number six, the image successfully fulfills the specific instruction to have ""sixes on each side.""
+
+GRADE: C",C,True
+gemini-3-pro-image-preview,gemini-3-pro-image-preview_2026-04-26_15-46-30,80,"Generate a picture with a husky, a giant panda and a penguin. Keep their figures as realistic as possible, especially the size and height.","The correct output is a picture containing a husky, a giant panda, and a penguin, where the animals have clearly different sizes and very realistic. Panda should be giant and much bigger compared to the penguin.",C,True,"The generated image perfectly satisfies the requirements of the prompt.
+
+**Analysis:**
+1. **Content Accuracy**: The image includes all three requested animals: a husky, a giant panda, and a penguin. They are placed together in a consistent coastal/snowy environment.
+2. **Instruction Following**:
+    * **Realistic Figures**: The animals are rendered with high photorealism. Their fur, textures, and features are very lifelike.
+    * **Size and Height**: The relative sizes of the animals are well-represented according to the prompt's specific requirement. The giant panda is depicted as the largest and most massive animal, significantly bigger than the penguin. The husky is appropriately sized as a medium-to-large dog relative to the panda and the penguin. While the penguin appears slightly smaller than a real-life Emperor penguin (which can be quite tall) compared to a husky, it fits the general expectation of ""penguin"" size and satisfies the criterion that the panda should be ""giant and much bigger compared to the penguin.""
+3. **Quality and Relevance**: The image is of high quality, with no visible AI artifacts or ""hallucinations."" The lighting and background are consistent across all subjects.
+
+GRADE: C",C,True
+gemini-3.1-flash-image-preview,gemini-3.1-flash-image-preview_2026-04-26_16-02-37,285,Generate an image of a train that is completely upside down (rotated by 180 degrees).,"The model should generate an image of a train that is fully upside down, meaning the entire train is rotated by 180 degrees so that its roof faces downward and its wheels or undercarriage face upward. The inversion should be clear from the overall orientation of the train body, windows, roofline, and wheels. If the train is merely tilted, rotated sideways (90 degrees), or placed horizontally with its bottom facing left or right, the response is incorrect. In particular, if the bottom of the train appears on the side rather than on the top, the image should be considered incorrect. Partial inversion or ambiguous orientation should also be considered incorrect. Mirroring (flipping) the image is not acceptable; the train must be physically inverted via rotation.",C,True,"The generated image depicts a train flying in the sky, positioned in an upside-down orientation.
+
+- **Content Accuracy**: The image correctly identifies the train and its components (locomotive and passenger cars).
+- **Instruction Following**: The train is physically inverted by 180 degrees. This is evidenced by the wheels (bogies/trucks) being on the top side of the train, while the roof and the locomotive's cab windows/headlights are on the bottom side facing the ground. The text and numbers (e.g., ""4911"") on the locomotive are also seen to be upside down.
+- **Quality**: The image is of high quality, with clear details on the train's undercarriage and body, and a well-rendered background.
+- **Orientation**: While the train is flying at a diagonal angle within the frame, its local orientation is clearly ""belly-up,"" satisfying the requirement that the roof faces downward and wheels face upward.
+
+The image successfully satisfies all the grading criteria.
+
+GRADE: C",C,True
+gemini-2.5-flash-image,gemini-2.5-flash-image_2026-04-26_15-03-57,31,"Generate an image of the human muscular system, labeling each muscle (the most important ones) with its name","The correct output is an image of the human muscular system with labels that correctly correspond to the depicted muscles, at least for the major muscle groups (e.g., deltoid, pectoralis major, biceps brachii, rectus abdominis, quadriceps, hamstrings, gastrocnemius). This is correct because the prompt requires correct association between anatomy and text labels. Labels must be placed on or clearly linked to the correct muscles; random or mismatched labels do not satisfy the task. A common incorrect behavior is placing labels on the wrong muscles (e.g., “biceps” on the forearm), duplicating labels, omitting key muscle groups, or producing labels that are not anchored to any clear anatomical region.",I,False,"The generated image depicts a human muscular system with several labels. However, upon inspection, the labeling is extremely inaccurate and contains numerous errors in both spelling and placement, which directly violates the grading criteria.
+
+Specific issues include:
+1.  **Incorrect Placement**:
+    *   ""DELTOID"" is labeled on the forehead/eye area.
+    *   ""PECTORALIS MAJOR"" is labeled on the cheek/neck area and also on the deltoid/shoulder.
+    *   ""BICEPS BRACHI"" is labeled on the upper trapezius/neck.
+    *   ""FLEXOR CARPI RADIAL"" is labeled on the rectus abdominis (abs).
+    *   ""HAMSHINGS"" (misspelled) is labeled on the quadriceps and later on the tibia.
+    *   ""EXTERNAL OBLIQUES"" is labeled on the lower quadriceps/knee area.
+    *   ""RECTUS MEDIAL"" is labeled on the knee.
+2.  **Spelling and Nonsensical Terms**:
+    *   ""TRICPES BRALCHI"" (misspelled Triceps Brachii).
+    *   ""QUADQRIES FEMORIS"" (misspelled Quadriceps Femoris).
+    *   ""GASTROCCNIUS"" (misspelled Gastrocnemius).
+    *   ""TIBLAIS ANETTER"" (likely intended to be Tibialis Anterior).
+    *   ""EXTERNAL DIGTORUM"" is labeled on the side of the abs.
+    *   ""TRICTOID"" is a nonsensical word labeled on the pectoralis major.
+
+Because the labels do not correctly correspond to the depicted muscles and contain significant hallucinations and errors, the image fails to satisfy the task requirements.
+
+GRADE: I",I,False
+gemini-3.1-flash-image-preview,gemini-3.1-flash-image-preview_2026-04-26_16-02-37,156,"The first year of PhD studies is for literature review and topic definition. Then comes the candidacy. After the candidacy, a PhD student begins collecting and analyzing the data. In the course of the three years that follow the candidacy, a PhD student needs to write three papers, and usually the first paper takes the longest to write; and integrate the written into a coherent thesis. Provide a visual Gantt diagram depicting the stages of PhD journey","The image must be a Gantt diagram containing the stages described in the prompt: literature review and topic definition, candidacy, data collection and analysis, three papers, and thesis integration. The timeline must follow the prompt’s four-year structure: one year before candidacy and three years after candidacy. The first paper must be the longest of the three. Any diagram that assumes a longer PhD duration, omits a required stage, violates the ordering constraints, or does not make the first paper the longest should be considered incorrect.",I,False,"The generated image is a visual Gantt diagram for a PhD journey, but it fails to meet several key requirements specified in the prompt and the grading criteria.
+
+### Analysis:
+1.  **Timeline Structure**: The prompt specifies a four-year structure: one year before candidacy and three years after candidacy. In the generated image, the **Candidacy Passed** milestone is placed at the end of Year 2, Quarter 2 (1.5 years into the program). This leaves only 2.5 years until the ""PhD Completion"" flag at the end of Year 4, violating the requirement for a three-year post-candidacy period.
+2.  **Ordering of Stages**: The prompt states, ""After the candidacy, a PhD student begins collecting and analyzing the data."" In the image, the **Data Collection & Analysis** bar begins in Year 2, Quarter 1, which is *before* the Candidacy milestone in Quarter 2. Similarly, the first paper begins before the candidacy.
+3.  **Content Duration**: The prompt states the first year is for literature review and topic definition. The image shows ""Topic Definition & Proposal Formulation"" extending well into Year 2.
+4.  **Paper Length**: The image correctly makes the first paper the longest (approximately 6 quarters compared to 4 for the others), which satisfies one specific requirement.
+5.  **Stages Included**: All required stages (lit review, candidacy, data collection, three papers, thesis integration) are present.
+
+Despite including the correct elements, the image fails on the fundamental temporal logic and constraints provided in the instructions (specifically the 1+3 year division and the ""after candidacy"" trigger for research activities).
+
+GRADE: I",I,False
+gemini-3.1-flash-image-preview,gemini-3.1-flash-image-preview_2026-04-26_16-02-37,72,"Generate an image containing a stoplight which includes 5 lights; orange, red, yellow, green, and purple in this exact order from top to bottom.","The correct output is a traffic light containing exactly five distinct lights arranged in a single vertical stack, in this exact top-to-bottom order: orange, red, yellow, green, purple.
+
+This is correct because the prompt requires (1) five lights, (2) the specified set of colors, and (3) the exact order. A response is correct only if all five colors are present exactly once and appear in the required sequence.
+
+Any output is incorrect if it is missing any color, includes extra lights, repeats a color, or places the colors in a different order (including swapping adjacent colors). A common incorrect behavior is omitting green or purple, or generating only the standard three-light traffic signal.",C,True,"The generated image contains a traffic light with exactly five lights arranged in a single vertical stack. Looking from top to bottom, the colors are:
+1.  **Orange** (top)
+2.  **Red**
+3.  **Yellow**
+4.  **Green**
+5.  **Purple** (bottom)
+
+The image perfectly follows the required order and color set specified in the prompt. The colors are distinct and the count is accurate.
+
+GRADE: C",C,True
+gemini-3-pro-image-preview,gemini-3-pro-image-preview_2026-04-26_15-46-30,31,"Generate an image of the human muscular system, labeling each muscle (the most important ones) with its name","The correct output is an image of the human muscular system with labels that correctly correspond to the depicted muscles, at least for the major muscle groups (e.g., deltoid, pectoralis major, biceps brachii, rectus abdominis, quadriceps, hamstrings, gastrocnemius). This is correct because the prompt requires correct association between anatomy and text labels. Labels must be placed on or clearly linked to the correct muscles; random or mismatched labels do not satisfy the task. A common incorrect behavior is placing labels on the wrong muscles (e.g., “biceps” on the forearm), duplicating labels, omitting key muscle groups, or producing labels that are not anchored to any clear anatomical region.",C,True,"The generated image depicts the human muscular system from an anterior view with clear, accurate labels for several major muscle groups.
+
+Based on the grading criteria:
+1. **Content Accuracy**: The image correctly identifies major muscles including the Deltoid, Pectoralis Major, Biceps Brachii, External Oblique, Rectus Abdominis, Quadriceps Femoris, and Tibialis Anterior.
+2. **Instruction Following**: The prompt asked for an image of the muscular system with labels for the most important muscles. The labels provided are correct and correspond exactly to the anatomical regions they point to. While posterior muscles like the hamstrings and gastrocnemius are not shown (as this is an anterior view), the selection of muscles labeled is appropriate and accurate for the view provided.
+3. **Quality**: The image is clear, the text is legible, and the anatomical drawing is of high quality without the typical ""gibberish"" text often found in AI-generated labels.
+4. **Relevance**: The image directly addresses the user's request.
+
+GRADE: C",C,True
+gpt-image-1.5,gpt-image-1.5_2026-04-26_16-29-02,12,"Make a figure that repeats a circle, a triangle, and a square 4 times. At the end of the repetition plot, a rectangle with a large length.","The correct output is an image showing the repeating sequence circle → triangle → square repeated exactly four times, followed by a rectangle with a long length at the end. This is correct because both the order and the number of repetitions are explicitly constrained. A common incorrect behavior is using the wrong order, repeating the pattern fewer or more than four times, or omitting or misplacing the final rectangle.",C,True,"The generated image perfectly follows the instructions and the grading criteria.
+
+Analysis:
+1. **Content Accuracy**: The image contains a sequence of a circle, a triangle, and a square.
+2. **Instruction Following**:
+    - **Pattern**: The sequence (circle → triangle → square) is correctly identified and followed.
+    - **Repetition**: The sequence is repeated exactly four times, as requested.
+    - **Final Element**: At the end of the four repetitions, there is a single, long rectangle (""a rectangle with a large length"").
+3. **Quality**: The image is clean, shapes are distinct, and the layout is clear and easy to verify.
+
+The image contains exactly four sets of the circle-triangle-square sequence followed by a long rectangle, meeting all requirements.
+
+GRADE: C",C,True
+gemini-2.5-flash-image,gemini-2.5-flash-image_2026-04-26_15-03-57,147,Generate an image of a clock with 30km run and 12:09 time,"If the output image shows a digital clock, then make sure it shows the right time (12:09) and also contains running information (30km).
+If the output shows an analogically clock, make sure that the hour hand points just past 12, while the minute hand pointing close to the 2 (9 minutes). Make also sure that even if analogic, the watch shows the 30km running information.
+
+A common incorrect behavior is placing the minute hand on the 12 or 2, putting the hour hand exactly on 12, or omitting/mislabeling the 30 km run detail.",C,True,"The generated image shows a digital sports watch that perfectly satisfies the task requirements. The digital display clearly shows the time as ""12:09"" and includes the required running information as ""30.00 KM RUN"". The image is of high quality and directly relevant to the prompt.
+
+GRADE: C",C,True
+gemini-3.1-flash-image-preview,gemini-3.1-flash-image-preview_2026-04-26_16-02-37,174,"Can you generate an image of a valid chess board where the only move that has been played is 1. Ne3. ?
+If you can't then show why with a simple graphic.",The correct output is an explanation that this is impossible from a standard starting position because 1.Ne3 is illegal; therefore no valid “only move played is 1.Ne3” board exists under normal chess rules. This is correct because you cannot reach a legal position by applying an illegal move. A common incorrect behavior is drawing a board with a knight on e3 anyway without acknowledging the illegality.,C,True,"The user wants me to evaluate a generated image based on a specific chess-related prompt.
+
+**Task/Prompt:**
+""Can you generate an image of a valid chess board where the only move that has been played is 1. Ne3. ? If you can't then show why with a simple graphic.""
+
+**Grading Criteria:**
+The correct output is an explanation (or graphic) showing that 1. Ne3 is an illegal move from the starting position. White's knights start on b1 and g1. From b1, a knight can move to a3, c3, or d2. From g1, a knight can move to f3, h3, or e2. Neither knight can reach e3 in a single move. Additionally, the e2 pawn blocks a straight path if it were a different piece, but regardless, a knight move to e3 on move 1 is physically impossible according to chess rules.
+
+**Analysis of the Generated Image:**
+1.  **Content Accuracy**: The image explicitly states ""INVALID MOVE: 1. Ne3 IS IMPOSSIBLE"" at the top.
+2.  **Instruction Following**: The prompt asked to ""show why with a simple graphic"" if it's not possible. The image shows a chess board with a knight on e3 and an 'X' over the paths from b1 and g1. It specifically highlights the knight at g1 and the pawn at e2 at the bottom, indicating that the knight cannot reach that square or that the move is invalid. It correctly identifies that the move is impossible.
+3.  **Quality**: The graphic is clear and directly addresses the logical impossibility of the requested move.
+4.  **Relevance**: It perfectly matches the ""If you can't then show why with a simple graphic"" part of the prompt.
+
+The image correctly identifies the illegality of the move and provides a graphic explanation as requested.
+
+GRADE: C",I,False
+gpt-image-1.5,gpt-image-1.5_2026-04-26_16-29-02,131,Generate an apple next to an orange and above a pear and the orange has a grape below then to switch places,"The correct output is an image showing an apple next to an orange, with the apple above a pear, and with a grape below the orange, and after the swap the apple and orange must exchange positions while all other relative relations (apple above pear, grape below orange) are updated consistently. This is correct because the prompt specifies both an initial spatial configuration and a subsequent “switch places” operation between the apple and the orange. A common incorrect behavior is producing only the initial layout, swapping the wrong objects, or breaking the vertical constraints after the swap.",C,True,"The generated image correctly satisfies the task requirements.
+
+**Analysis:**
+1.  **Object Identification**: The image contains all four required objects: a red apple, an orange, a green pear, and a bunch of purple grapes.
+2.  **Initial Configuration Interpretation**: The prompt describes an initial setup where an apple is next to an orange, the apple is above a pear, and the orange is above a grape. This forms a 2x2 grid:
+    *   Top-Left: Apple | Top-Right: Orange
+    *   Bottom-Left: Pear | Bottom-Right: Grape
+3.  **Instruction Following (""Switch Places"")**: The prompt then instructs to ""switch places"" (referring to the apple and the orange). In the final state, the orange should move to the top-left (above the pear) and the apple should move to the top-right (above the grapes).
+4.  **Spatial Accuracy**: In the generated image:
+    *   The **orange** is at the top-left, positioned **above the pear**.
+    *   The **apple** is at the top-right, positioned **above the grapes**.
+    *   The apple and orange are **next to each other**.
+    This exactly matches the expected output after the ""switch places"" operation as per the grading criteria.
+5.  **Quality**: The image is of high quality, with clear object boundaries and realistic textures, and it accurately represents the requested spatial relationships.
+
+GRADE: C",I,False
+gpt-image-1.5,gpt-image-1.5_2026-04-26_16-29-02,98,Generate a picture of keyboard with letters on the right side and numbers on the left side,"The correct output must depict a keyboard in which letters and numbers positions are inverted, with the numbers being on the left side and letters on the right side.
+
+A common incorrect behavior is defaulting to a conventional keyboard layout based on prior knowledge, instead of following the instructions given by the question. That would be incorrect because a standard keyboard layout has letter keys on the left and the number pad on the right side.",C,True,"The generated image correctly follows the instructions provided in the prompt. The keyboard layout depicted shows a numeric keypad on the left side (containing numbers 0-9) and a set of letter keys on the right side (including Y, U, I, H, J, K, L, N, M). This is the inverse of a standard keyboard layout, which satisfies the specific requirement of the task and the grading criteria. Although some letters are repeated (e.g., two 'I's, two 'J's), the primary requirement of positioning numbers on the left and letters on the right is clearly met.
+
+GRADE: C",I,False
+gemini-3-pro-image-preview,gemini-3-pro-image-preview_2026-04-26_15-46-30,57,Draw a concave function,"The correct output is a plot of a concave function, i.e., a curve whose second derivative is non-positive (curving downward) over the shown domain. A valid example is y = -x^2 or y = sqrt(x) (on x ≥ 0).
+
+This is correct because a concave function must satisfy the “curves downward” property (line segment between two points lies below the graph). Any convex/upward-curving plot or a curve that is not concave over the displayed interval is incorrect. A common incorrect behavior is drawing a convex parabola (e.g., y = x^2) or producing an ambiguous sketch where concavity cannot be determined.",C,True,"The generated image shows a whiteboard with a plot of a function that curves downward. This is the correct visual representation of a **concave function**.
+
+Key observations:
+1. **Visual Accuracy**: The curve is ""concave down,"" which matches the mathematical definition.
+2. **Instruction Following**: The image contains a plot of a concave function as requested.
+3. **Formal Definition**: The image correctly includes the mathematical inequality for concavity: $f(tx_1 + (1-t)x_2) \ge tf(x_1) + (1-t)f(x_2)$. This inequality states that the function value of a weighted average of two points is greater than or equal to the weighted average of the function values, which means the graph of the function lies above the chord connecting any two points on it.
+4. **Labels**: It is clearly labeled as a ""Concave Function"".
+5. **Quality**: The image is high quality and represents the concept accurately and clearly.
+
+GRADE: C",C,True
+gpt-image-1-mini,gpt-image-1-mini_2026-04-26_16-52-44,58,Draw a calendar for February with 29 days,"The correct output is a February calendar that explicitly includes a 29th day (i.e., days labeled 1 through 29). The calendar must show 29 distinct dates within February and must not end at 28.
+
+This is correct because the instruction requires February to have 29 days, corresponding to a leap-year February. Any calendar missing the 29th day, or showing only 28 days, violates the requirement.
+
+A common incorrect behavior is producing a standard February calendar with 28 days or omitting the 29th even while mentioning leap years.",I,False,"The generated image shows a February calendar that includes the 29th day, as requested. However, it also includes a **30th day**, which contradicts the instruction to draw a calendar ""with 29 days.""
+
+According to the prompt and the grading criteria, the calendar should explicitly feature 29 days (representing a leap year). While the image ""includes a 29th day"" and ""does not end at 28,"" it fails the instruction by extending the month to 30 days, which is both factually incorrect for February and a failure to follow the specific count requested in the prompt.
+
+GRADE: I",C,True
+gemini-2.5-flash-image,gemini-2.5-flash-image_2026-04-26_15-03-57,184,Can you draw Shrek with a single eyebrow?,"The correct answer should depict Shrek with a single continuous eyebrow across his forehead, rather than the two separate eyebrows he is normally depicted with.
+
+The answer is correct if and only if the generated image clearly shows Shrek with exactly one eyebrow (a unibrow), not two distinct eyebrows.
+
+A common incorrect behavior is generating a standard depiction of Shrek with two eyebrows and failing to modify this defining facial feature.",I,False,"The generated image depicts Shrek with two separate, distinct eyebrows. There is a clear gap between them above the bridge of his nose. The prompt explicitly requested Shrek with a ""single eyebrow"" (a unibrow), which is defined in the grading criteria as a single continuous eyebrow across his forehead. Since the image maintains Shrek's standard two-eyebrow appearance and fails to incorporate the requested defining facial feature modification, it does not satisfy the task requirements.
+
+GRADE: I",I,False
+gpt-image-1-mini,gpt-image-1-mini_2026-04-26_16-52-44,175,Draw me an image of a regular tetrahedron where each corner is labeled with a different letter of the latin alphabet.,"The correct output is an image of a regular tetrahedron with four vertices, where each vertex is labeled with a distinct Latin letter (e.g., A, B, C, D). This is correct because a tetrahedron has exactly four corners and the labels must be different. A common incorrect behavior is labeling fewer than four vertices, repeating a letter, or drawing a non-regular tetrahedron.",C,True,"The generated image shows a tetrahedron, a three-dimensional shape with four vertices (corners) and four triangular faces.
+
+Analysis:
+1. **Content Accuracy**: The image correctly depicts a tetrahedron with four distinct corners.
+2. **Instruction Following**:
+    - **Tetrahedron**: The shape is a tetrahedron (4 vertices, 6 edges, 4 faces).
+    - **Corners labeled**: Each of the four corners is labeled.
+    - **Different letters**: The labels used are ""A"", ""B"", ""C"", and ""D"", which are distinct Latin letters.
+    - **Regularity**: While it is difficult to confirm geometric ""regularity"" (all edges being exactly the same length) from a 2D perspective drawing, the image accurately represents the standard mathematical diagram of a regular tetrahedron.
+3. **Quality and Relevance**: The image is clear, of high quality for a diagram, and directly addresses the user's prompt.
+
+The image satisfies all the criteria specified in the task.
+
+GRADE: C",C,True
+gpt-image-1-mini,gpt-image-1-mini_2026-04-26_16-52-44,267,"Create an image of the uppercase letter “F” rotated by 180 degrees, so that it appears fully upside down relative to its standard upright orientation.","The image must depict the uppercase letter “F” rotated by 180 degrees. The letter should appear upside down compared to its standard upright form, with its horizontal bars and vertical stroke inverted accordingly. If the letter appears upright, rotated by an angle other than 180 degrees, mirrored, or replaced by a different character, the response is incorrect. Minor stylistic variations (e.g., font or thickness) are acceptable as long as the shape clearly corresponds to an upside-down “F”.",I,False,"The generated image shows a standard, upright uppercase letter “F”. The task specifically requested the letter to be rotated by 180 degrees so that it appears fully upside down. In the provided image, the horizontal bars of the “F” are at the top and middle, extending to the right, which is the standard upright orientation. A 180-degree rotated “F” would have its bars at the bottom and middle, extending to the left. Therefore, the image fails to satisfy the core requirement of the prompt.
+
+GRADE: I",I,False
+gpt-image-1-mini,gpt-image-1-mini_2026-04-26_16-52-44,285,Generate an image of a train that is completely upside down (rotated by 180 degrees).,"The model should generate an image of a train that is fully upside down, meaning the entire train is rotated by 180 degrees so that its roof faces downward and its wheels or undercarriage face upward. The inversion should be clear from the overall orientation of the train body, windows, roofline, and wheels. If the train is merely tilted, rotated sideways (90 degrees), or placed horizontally with its bottom facing left or right, the response is incorrect. In particular, if the bottom of the train appears on the side rather than on the top, the image should be considered incorrect. Partial inversion or ambiguous orientation should also be considered incorrect. Mirroring (flipping) the image is not acceptable; the train must be physically inverted via rotation.",C,True,"The generated image displays a train that is oriented completely upside down, satisfying the 180-degree rotation requirement specified in the prompt.
+
+In the image:
+- The **wheels and undercarriage** of the train are positioned at the top of the frame, resting on the tracks which are also at the top.
+- The **roof and pantograph** of the train are facing downward toward the bottom of the frame.
+- The **windows and body line** clearly indicate a vertical inversion.
+- The **entire scene** (including the ground and sky) is rotated 180 degrees, which ensures that the train itself is fully upside down relative to the viewer's normal perspective.
+- The orientation is a **rotation** rather than a simple vertical mirror (flip), as the perspective and the position of the train's nose (moved from right to left if visualized right-side up) are consistent with a 180-degree rotation.
+
+The image is of high quality, with clear details on the train's structure, and it adheres strictly to the grading criteria provided.
+
+GRADE: C",C,True
+gemini-3-pro-image-preview,gemini-3-pro-image-preview_2026-04-26_15-46-30,79,generate a picture of a guy making a 4-cheeses pizza. generate a picture of a cinema,"The correct output is two generated images:
+        1.        A picture of a guy making a four-cheeses pizza with four different kinds of cheese.
+        2.        A picture of a cinema, meaning a movie theater environment.
+
+A common mistake is generating a pizza without four distinct cheeses or adding vegetables instead, or generating a theater stage rather than a cinema.",I,False,"The generated image fails to satisfy the task requirements based on the provided grading criteria.
+
+**Analysis:**
+1.  **Instruction Following (Quantity):** The prompt explicitly contains two separate commands: ""generate a picture of a guy making a 4-cheeses pizza"" and ""generate a picture of a cinema."" Furthermore, the **Grading Criteria** specify that ""The correct output is **two generated images**."" The provided output is a single image that attempts to combine both requests into one scene.
+2.  **Content Accuracy:** The single image does accurately depict the requested elements. It shows a man making a pizza with four distinct cheeses clearly labeled in bowls (Mozzarella, Gorgonzola, Parmesan, and Fontina). The background is a cinema lobby with a movie screen and a ""CINEMA"" sign, satisfying the ""movie theater environment"" requirement.
+3.  **Quality:** The image is of high quality and does not suffer from the ""common mistakes"" mentioned (like adding vegetables or showing a theater stage instead of a cinema).
+
+However, because the model provided only **one image** instead of the **two separate images** required by the prompt and the grading criteria, it does not fully satisfy the instructions.
+
+GRADE: I",I,False
+gpt-image-2,gpt-image-2_2026-04-26_16-57-23,269,"We have a full glass of pure filtered water and full glass of a extra virgin olive oil. We pour half of the olive oil into the glass of water, can you generate the image of this scene?","The image should show two glasses, one with just oil one with water and oil, and some spilled water and oil coming from the fact that oil has been added to a glass full of water. An image of one glass with water and oil is an incorrect answer.",I,False,"The generated image fails to satisfy the specific requirements set forth in the grading criteria.
+
+1.  **Requirement for Spilled Liquid**: The prompt and grading criteria emphasize that because a full glass of water is receiving half a glass of oil, there must be an overflow. The criteria explicitly state the image should show ""some spilled water and oil."" In the generated image, the surface around the glasses is dry, and there is no visible spill or overflow despite the glass being filled to the brim.
+2.  **Number and State of Glasses**: The criteria specify the image should show two glasses (one with just oil, one with water and oil). The generated image contains three glasses on the table and a fourth container being held by a hand. This does not accurately reflect the ""two glasses"" scene described in the logic of the prompt (where one is the source and one is the destination).
+3.  **Instruction Following**: The image shows a hand pouring from a separate pitcher/beaker into a glass that already contains water, while a full glass of oil and a full glass of water remain untouched on the table. This contradicts the prompt's setup of having two specific full glasses and pouring from one into the other.
+
+Because the image lacks the required ""spilled water and oil"" and does not correctly depict the two-glass interaction described, it does not meet the criteria.
+
+GRADE: I",I,False
+gemini-2.5-flash-image,gemini-2.5-flash-image_2026-04-26_15-03-57,48,"Draw an image with the minimum number of objects that satisfies the following conditions:  1. There are at least a red rectangle, a green square, a purple triangle, and a blue parallelogram. 2. A red object is to the left of a green object. 3. A purple object is above a green object. 4. A green object is above a blue object. 5. A triangle is below a green object. ","The minimum valid solution contains five objects. First, use the required four objects to satisfy the first four constraints: a red rectangle to the left of a green square, a blue parallelogram below the green square, and a purple triangle above the green square. Since the last condition requires a triangle below the green object, using the same purple triangle would create a contradiction. However, the prompt says “at least”, which means additional objects are allowed. Therefore, one additional triangle must be included and placed below the green square. This extra triangle may be of any color.
+
+A common incorrect response is to claim that the problem has no solution, or to assign the wrong colors or shapes to the required objects. A correct image must contain at least the four required objects with the correct colors and shapes, and it must also satisfy all specified spatial relationships.",I,False,"The image contains four main objects:
+1.  **A Red Rectangle**: Located on the left, satisfying the requirement to be to the left of the green object.
+2.  **A Green Square**: Located in the center.
+3.  **A Purple Triangle**: Located above the green square, satisfying the requirement for a purple triangle above a green object.
+4.  **A Blue Shape**: Located below the green square.
+
+Upon evaluation against the specific requirements and grading criteria:
+- **Constraint 1 (Blue Parallelogram)**: The blue shape in the image is a pentagon (it has a vertical left edge, horizontal top/bottom edges, and two slanted edges meeting at a point on the right). It is not a parallelogram.
+- **Constraint 5 (Triangle below a green object)**: The prompt requires a triangle to be placed below a green object. In the generated image, the only triangle is purple and is placed *above* the green square. The object below the green square is the blue pentagon, which is not a triangle.
+
+As noted in the grading criteria, a valid solution requires at least five objects to satisfy all contradictory spatial constraints (specifically, one triangle above the green object and another triangle below it). The generated image only contains four objects and fails to include the required second triangle below the green object, and also fails to provide a correct blue parallelogram.
+
+GRADE: I",I,False
+gemini-2.5-flash-image,gemini-2.5-flash-image_2026-04-26_15-03-57,246,"Generate an image of a man and a woman sitting across from each other, actively playing a game of checkers on a standard 8×8 checkered board. The board should contain clearly visible red and black pieces arranged in a plausible mid-game configuration. Both players should be positioned facing the board, with at least one player appearing to make a move.","The generated image must depict exactly two people: one man and one woman, seated across from each other at a table. They should be facing one another, with a checkers board placed between them (not sitting side by side).
+
+The board must be a standard 8×8 checkered board, clearly visible in the image. The game should be recognizable as checkers, with distinguishable pieces arranged on the board in a plausible configuration.
+
+The answer is incorrect if: (i) the two people are not facing each other across the table, (ii) the board is missing, unclear, or not placed between them, (iii) the board is not a standard 8×8 checkered pattern, (iv) the game is not recognizable as checkers (e.g., resembles chess or lacks proper pieces), or (v) there are not exactly one man and one woman.",C,True,"The generated image depicts a man and a woman sitting across from each other at a table, facing one another. There is a checkers board between them.
+
+**Evaluation against Grading Criteria:**
+1. **Exactly two people (one man, one woman):** Yes, there is exactly one man and one woman.
+2. **Seated across from each other:** Yes, they are positioned on opposite sides of the table.
+3. **Standard 8×8 checkered board:** By inspecting the zoomed-in image, the board is indeed 8 squares wide and 8 squares deep (counting along the edges shows 8 distinct squares in both directions).
+4. **Clearly visible red and black pieces:** The pieces are clearly recognizable as red and black checkers. They are circular and flat.
+5. **Plausible mid-game configuration:** The pieces are distributed across the board. While some stacks are quite tall (suggesting multiple ""kings"" or just an artistic interpretation of captured pieces being placed on the board, though standard checkers usually uses single or double stacks), the overall configuration is recognizable as a game of checkers in progress.
+6. **At least one player making a move:** The man is clearly holding a piece above the board, appearing to make a move.
+
+The image satisfies all the specific requirements of the prompt and the grading criteria.
+
+GRADE: C",C,True

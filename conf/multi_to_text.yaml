@@ -3,13 +3,13 @@ defaults:
 
 hydra:
   run:
-    dir: outputs/first_epoch/multi/${clean_model_name:${solver.model_name}}_${now:%Y-%m-%d_%H-%M-%S}
+    dir: outputs/multi/${clean_model_name:${solver.model_name}}_${now:%Y-%m-%d_%H-%M-%S}
 
 # Inspect AI settings
 fail_on_error: false
-retry_on_error: 2
-time_limit: 600
-n_epochs: 1
+retry_on_error: 5
+time_limit: 300
+n_epochs: 4
 sandbox: null
 
 dataset:

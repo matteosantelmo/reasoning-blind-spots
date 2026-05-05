@@ -20,7 +20,7 @@ def run(cfg: DictConfig):
     log_dir = HydraConfig.get().runtime.output_dir
 
     # Optional parameters for Inspect AI eval
-    max_connections = cfg.get("max_connections", 15)
+    max_connections = cfg.get("max_connections", 5)
     n_epochs = cfg.get("n_epochs", 1)
 
     # Eval resilience and limits

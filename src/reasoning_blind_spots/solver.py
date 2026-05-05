@@ -2,7 +2,7 @@ from copy import deepcopy
 
 from inspect_ai.model import GenerateConfig, Model, get_model
 from inspect_ai.solver import Generate, Solver, TaskState, prompt_template, solver
-from inspect_ai.util import message_limit
+from inspect_ai.util import LimitExceededError, message_limit
 from omegaconf import DictConfig, OmegaConf
 
 SOLVER_PROMPT_TEMPLATE = """
@@ -100,7 +100,32 @@ def generate_with_tool_loop(max_additional_messages: int = 5) -> Solver:
         if state.message_limit is not None:
             limit = min(limit, state.message_limit)
 
-        with message_limit(limit):
-            return await generate(state, tool_calls="loop")
+        initial_messages = list(state.messages)
+        initial_output = state.output
+
+        try:
+            with message_limit(limit):
+                return await generate(state, tool_calls="loop")
+        except LimitExceededError as error:
+            if error.type != "message":
+                raise
+
+            print(
+                "Solver exceeded the tool-loop message limit; "
+                f"retrying once without tools. Error: {error}"
+            )
+
+            state.messages = initial_messages
+            state.output = initial_output
+
+            tools = list(state.tools)
+            tool_choice = state.tool_choice
+            state.tools = []
+            state.tool_choice = None
+            try:
+                return await generate(state, tool_calls="none")
+            finally:
+                state.tools = tools
+                state.tool_choice = tool_choice
 
     return solve

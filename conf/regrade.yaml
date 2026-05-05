@@ -3,10 +3,10 @@ defaults:
 
 hydra:
   run:
-    dir: outputs/validation/text-out-${now:%Y-%m-%d_%H-%M-%S}
+    dir: outputs/re-grade/re-grade-${now:%Y-%m-%d_%H-%M-%S}
 
 dataset:
-  path: "data/validation/text-out.jsonl"
+  path: "data/re-grade/regrading_input.jsonl"
   limit: null
   question_type:
   - text-only
