@@ -216,3 +216,5 @@ outputs/debug/
 outputs_old/
 data/original_images/*
 notebooks/assets/*
+outputs/*
+data/reasoning_course.xlsx
