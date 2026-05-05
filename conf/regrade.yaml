@@ -1,3 +1,6 @@
+# This config is used by `grade_only.py` to perform grading-only on an already
+# generated set of responses. Look at the input JSONL file to see the expected format.
+
 defaults:
   - _self_
 

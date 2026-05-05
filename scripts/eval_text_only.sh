@@ -81,6 +81,13 @@ python main.py --config-name text_only \
 	+solver.generate_config.reasoning_effort=medium \
 	++solver.api_key=${OPENAI_API_KEY}
 
+# gpt-5.5
+python main.py --config-name text_only \
+	++solver.model_name=gpt-5.5 \
+	++solver.backend=openai \
+	+solver.generate_config.reasoning_effort=medium \
+	++solver.api_key=${OPENAI_API_KEY}
+
 
 # #######################################################
 # #			  Open Source Models on RCP
@@ -139,15 +146,6 @@ python main.py --config-name text_only \
 # google/gemma-4-26B-A4B-it
 python main.py --config-name text_only \
 	++solver.model_name=google/gemma-4-26B-A4B-it \
-	++solver.backend=openai \
-	+solver.base_url=https://inference.rcp.epfl.ch/v1 \
-	++solver.api_key=${RCP_OPENAI_API_KEY} \
-	+solver.generate_config.max_tokens=32768 \
-	+solver.generate_config.extra_body.chat_template_kwargs.enable_thinking=true
-
-# google/gemma-4-31B-it
-python main.py --config-name text_only \
-	++solver.model_name=google/gemma-4-31B-it \
 	++solver.backend=openai \
 	+solver.base_url=https://inference.rcp.epfl.ch/v1 \
 	++solver.api_key=${RCP_OPENAI_API_KEY} \
