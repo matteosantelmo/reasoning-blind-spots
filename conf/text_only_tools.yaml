@@ -1,0 +1,40 @@
+defaults:
+  - _self_
+
+hydra:
+  run:
+    dir: outputs/tools/text/${clean_model_name:${solver.model_name}}_${now:%Y-%m-%d_%H-%M-%S}
+
+# Inspect AI settings
+fail_on_error: false
+retry_on_error: 5
+time_limit: 300
+n_epochs: 2
+sandbox: null
+
+dataset:
+  path: "blind-spots-neurips/blind-spots-bench"
+  split: "test"
+  limit: null
+  question_type:
+  - text-only
+
+grader:
+  enabled: true
+  model_name: gemini-3-flash-preview
+  backend: google
+  generate_config:
+    reasoning_effort: minimal
+
+solver:
+  model_name: override
+  backend: override
+  model_id: null
+  tools:
+    enabled: true
+    code_execution: true
+    providers: null
+    web_search: false
+    web_search_providers: null
+    max_additional_messages: 5
+    tool_choice: auto

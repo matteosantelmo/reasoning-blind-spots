@@ -11,7 +11,7 @@ retry_on_error: 3
 time_limit: 600
 
 dataset:
-  path: "matsant01/blind-spots-bench"
+  path: "blind-spots-neurips/blind-spots-bench"
   split: "test"
   limit: null
   question_type:
