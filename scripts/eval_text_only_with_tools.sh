@@ -50,6 +50,15 @@ python main.py --config-name text_only_tools \
 	+solver.generate_config.max_tokens=32768 \
 	sandbox=docker
 
+# Qwen3-VL-30B-A3B-Thinking
+python main.py --config-name text_only_tools \
+	++solver.model_name=Qwen/Qwen3-VL-30B-A3B-Thinking \
+	++solver.backend=openai \
+	+solver.base_url=https://inference.rcp.epfl.ch/v1 \
+	++solver.api_key=${RCP_OPENAI_API_KEY} \
+	+solver.generate_config.max_tokens=32768 \
+	sandbox=docker
+
 # gpt-oss-120b
 python main.py --config-name text_only_tools \
 	++solver.model_name=openai/gpt-oss-120b \
@@ -71,6 +80,15 @@ python main.py --config-name text_only_tools \
 # Kimi-K2.6
 python main.py --config-name text_only_tools \
 	++solver.model_name=moonshotai/Kimi-K2.6 \
+	++solver.backend=openai \
+	+solver.base_url=https://inference.rcp.epfl.ch/v1 \
+	++solver.api_key=${RCP_OPENAI_API_KEY} \
+	+solver.generate_config.max_tokens=32768 \
+	sandbox=docker
+
+# GLM-5.1
+python main.py --config-name text_only_tools \
+	++solver.model_name=zai-org/GLM-5.1 \
 	++solver.backend=openai \
 	+solver.base_url=https://inference.rcp.epfl.ch/v1 \
 	++solver.api_key=${RCP_OPENAI_API_KEY} \

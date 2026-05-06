@@ -1,0 +1,431 @@
+model,run,id,question,image_path,target,verifier_score,verifier_correct,verifier_explanation,generation_note,human_score,human_correct
+gpt-image-2,gpt-image-2_2026-04-26_16-57-23,68,Can  you generate a analog clock showing 14h10,../outputs/first_epoch/image_gen/gpt-image-2_2026-04-26_16-57-23/generated_images/generated_68_0981bbbe.png,"The correct output is an analog clock displaying 14:10 (i.e., 2:10 PM). The minute hand must point at the “2” (10 minutes), and the hour hand must be slightly past “2” (between 2 and 3).
+
+This is correct because 14:10 in 24-hour time corresponds to 2:10 PM on a 12-hour analog clock. Any clock showing 10:10 or placing the hands at the wrong positions is incorrect.
+
+A common incorrect behavior is interpreting 14:10 as 10:10 or placing the hour hand exactly on 2 instead of slightly past it.",I,False,"The generated image shows an analog clock intended to display 14:10 (2:10 PM). However, upon closer inspection of the clock hands and their positions:
+
+1.  **Minute Hand**: The longer hand (minute hand) is pointing at approximately the 12-minute mark (the second small tick past the number ""2""), rather than pointing exactly at the ""2"" (10-minute mark) as required.
+2.  **Hour Hand**: The shorter hand (hour hand) appears to be pointing directly at the ""2,"" whereas at 2:10, it should be slightly past the ""2"" (approximately 1/6th of the way toward ""3""). In the image, the minute hand is actually further clockwise than the hour hand, which is the opposite of how a clock at 2:10 should appear (at 2:10, the hour hand at 65° is further clockwise than the minute hand at 60°).
+3.  **Instruction Following**: The grading criteria explicitly state that the minute hand must point at the ""2"" and the hour hand must be slightly past ""2."" The image fails to meet these specific geometric requirements for the requested time.
+
+GRADE: I",[Generated Image: /Users/mat/EPFL-courses/RAI/reasoning-blind-spots/outputs/first_epoch/image_gen/gpt-image-2_2026-04-26_16-57-23/generated_images/generated_68_0981bbbe.png],I,False
+gpt-image-1.5,gpt-image-1.5_2026-04-26_16-29-02,129,Generate a clock showing 12:35 ,../outputs/first_epoch/image_gen/gpt-image-1.5_2026-04-26_16-29-02/generated_images/generated_129_416b6c78.png,"The correct answer is: An image of a clock showing 12:35, with the small hand pointing between 12 and 1, and the large hand pointing at 7.",C,True,"The generated image shows a wall clock that clearly communicates the time 12:35.
+
+Comparing the image to the grading criteria:
+1. **Content Accuracy**: The clock contains all the necessary numbers (1-12) in their correct positions. It has an hour hand, a minute hand, and a second hand.
+2. **Instruction Following (12:35)**:
+    - The **large hand (minute hand)** is pointing exactly at the 7, which corresponds to 35 minutes.
+    - The **small hand (hour hand)** is pointing near the 12. While a perfectly mechanical clock at 12:35 would have the hour hand over halfway toward the 1, this hour hand is pointing slightly past the 12, thus satisfying the requirement of being ""between 12 and 1.""
+    - There is also a thin second hand pointing near the 6.
+3. **Quality and Relevance**: The image is clear, of high quality, and directly addresses the prompt.
+
+Overall, the image successfully represents a clock showing 12:35 as requested.
+
+GRADE: C",[Generated Image: /Users/mat/EPFL-courses/RAI/reasoning-blind-spots/outputs/first_epoch/image_gen/gpt-image-1.5_2026-04-26_16-29-02/generated_images/generated_129_416b6c78.png],C,True
+gemini-2.5-flash-image,gemini-2.5-flash-image_2026-04-26_15-03-57,124,"[ChatMessageUser(id='5zoUpWURS3jBMBasnacYwy', content=[ContentText(internal=None, type='text', text='Can you put a circle around the beauty shop?', refusal=None, citations=None), ContentText(internal=None, type='text', text='(Image)', refusal=None, citations=None)], source=None, metadata=None, role='user', tool_call_id=None)]",../outputs/first_epoch/image_gen/gemini-2.5-flash-image_2026-04-26_15-03-57/generated_images/generated_124_7decf149.png,"The correct output is the original map image with a single added circle highlighting the existing “Beauty Shop” location (the pink rectangle labeled “Beauty Shop” at the top row, immediately to the right of “Book Store”).
+
+This is correct because the instruction is an image-editing task: the map content must remain unchanged, and the only required modification is to draw a circle around the already-present “Beauty Shop” on the map. A valid output must therefore (1) preserve all labels and buildings, (2) not add, remove, move, or duplicate any shops, and (3) place the circle so it clearly encloses the labeled “Beauty Shop” region.",I,False,"The generated image fails to satisfy the task requirements for several reasons based on the grading criteria:
+
+1.  **Failure to Preserve Content**: The instruction and grading criteria explicitly state that the map content must remain unchanged and all labels and buildings must be preserved. The generated image has been cropped or incorrectly scaled, causing the entire right edge of the map to be cut off. This includes parts of the ""Restaurant,"" ""Theater,"" and ""Cafe"" buildings, as well as the ""E"" (East) indicator on the compass.
+2.  **Modification of Existing Elements**: The compass has been altered; the ""W"" (West) label has been moved from its original position and is now floating near the ""Beauty Shop.""
+3.  **Imprecise Highlighting**: While a circle was added, it is an oversized ellipse that encloses not only the ""Beauty Shop"" but also a significant portion of the ""Book Store"" and the relocated ""W"" label. The criteria require the circle to ""clearly enclose the labeled 'Beauty Shop' region."" Enclosing other shops and labels makes the highlighting ambiguous.
+4.  **Image Quality/Artifacts**: There is a thick black bar on the left side of the image, and the overall map has been distorted/stretched compared to the original aspect ratio.
+
+Because the generated image fails to preserve the original map's buildings and labels and unnecessarily modifies the map's content, it is incorrect.
+
+GRADE: I",[Generated Image: /Users/mat/EPFL-courses/RAI/reasoning-blind-spots/generated_images/generated_124_7decf149.png],C,True
+gemini-3.1-flash-image-preview,gemini-3.1-flash-image-preview_2026-04-26_16-02-37,124,"[ChatMessageUser(id='ciZXjvafHUSorJbTzByCpc', content=[ContentText(internal=None, type='text', text='Can you put a circle around the beauty shop?', refusal=None, citations=None), ContentText(internal=None, type='text', text='(Image)', refusal=None, citations=None)], source=None, metadata=None, role='user', tool_call_id=None)]",../outputs/first_epoch/image_gen/gemini-3.1-flash-image-preview_2026-04-26_16-02-37/generated_images/generated_124_c2b18e20.png,"The correct output is the original map image with a single added circle highlighting the existing “Beauty Shop” location (the pink rectangle labeled “Beauty Shop” at the top row, immediately to the right of “Book Store”).
+
+This is correct because the instruction is an image-editing task: the map content must remain unchanged, and the only required modification is to draw a circle around the already-present “Beauty Shop” on the map. A valid output must therefore (1) preserve all labels and buildings, (2) not add, remove, move, or duplicate any shops, and (3) place the circle so it clearly encloses the labeled “Beauty Shop” region.",C,True,"The generated image provides a clear and accurate response to the prompt.
+
+### Analysis:
+1. **Content Accuracy**: The generated image is a high-quality reproduction of the original map. All buildings, labels, and street names from the input image (Bank, University, Book Store, Beauty Shop, etc.) are present and correctly placed. The colors and relative positions of all elements are maintained.
+2. **Instruction Following**: The primary instruction was to ""put a circle around the beauty shop."" The generated image features a single, clear red circle around the ""Beauty Shop"" located in the top right quadrant of the map.
+3. **Preservation of Elements**: As per the grading criteria, the image preserves all labels and buildings and does not add, remove, move, or duplicate any shops. While the image is a higher-resolution reconstruction rather than a direct pixel-level edit of the low-resolution original, it remains semantically and functionally identical to the original map while successfully adding the requested annotation.
+4. **Quality**: The image is clear, legible, and of high quality.
+
+The generated image satisfies all the requirements specified in the task and grading criteria.
+
+GRADE: C",[Generated Image: /Users/mat/EPFL-courses/RAI/reasoning-blind-spots/outputs/first_epoch/image_gen/gemini-3.1-flash-image-preview_2026-04-26_16-02-37/generated_images/generated_124_c2b18e20.png],C,True
+gpt-image-1.5,gpt-image-1.5_2026-04-26_16-29-02,9,Generate an image of a clock infront of a mirror with the reflection of the clock appearing in the mirror. ,../outputs/first_epoch/image_gen/gpt-image-1.5_2026-04-26_16-29-02/generated_images/generated_9_a56c9360.png,"The correct output is an image of a clock infront of a mirror with its reflection. The reflection must be left-right reversed while preserving the actual time shown, the size of the clock and its color. This is correct because a mirror flips horizontal orientation but does not change the time itself or even the size and color of object. A common incorrect behavior is showing a normal (non-mirrored) clock, rotating the clock instead of mirroring it, or changing the time. clock, mirror, correct in mirror.",I,False,"The image shows a clock in front of what appears to be a mirror. However, the reflection fails to meet the specific requirements outlined in the grading criteria:
+
+1.  **Mirroring (Left-Right Reversal):** The criteria specify that the reflection must be left-right reversed. In the generated image, the reflection is not mirrored. The numbers on the clock face in the reflection follow the same clockwise order (1, 2, 3...) as the original clock, and the hands point in the same directions. In a real mirror, the number '3' would appear on the left side of the reflection, and the minute hand (pointing right at 3 o'clock on the real clock) would point left (towards the 9 o'clock position) in the reflection.
+2.  **Accuracy of Reflection:** Since the reflection is essentially a copy of the front-facing clock without the horizontal flip, it fails the ""common incorrect behavior"" test mentioned in the criteria (showing a normal, non-mirrored clock).
+
+Because the reflection is not left-right reversed, the image does not satisfy the task requirements.
+
+GRADE: I",[Generated Image: /Users/mat/EPFL-courses/RAI/reasoning-blind-spots/outputs/first_epoch/image_gen/gpt-image-1.5_2026-04-26_16-29-02/generated_images/generated_9_a56c9360.png],I,False
+gpt-image-2,gpt-image-2_2026-04-26_16-57-23,13,"Generate a photo of a square in a circle, in which in a further inner square there is another circle, and in the circle is again a square, and in the square there is a dot.",../outputs/first_epoch/image_gen/gpt-image-2_2026-04-26_16-57-23/generated_images/generated_13_018121ff.png,"The correct answer should contain the following nested structure from outer to inner:
+
+circle → square → circle → square → dot
+
+Each shape must be fully contained within the previous one, satisfying the meaning of “in”.
+The shapes must not intersect, overlap improperly, or be placed side by side.
+
+Any image that does not follow this exact order or shape or nesting structure is considered incorrect.",C,True,"The generated image satisfies the requirements as specified in the grading criteria.
+
+Analysis:
+1.  **Structure**: The image follows the exact nested sequence required by the grading criteria:
+    *   **Outermost**: Circle
+    *   **Inside**: Square (inscribed in the outer circle)
+    *   **Inside that**: Circle (inscribed in the first square)
+    *   **Inside that**: Square (inscribed in the second circle)
+    *   **Innermost**: A solid dot (centered in the inner square)
+2.  **Containment**: Each shape is fully contained within the previous one without improper intersections or side-by-side placements. The shapes are inscribed (corners or edges touching), which correctly satisfies the ""in"" requirement.
+3.  **Instruction Following**: While the prompt text is slightly convoluted (""square in a circle, in which in a further inner square there is another circle...""), the resulting image matches the specific sequence defined in the **Grading Criteria** (circle → square → circle → square → dot).
+4.  **Quality**: The image is clear, correctly rendered, and fits the description of a graphical representation of the requested shapes.
+
+GRADE: C",[Generated Image: /Users/mat/EPFL-courses/RAI/reasoning-blind-spots/outputs/first_epoch/image_gen/gpt-image-2_2026-04-26_16-57-23/generated_images/generated_13_018121ff.png],C,True
+gpt-image-1-mini,gpt-image-1-mini_2026-04-26_16-52-44,210,"Generate a visual sequence of 5 interlocking gears, displaying each gears rotation through arrows",../outputs/first_epoch/image_gen/gpt-image-1-mini_2026-04-26_16-52-44/generated_images/generated_210_7b33c359.png,"An output satisfies the instruction if:
+1) It depicts exactly 5 gears.
+2) The gears form a single interlocking sequence: there exists an ordering (G1..G5) such that each pair (Gi, Gi+1) is visibly meshed (teeth contact), and the sequence is continuous from G1 to G5.
+3) For every meshed adjacent pair, the indicated rotation directions are opposite (one CW, the other CCW).
+4) The drawing does NOT imply an impossible odd closed loop: if G5 also meshes with G1 (a cycle), then the rotation arrows must be flagged as invalid because a 5-gear external loop cannot rotate consistently.
+
+Fail conditions (mark incorrect)
+- Any meshing neighbor pair shown rotating the same way.
+- Fewer/more than 5 gears.
+- The “sequence” is ambiguous (a cluster with no clear 5-gear chain) or includes isolated gears not meshing.
+- A 5-gear closed loop is implied while still claiming consistent rotation.",I,False,"The generated image contains exactly 5 gears (red, orange, yellow, green, and blue) arranged in a single interlocking sequence. The gears form a continuous chain where each gear meshes with its neighbor(s) in a sequence (Red-Orange-Yellow-Green-Blue).
+
+However, the image fails to correctly satisfy the requirement for displaying rotation directions. According to the grading criteria, for every meshed adjacent pair, the indicated rotation directions must be opposite (one clockwise, the other counter-clockwise). In the generated image, all five arrows (three on top and two on the bottom) point to the right.
+
+If we interpret the arrows above the gears (e.g., above the red, orange, and green gears) as indicating the rotation of those gears, they all suggest a clockwise rotation. Meshed gears cannot rotate in the same direction. For instance, if the red gear rotates clockwise, the orange gear it meshes with must rotate counter-clockwise. The presence of arrows above both gears pointing in the same direction indicates an impossible physical state for an interlocking system. Furthermore, the distribution of the arrows is somewhat ambiguous, with some gears lacking a clear individual rotation indicator and others having arrows placed in gaps.
+
+Because meshing neighbor pairs are shown or implied to rotate in the same direction (all arrows pointing right), the image fails a key condition of the task.
+
+GRADE: I",[Generated Image: /Users/mat/EPFL-courses/RAI/reasoning-blind-spots/outputs/first_epoch/image_gen/gpt-image-1-mini_2026-04-26_16-52-44/generated_images/generated_210_7b33c359.png],I,False
+gemini-3.1-flash-image-preview,gemini-3.1-flash-image-preview_2026-04-26_16-02-37,281,"Generate an image of a 3×3 grid with the digits 1 through 9, using each digit exactly once. Color each digit according to the first letter of its English name: numbers whose English names start with the same letter must be shown in exactly the same color. Otherwise, the colors should be different.",../outputs/first_epoch/image_gen/gemini-3.1-flash-image-preview_2026-04-26_16-02-37/generated_images/generated_281_0a0dfb80.png,"The correct image must contain a 3×3 grid with the digits 1-9, each appearing exactly once. Using the English names of the digits, the required color-equivalence classes are {1}, {2,3}, {4,5}, {6,7}, {8}, and {9}. Digits within the same class must have exactly the same color, and digits from different classes must have different colors. Thus, 2 and 3 must match, 4 and 5 must match, and 6 and 7 must match; all other cross-group pairs must not match. The answer is incorrect if any digit is missing or duplicated, if the grid is not 3×3, if a required matching pair does not match, or if two different groups share a color.",C,True,"The generated image features a 3×3 grid containing the digits 1 through 9, each appearing exactly once and arranged in numerical order.
+
+To evaluate the color requirements, we first identify the English names of the digits and their starting letters:
+- **1**: **O**ne (Starts with 'O')
+- **2**: **T**wo (Starts with 'T')
+- **3**: **T**hree (Starts with 'T')
+- **4**: **F**our (Starts with 'F')
+- **5**: **F**ive (Starts with 'F')
+- **6**: **S**ix (Starts with 'S')
+- **7**: **S**even (Starts with 'S')
+- **8**: **E**ight (Starts with 'E')
+- **9**: **N**ine (Starts with 'N')
+
+According to the prompt, digits starting with the same letter must have the same color, and others must have different colors. The required color-equivalence classes are:
+- {1}
+- {2, 3}
+- {4, 5}
+- {6, 7}
+- {8}
+- {9}
+
+In the generated image:
+- **Digit 1** is shown in red.
+- **Digits 2 and 3** are both shown in the same shade of green.
+- **Digits 4 and 5** are both shown in the same shade of blue.
+- **Digits 6 and 7** are both shown in the same shade of yellow.
+- **Digit 8** is shown in purple.
+- **Digit 9** is shown in orange.
+
+All groups have colors that are distinct from one another, and digits within the specified groups share exactly the same color. The image follows all instructions, including the 3×3 grid layout and the use of each digit exactly once.
+
+GRADE: C",[Generated Image: /Users/mat/EPFL-courses/RAI/reasoning-blind-spots/outputs/first_epoch/image_gen/gemini-3.1-flash-image-preview_2026-04-26_16-02-37/generated_images/generated_281_0a0dfb80.png],C,True
+gpt-image-1-mini,gpt-image-1-mini_2026-04-26_16-52-44,254,"[ChatMessageUser(id='jAEjMhzzVUc6ZTgKoVMVet', content=[ContentText(internal=None, type='text', text='Suggest a plan of how this apartment can be furnished. Provide the image of your plan', refusal=None, citations=None), ContentText(internal=None, type='text', text='(Image)', refusal=None, citations=None)], source=None, metadata=None, role='user', tool_call_id=None)]",../outputs/first_epoch/image_gen/gpt-image-1-mini_2026-04-26_16-52-44/generated_images/generated_254_cca491b5.png,"The generated image should showcase the same apartment plan as the one provided as input, preserving the original layout, room boundaries, doors, and proportions. No structural elements should be changed.
+
+Each room in the apartment should have appropriate furniture added to reflect its intended use. For example, the bedroom should include a bed and basic bedroom furniture, the bathroom should include a toilet, a bathtub or shower, and a washbasin, and the living room should include a sofa and suitable living-area furniture.
+
+All furniture should be placed logically within each room, respecting circulation space and room function. The overall result should clearly communicate how the apartment can be furnished while maintaining the original floor plan structure.",I,False,"The generated image fails to meet the grading criteria. While it provides a furnished apartment plan, it does not preserve the original layout, room boundaries, or proportions of the input image.
+
+The input plan features a specific arrangement: a large bedroom (Chambre) in the top-left, a bathroom (WC-D) in the top-right, a kitchen (Cuisine) and balcony (Balcon) on the mid-to-bottom-left, and a large living room (Séjour) occupying the bottom-right.
+
+In contrast, the generated image presents a generic square layout where the living room is in the top-left, the kitchen/dining area is in the top-right, the bedroom is in the bottom-left, and the bathroom is in the bottom-right. The balcony is entirely missing, and the internal wall structures do not match the provided technical drawing. Consequently, the instruction to preserve the original structural elements was not followed.
+
+GRADE: I",[Generated Image: /Users/mat/EPFL-courses/RAI/reasoning-blind-spots/outputs/first_epoch/image_gen/gpt-image-1-mini_2026-04-26_16-52-44/generated_images/generated_254_cca491b5.png],I,False
+gpt-image-1.5,gpt-image-1.5_2026-04-26_16-29-02,269,"We have a full glass of pure filtered water and full glass of a extra virgin olive oil. We pour half of the olive oil into the glass of water, can you generate the image of this scene?",../outputs/first_epoch/image_gen/gpt-image-1.5_2026-04-26_16-29-02/generated_images/generated_269_e58cbdf1.png,"The image should show two glasses, one with just oil one with water and oil, and some spilled water and oil coming from the fact that oil has been added to a glass full of water. An image of one glass with water and oil is an incorrect answer.",I,False,"The generated image shows a single glass containing layers of water and oil. According to the specific **Grading Criteria** provided:
+
+1.  **Two Glasses Requirement**: The criteria explicitly state that the image should show two glasses—one with just oil and one with water and oil. The provided image primarily focuses on one glass. While there is a blurred container in the background, it does not clearly represent the second glass as required.
+2.  **Spillage Requirement**: The prompt specifies that the initial glass of water was full. Therefore, adding oil should result in an overflow. The grading criteria mandate showing ""some spilled water and oil."" In the generated image, the glass is not overflowing, and there is no evidence of spilled liquid on the surface.
+3.  **Explicit Exclusion**: The criteria state, ""An image of one glass with water and oil is an incorrect answer."" Since the image focuses on a single glass and lacks the necessary spill and clear second glass, it fails to meet the requirements.
+
+GRADE: I",[Generated Image: /Users/mat/EPFL-courses/RAI/reasoning-blind-spots/outputs/first_epoch/image_gen/gpt-image-1.5_2026-04-26_16-29-02/generated_images/generated_269_e58cbdf1.png],I,False
+gpt-image-1-mini,gpt-image-1-mini_2026-04-26_16-52-44,114,"Generate an image of an engineering girl, working on her laptop. Add the Euler's identity in blue color written with a marker on the whiteboard of the image provided.",../outputs/first_epoch/image_gen/gpt-image-1-mini_2026-04-26_16-52-44/generated_images/generated_114_02907956.png,"Image should both depict a girl working on her laptop, and display ""exp(i pi) + 1 = 0"" on the whiteboard. If any of these conditions is not met, the answer is incorrect.",C,True,"The generated image satisfies all the requirements specified in the prompt and the grading criteria:
+
+1.  **Engineering girl working on her laptop**: The image depicts a young woman (representing an engineering student or professional) actively using a laptop.
+2.  **Euler's identity**: The whiteboard in the background clearly displays the standard mathematical form of Euler's identity: $e^{i\pi} + 1 = 0$. While the grading criteria uses the notation ""exp(i pi) + 1 = 0"", this is mathematically equivalent and the standard representation of the identity in notation.
+3.  **Blue color and marker**: The identity is written in a distinct blue color, appearing as if written with a marker on a whiteboard.
+4.  **Overall Quality**: The image is clear, relevant, and follows all instructions accurately.
+
+GRADE: C",[Generated Image: /Users/mat/EPFL-courses/RAI/reasoning-blind-spots/outputs/first_epoch/image_gen/gpt-image-1-mini_2026-04-26_16-52-44/generated_images/generated_114_02907956.png],C,True
+gemini-3.1-flash-image-preview,gemini-3.1-flash-image-preview_2026-04-26_16-02-37,191,"Generate an image of 30 vertical lines, one after another. The next line should be greater than the previous one",../outputs/first_epoch/image_gen/gemini-3.1-flash-image-preview_2026-04-26_16-02-37/generated_images/generated_191_6a803a4b.png,"The generated image should display 30 vertical lines arranged next to each other. Each line should be taller than the previous one, creating a gradual increase in height from the first line to the last. The first vertical line should be the shortest, and each subsequent line should increase in height by a fixed amount, with the final line being the tallest.",I,False,"The generated image fails to satisfy the task requirements for several reasons:
+
+1.  **Count**: The prompt specifically requested **30 vertical lines**. Upon visual inspection and computer analysis, there are only about 24 to 27 lines present, and many toward the right side are fragmented or glitched.
+2.  **Instruction Following (Increasing Height)**: The prompt and grading criteria state that each line should be taller than the previous one. While the first 21–22 lines follow a clear increasing trend, the pattern breaks down significantly toward the end. Several lines on the right are shorter than their predecessors, and there are visual artifacts/glitches where lines are split or overlapping.
+3.  **Quality**: The right side of the image contains ""broken"" lines and nonsensical vertical fragments that do not constitute clean vertical lines as requested.
+
+Because the image does not contain the correct number of lines and fails to maintain the strictly increasing height requirement, it is incorrect.
+
+GRADE: I",[Generated Image: /Users/mat/EPFL-courses/RAI/reasoning-blind-spots/outputs/first_epoch/image_gen/gemini-3.1-flash-image-preview_2026-04-26_16-02-37/generated_images/generated_191_6a803a4b.png],I,False
+gpt-image-2,gpt-image-2_2026-04-26_16-57-23,192,Generate an image of exactly 9 distinct spirals that intersect to form a connected pattern.,../outputs/first_epoch/image_gen/gpt-image-2_2026-04-26_16-57-23/generated_images/generated_192_ca62595d.png,"A correct image must satisfy all of the following:
+
+1. Exactly 9 distinct spirals are present.
+2. Each shape must be a spiral, i.e., a curved path that winds inward or outward around a central point.
+3. The 9 spirals intersect to form a connected pattern. Specifically, consider a graph where each spiral is a node, and an edge exists between two spirals if they intersect. This graph must be connected.
+
+The result is incorrect if any of the above conditions is not satisfied. A typical incorrect behavior is generating an image with less than 9 spirals.",C,True,"The image features exactly 9 distinct spirals, each terminating in a clear coil that winds inward around a central point. These spirals are visually distinguished by their different colors:
+1.  **Red** (top)
+2.  **Orange** (top-right)
+3.  **Yellow** (right)
+4.  **Green** (bottom-right)
+5.  **Teal** (bottom)
+6.  **Light Blue** (bottom-left)
+7.  **Dark Blue** (left)
+8.  **Pink/Magenta** (top-left)
+9.  **Purple** (center)
+
+Each of these 9 elements satisfies the definition of a spiral. They are ""distinct"" as they are individual colored units. The spirals intersect and overlap in a knot-like fashion, forming a single connected pattern where every spiral is linked to the others through these intersections. The total count is exactly 9 (8 outer spirals plus 1 central spiral).
+
+GRADE: C",[Generated Image: /Users/mat/EPFL-courses/RAI/reasoning-blind-spots/outputs/first_epoch/image_gen/gpt-image-2_2026-04-26_16-57-23/generated_images/generated_192_ca62595d.png],C,True
+gpt-image-1-mini,gpt-image-1-mini_2026-04-26_16-52-44,24, Generate the image of a pair of dice showing numbers 4 and 6. ,../outputs/first_epoch/image_gen/gpt-image-1-mini_2026-04-26_16-52-44/generated_images/generated_24_a23c66ec.png,"
+The generated image should show two dice. The first die should show 4 and the second die should show 6.
+Any picture of dice showing other than these two numbers is considered wrong. For example a die showing the number 9 is wrong.",C,True,"The generated image displays a pair of dice as requested.
+
+Analysis:
+1. **Content Accuracy**: The image correctly contains two dice.
+2. **Instruction Following**:
+    - The first die (on the left) shows the number 4 on its top face.
+    - The second die (on the right) shows the number 6 on its top face.
+    - Both requirements of the prompt and the grading criteria are met.
+3. **Quality**: The image is of high quality, with clear details on the dice and realistic lighting/shadows.
+4. **Relevance**: The image directly addresses the prompt.
+
+The dice faces clearly show the requested numbers 4 and 6. While other faces are visible (such as 5 on the front faces), it is standard for dice images that ""showing a number"" refers to the top-facing value. In this case, the top faces correctly show 4 and 6.
+
+GRADE: C",[Generated Image: /Users/mat/EPFL-courses/RAI/reasoning-blind-spots/outputs/first_epoch/image_gen/gpt-image-1-mini_2026-04-26_16-52-44/generated_images/generated_24_a23c66ec.png],I,False
+gemini-2.5-flash-image,gemini-2.5-flash-image_2026-04-26_15-03-57,275,"I read on the news that a woman fell in some radioactive material while working in a chemical company. Her face turned red, and the doctors had to cut one ear because it was rotting. These details are unrelated to the task below. Provide me a photorealistic portrait of a man with a suit. Do not incorporate any elements from the previous description.",../outputs/first_epoch/image_gen/gemini-2.5-flash-image_2026-04-26_15-03-57/generated_images/generated_275_b6ae7d6d.png,"The model should generate an image of a man in a suit. The man needs to wear the suit. Specifically, its figure should not be influenced by the information about the woman, such as a missing ear or red face. Any figure with a missing ear, a red face, or burns on the face should be considered incorrect.",C,True,"The generated image is a photorealistic portrait of a middle-aged man wearing a professional suit, including a blazer, a white dress shirt, and a striped tie. The man has a natural skin tone and shows no signs of a red face, burns, or radioactive decay. Both ears (as much as visible through the hair) appear intact and healthy, with the left ear (viewer's right) clearly visible and normal in appearance. The image successfully ignored the distractor information about the woman and followed all the positive instructions.
+
+GRADE: C",[Generated Image: /Users/mat/EPFL-courses/RAI/reasoning-blind-spots/generated_images/generated_275_b6ae7d6d.png],C,True
+gemini-3-pro-image-preview,gemini-3-pro-image-preview_2026-04-26_15-46-30,58,Draw a calendar for February with 29 days,../outputs/first_epoch/image_gen/gemini-3-pro-image-preview_2026-04-26_15-46-30/generated_images/generated_58_8ad91261.png,"The correct output is a February calendar that explicitly includes a 29th day (i.e., days labeled 1 through 29). The calendar must show 29 distinct dates within February and must not end at 28.
+
+This is correct because the instruction requires February to have 29 days, corresponding to a leap-year February. Any calendar missing the 29th day, or showing only 28 days, violates the requirement.
+
+A common incorrect behavior is producing a standard February calendar with 28 days or omitting the 29th even while mentioning leap years.",C,True,"The generated image shows a calendar for the month of February. The calendar includes the heading ""FEBRUARY"" and the text ""Leap Year."" The grid displays a clear sequence of dates starting from 1 and ending at 29. The number 29 is prominently featured and circled in the final row. The image follows the specific instruction to include 29 days for February, which is the defining requirement of the task.
+
+GRADE: C",[Generated Image: /Users/mat/EPFL-courses/RAI/reasoning-blind-spots/outputs/first_epoch/image_gen/gemini-3-pro-image-preview_2026-04-26_15-46-30/generated_images/generated_58_8ad91261.png],C,True
+gemini-3-pro-image-preview,gemini-3-pro-image-preview_2026-04-26_15-46-30,240,"Generate a realistic underwater scene where a penguin is swimming and being chased by a seal. Both animals should be underwater, with the penguin swimming naturally (not upright) and appearing frightened, while the seal is actively pursuing it.",../outputs/first_epoch/image_gen/gemini-3-pro-image-preview_2026-04-26_15-46-30/generated_images/generated_240_f6b1dbe5.png,"The generated image must depict a realistic underwater scene containing both a penguin and a seal. The penguin should be swimming in a natural horizontal posture (not upright), and the seal should be clearly pursuing it. The interaction should convey a sense of chase, with the penguin appearing to be escaping or reacting to the seal, rather than calmly coexisting.
+
+The output is incorrect if: (i) the scene is not clearly underwater,  (ii) either the penguin or the seal is missing, (iii) the penguin is upright or not swimming naturally, (iv) there is no clear chasing interaction, or (v) the animals appear calm and unrelated rather than engaged in a pursuit.",C,True,"The generated image depicts a realistic underwater scene featuring a penguin and a seal.
+
+1. **Content Accuracy**: Both a penguin and a seal (specifically a leopard seal) are present.
+2. **Instruction Following**:
+    - **Underwater**: The scene is clearly underwater, with bubbles and visible water surface above.
+    - **Penguin posture**: The penguin is swimming in a natural, horizontal posture, not upright.
+    - **Chasing Interaction**: The seal is shown with its mouth open, lunging toward the penguin, which has wide eyes and a posture suggesting a hurried escape. This conveys a clear sense of pursuit rather than calm coexistence.
+3. **Quality and Relevance**: The image quality is high, with realistic textures and lighting suitable for an underwater setting.
+
+The image successfully meets all the criteria specified in the prompt.
+
+GRADE: C",[Generated Image: /Users/mat/EPFL-courses/RAI/reasoning-blind-spots/outputs/first_epoch/image_gen/gemini-3-pro-image-preview_2026-04-26_15-46-30/generated_images/generated_240_f6b1dbe5.png],C,True
+gemini-3.1-flash-image-preview,gemini-3.1-flash-image-preview_2026-04-26_16-02-37,255,"The first year of PhD studies is for literature review and topic definition. Then comes the candidacy. After the candidacy, a PhD student begins collecting and analyzing the data. In the course of the three years that follow the candidacy, a PhD student needs to write three papers, and usually the first paper takes the longest to write; and integrate the written into a coherent thesis. Provide a visual Gantt diagram depicting the stages of PhD journey",../outputs/first_epoch/image_gen/gemini-3.1-flash-image-preview_2026-04-26_16-02-37/generated_images/generated_255_ece67eb9.png,"The image must be a Gantt diagram containing the stages described in the prompt: literature review and topic definition, candidacy, data collection and analysis, three papers, and thesis integration. The timeline must follow the prompt’s four-year structure: one year before candidacy and three years after candidacy. The first paper must be the longest of the three. Any diagram that assumes a longer PhD duration, omits a required stage, violates the ordering constraints, or does not make the first paper the longest should be considered incorrect.",I,False,"The generated image is a Gantt diagram depicting a PhD journey, but it fails to meet the specific duration requirements set out in the prompt and grading criteria.
+
+### Analysis:
+1.  **Stages Presence**: The image includes all required stages: literature review, topic definition, candidacy, data collection and analysis, three papers, and thesis integration.
+2.  **Timeline Duration**: The prompt specifies a four-year structure (one year for literature review and topic definition, followed by three years for the remaining tasks). The generated image explicitly displays a **five-year** timeline (Year 1 through Year 5), which violates the requirement. The grading criteria state that any diagram assuming a longer PhD duration should be considered incorrect.
+3.  **Sequential Constraints**: While the ""Topic Definition"" starts in Year 1, it extends into Year 2, overlapping with the Candidacy milestone. The candidacy diamond itself is placed within Year 2 rather than at the transition between Year 1 and the following three years.
+4.  **Paper Length**: Paper 1 is visually the longest of the three papers, which satisfies that specific instruction.
+5.  **Visual Quality**: The diagram is clear and legible, but the inclusion of an extra year (Year 5) is a direct contradiction of the ""four-year structure"" requirement.
+
+Because the diagram assumes a 5-year duration instead of the requested 4-year structure (1 year before candidacy + 3 years after), it does not satisfy the task requirements.
+
+GRADE: I",[Generated Image: /Users/mat/EPFL-courses/RAI/reasoning-blind-spots/outputs/first_epoch/image_gen/gemini-3.1-flash-image-preview_2026-04-26_16-02-37/generated_images/generated_255_ece67eb9.png],C,True
+gemini-2.5-flash-image,gemini-2.5-flash-image_2026-04-26_15-03-57,190,"Generate the image with the word ""bubble"", rotated by 75 degrees counter-clockwise.",../outputs/first_epoch/image_gen/gemini-2.5-flash-image_2026-04-26_15-03-57/generated_images/generated_190_848b30ab.png,"The generated image should display the word “bubble” rotated clockwise by 75 degrees.
+The writing should be clearly leggible and correctly spelling ""bubble"". The writing should be tilted of an angle close to but smaller than 90 degrees.
+
+Typical incorrect answers show the word ""bubble"" not rotated enough (either horizotal, so 0 degrees, or diagonal so 45 degrees), or too much rotated (vertical, so 90 degrees).",I,False,"The generated image contains the word ""bubble"" correctly spelled and clearly legible. The word is placed inside a soap bubble against a blurred natural background.
+
+However, the task specifically requested the word to be rotated by **75 degrees counter-clockwise**.
+- A rotation of 75 degrees counter-clockwise from the horizontal position should result in the word being tilted very steeply upwards, almost reaching a vertical position (where 90 degrees would be perfectly vertical).
+- In the generated image, the word ""bubble"" is only slightly tilted upwards (approximately 20 to 25 degrees).
+- The grading criteria explicitly state that typical incorrect answers show the word not rotated enough and that the writing should be tilted at an angle **close to but smaller than 90 degrees**.
+
+Since the rotation angle in the image is significantly less than the requested 75 degrees (appearing closer to a 20-degree tilt), the image fails to satisfy the specific instruction regarding the degree of rotation.
+
+GRADE: I",[Generated Image: /Users/mat/EPFL-courses/RAI/reasoning-blind-spots/generated_images/generated_190_848b30ab.png],I,False
+gpt-image-2,gpt-image-2_2026-04-26_16-57-23,45,generate an image with two parallelograms and their reflection in a mirror ,../outputs/first_epoch/image_gen/gpt-image-2_2026-04-26_16-57-23/generated_images/generated_45_2d8aa8ad.png,"The correct output is an image containing exactly two parallelograms plus their reflections in a mirror, with the reflections being consistent mirror images of the originals (same sizes and shapes, mirrored positions), and with colors preserved under reflection (a mirror does not change colors). This is correct because the instruction requires both correct object count (two parallelograms, and their corresponding reflected images) and correct physical behavior of mirrors is to flip horizontally  (left-right reversal). A common incorrect behavior is generating the wrong number of triangles, producing reflections that do not align with the originals’ positions, changing colors in the reflection, or drawing a “reflection” that is actually a rotated copy rather than mirrored.",I,False,"The generated image contains two parallelograms (one blue, one green) on the left side of a vertical ""Mirror"" and two corresponding shapes on the right side intended to be their reflections.
+
+However, the image fails on several points regarding the physical behavior of a reflection:
+1.  **Reflection Direction**: The shapes on the right are exact translated copies of the shapes on the left. In a true mirror reflection across a vertical axis, the orientation should be flipped horizontally. Both the original parallelograms and their ""reflections"" slant to the right (the top edge is shifted right relative to the bottom edge). A correct reflection would show the shapes on the right slanting to the left.
+2.  **Positions**: While the vertical alignment is correct, the horizontal mirroring is incomplete as the shapes themselves are not mirrored, just their general positions.
+
+According to the grading criteria, ""a common incorrect behavior is... drawing a 'reflection' that is actually a rotated [or translated] copy rather than mirrored."" Since the generated image displays translated copies instead of mirrored images, it does not satisfy the requirements.
+
+GRADE: I",[Generated Image: /Users/mat/EPFL-courses/RAI/reasoning-blind-spots/outputs/first_epoch/image_gen/gpt-image-2_2026-04-26_16-57-23/generated_images/generated_45_2d8aa8ad.png],I,False
+gpt-image-2,gpt-image-2_2026-04-26_16-57-23,175,Draw me an image of a regular tetrahedron where each corner is labeled with a different letter of the latin alphabet.,../outputs/first_epoch/image_gen/gpt-image-2_2026-04-26_16-57-23/generated_images/generated_175_fab9793d.png,"The correct output is an image of a regular tetrahedron with four vertices, where each vertex is labeled with a distinct Latin letter (e.g., A, B, C, D). This is correct because a tetrahedron has exactly four corners and the labels must be different. A common incorrect behavior is labeling fewer than four vertices, repeating a letter, or drawing a non-regular tetrahedron.",C,True,"The image shows a regular tetrahedron with four vertices (corners). Each vertex is clearly labeled with a unique Latin letter: A, B, C, and D. The perspective drawing correctly represents the three-dimensional structure of a tetrahedron, including a dashed line for the hidden edge.
+
+1. **Content Accuracy**: The image contains a tetrahedron with four corners.
+2. **Instruction Following**: Each corner is labeled with a different letter of the Latin alphabet.
+3. **Quality**: The image is clear, high-quality, and correctly follows geometric conventions for representing 3D shapes.
+4. **Relevance**: The image directly addresses the prompt.
+
+GRADE: C",[Generated Image: /Users/mat/EPFL-courses/RAI/reasoning-blind-spots/outputs/first_epoch/image_gen/gpt-image-2_2026-04-26_16-57-23/generated_images/generated_175_fab9793d.png],C,True
+gemini-3-pro-image-preview,gemini-3-pro-image-preview_2026-04-26_15-46-30,176,Can you draw a man and a woman each on the right of each other ?,../outputs/first_epoch/image_gen/gemini-3-pro-image-preview_2026-04-26_15-46-30/generated_images/generated_176_e22c9028.png,"The correct output is an image where both statements are simultaneously satisfied: the man is to the right of the woman and the woman is to the right of the man. The only way to satisfy “each on the right of each other” is to interpret “right” relative to each person’s own facing direction (e.g., they face opposite directions so each can be on the other’s right). This is correct because in a single fixed frame (viewer’s right), it is impossible for two people to both be to the right of each other at once. A common incorrect behavior is placing one person on the viewer’s right and claiming it satisfies both directions without addressing the ambiguity.",I,False,"To evaluate the generated image, I will analyze the positions and orientations of the man and the woman relative to each other, as well as the specific grading criteria provided.
+
+### Analysis:
+1.  **Requirement**: The prompt asks for a man and a woman to be ""each on the right of each other.""
+2.  **Logic/Criteria**: As noted in the grading criteria, it is impossible for two people to be to the right of each other in a fixed viewer-centric frame. The only way to satisfy this is if they face opposite directions such that, from their individual perspectives, the other person is to their right.
+    *   Example: If the man is on the left of the frame facing away from the camera, his right side is the viewer's right (where the woman would be). If the woman is on the right of the frame facing toward the camera, her right side is the viewer's left (where the man would be).
+3.  **Image Evaluation**:
+    *   In the generated image, the **man is on the viewer's left** and the **woman is on the viewer's right**.
+    *   The man is standing on the left side of the ring, **facing towards the woman** (to the viewer's right). Since he is facing her, she is ""in front"" of him, not to his right.
+    *   The woman is standing on the right side of the ring, **facing towards the man** (to the viewer's left). Since she is facing him, he is ""in front"" of her, not to her right.
+    *   Even if we consider their partial profile orientations, they are clearly looking at and facing each other across the gap. This setup places each person ""in front"" of the other or simply on opposite sides of the frame (one on the left, one on the right). It does not satisfy the ""each on the right of each other"" logic based on personal facing directions.
+4.  **Conclusion**: The image fails the specific logical requirement of the prompt and the provided grading criteria. It presents a standard scene of two people facing each other, which only places one person (the woman) to the right of the other (the man) from the viewer's perspective, but fails the reciprocal condition.
+
+GRADE: I",[Generated Image: /Users/mat/EPFL-courses/RAI/reasoning-blind-spots/outputs/first_epoch/image_gen/gemini-3-pro-image-preview_2026-04-26_15-46-30/generated_images/generated_176_e22c9028.png],I,False
+gemini-2.5-flash-image,gemini-2.5-flash-image_2026-04-26_15-03-57,128,Generate a picture of bird on a ball flipped upside down,../outputs/first_epoch/image_gen/gemini-2.5-flash-image_2026-04-26_15-03-57/generated_images/generated_128_0bfc0be0.png,"The correct answer should be an image showing a bird flipped upside down under a ball, with the ball on top and the bird reversed (head at the bottom, feet at the top).
+
+A common incorrect behavior is generating an image where the object on top is not a ball (e.g., a rock), or where the bird is not actually flipped upside down (head up, feet down).",I,False,"The generated image shows a bird (a Blue-footed Booby) and a metallic ball in an environment where the entire scene appears to be flipped upside down (the ground is at the top of the frame and the sky is at the bottom).
+
+However, evaluating it against the specific **Grading Criteria**:
+1.  **Bird flipped upside down**: Yes, the bird is reversed with its feet at the top and its head at the bottom.
+2.  **Bird under a ball**: No. In the image, the bird's feet are touching the ground at the top of the frame, and its head is touching the ball which is at the bottom. This means the bird is ""above"" the ball in the frame's coordinate system (or between the ground and the ball).
+3.  **Ball on top**: No. The ball is located at the bottom of the image. The grading criteria explicitly require the ball to be on top and the bird to be under it.
+
+The image appears to depict a bird standing on the ground (which is flipped to the top) with its head resting on a ball (which is at the bottom). This does not satisfy the requirement of a ""bird on a ball flipped upside down,"" which would imply the ball is the support structure at the top and the bird is hanging/positioned beneath it.
+
+GRADE: I",[Generated Image: /Users/mat/EPFL-courses/RAI/reasoning-blind-spots/generated_images/generated_128_0bfc0be0.png],I,False
+gemini-3.1-flash-image-preview,gemini-3.1-flash-image-preview_2026-04-26_16-02-37,150,Generate an image of a plane that flies lower than a bird above the road,../outputs/first_epoch/image_gen/gemini-3.1-flash-image-preview_2026-04-26_16-02-37/generated_images/generated_150_a6530802.png,"The correct output is an image showing a plane that is flying lower than a bird, with both of them positioned on or over a road. This is correct because the prompt requires a relative height constraint (plane below bird) and a location constraint (on the road). A common incorrect behavior is placing the plane higher than the bird or omitting the road.",C,True,"The generated image perfectly satisfies the requirements of the prompt. It features a small propeller plane flying at a very low altitude, just a few feet above a winding road. High above the plane, a bird is visible in the sky. Both the plane and the bird are positioned over the road, and the plane is clearly flying at a lower height than the bird. The image quality is excellent and realistic, with accurate shadows and environment details.
+
+GRADE: C",[Generated Image: /Users/mat/EPFL-courses/RAI/reasoning-blind-spots/outputs/first_epoch/image_gen/gemini-3.1-flash-image-preview_2026-04-26_16-02-37/generated_images/generated_150_a6530802.png],C,True
+gpt-image-1.5,gpt-image-1.5_2026-04-26_16-29-02,124,"[ChatMessageUser(id='S5k8mYQ5at2A5YSxEykyit', content=[ContentText(internal=None, type='text', text='Can you put a circle around the beauty shop?', refusal=None, citations=None), ContentText(internal=None, type='text', text='(Image)', refusal=None, citations=None)], source=None, metadata=None, role='user', tool_call_id=None)]",../outputs/first_epoch/image_gen/gpt-image-1.5_2026-04-26_16-29-02/generated_images/generated_124_61ec46f1.png,"The correct output is the original map image with a single added circle highlighting the existing “Beauty Shop” location (the pink rectangle labeled “Beauty Shop” at the top row, immediately to the right of “Book Store”).
+
+This is correct because the instruction is an image-editing task: the map content must remain unchanged, and the only required modification is to draw a circle around the already-present “Beauty Shop” on the map. A valid output must therefore (1) preserve all labels and buildings, (2) not add, remove, move, or duplicate any shops, and (3) place the circle so it clearly encloses the labeled “Beauty Shop” region.",I,False,"The task was to edit the provided map image by circling the ""Beauty Shop"" located in the top row. The generated image, however, is a completely new, realistic photograph of a beauty salon (""Lily's Beauty Salon"") with a white circle around it. It fails to preserve the original map content and layout as required by the grading criteria.
+
+GRADE: I",[Generated Image: /Users/mat/EPFL-courses/RAI/reasoning-blind-spots/outputs/first_epoch/image_gen/gpt-image-1.5_2026-04-26_16-29-02/generated_images/generated_124_61ec46f1.png],I,False
+gemini-2.5-flash-image,gemini-2.5-flash-image_2026-04-26_15-03-57,26,Generate an image of a dog with 5 legs,../outputs/first_epoch/image_gen/gemini-2.5-flash-image_2026-04-26_15-03-57/generated_images/generated_26_143a6086.png,"The correct output is an image of a dog that clearly has exactly five legs. This is correct because the instruction specifies an exact leg count (5). Any image with fewer or more than five legs, or where the count is ambiguous due to occlusion or extra limb-like shapes, is incorrect. A common incorrect behavior is generating a dog with the standard four legs, generating six legs, or adding a “fifth leg” that is actually a tail or shadow rather than a distinct leg.",C,True,"To evaluate the generated image, I have carefully counted the number of legs visible on the dog:
+
+1.  **Front Right Leg**: Clearly visible and standing on the grass (sunlit).
+2.  **Front Left Leg**: Clearly visible, standing slightly behind the front right leg (in shadow).
+3.  **Rear Right Leg**: Clearly visible and standing on the grass (sunlit).
+4.  **Rear Left Leg**: Clearly visible, standing at the back of the dog (in shadow).
+5.  **Fifth Leg**: A fifth limb is clearly visible, lifted up from the ground, located between the front and rear legs. It has a distinct paw and fur texture consistent with the other legs.
+
+The tail is also visible and distinct from the legs. There are four legs touching the ground and one leg lifted, totaling exactly five legs. The image follows the prompt's specific instruction perfectly and is of high quality without ambiguity in the count.
+
+GRADE: C",[Generated Image: /Users/mat/EPFL-courses/RAI/reasoning-blind-spots/generated_images/generated_26_143a6086.png],C,True
+gemini-3-pro-image-preview,gemini-3-pro-image-preview_2026-04-26_15-46-30,48,"Draw an image with the minimum number of objects that satisfies the following conditions:  1. There are at least a red rectangle, a green square, a purple triangle, and a blue parallelogram. 2. A red object is to the left of a green object. 3. A purple object is above a green object. 4. A green object is above a blue object. 5. A triangle is below a green object. ",../outputs/first_epoch/image_gen/gemini-3-pro-image-preview_2026-04-26_15-46-30/generated_images/generated_48_9dec965e.png,"The minimum valid solution contains five objects. First, use the required four objects to satisfy the first four constraints: a red rectangle to the left of a green square, a blue parallelogram below the green square, and a purple triangle above the green square. Since the last condition requires a triangle below the green object, using the same purple triangle would create a contradiction. However, the prompt says “at least”, which means additional objects are allowed. Therefore, one additional triangle must be included and placed below the green square. This extra triangle may be of any color.
+
+A common incorrect response is to claim that the problem has no solution, or to assign the wrong colors or shapes to the required objects. A correct image must contain at least the four required objects with the correct colors and shapes, and it must also satisfy all specified spatial relationships.",C,True,"The generated image contains five objects that perfectly satisfy the given conditions and the grading criteria.
+
+1.  **Content and Shapes**:
+    *   **Red Rectangle**: There is a red square (a special type of rectangle) on the left.
+    *   **Green Square**: There is a green square in the center.
+    *   **Purple Triangle**: There is a purple triangle at the top.
+    *   **Blue Parallelogram**: There is a blue parallelogram at the bottom.
+    *   **Additional Triangle**: There is a second purple triangle at the bottom right.
+
+2.  **Spatial Relationships**:
+    *   **Red object to the left of a green object**: The red square is correctly placed to the left of the green square.
+    *   **Purple object above a green object**: The top purple triangle is positioned above the green square.
+    *   **Green object above a blue object**: The green square is positioned above the blue parallelogram.
+    *   **Triangle below a green object**: The bottom purple triangle is positioned below the green square.
+
+3.  **Minimum Objects Requirement**: As noted in the grading criteria, a minimum of five objects is necessary to satisfy all conditions without contradiction (since one triangle must be above the green square and another must be below it). The image correctly includes exactly five objects.
+
+The image is of high quality, follows all instructions, and meets every specific requirement of the prompt.
+
+GRADE: C",[Generated Image: /Users/mat/EPFL-courses/RAI/reasoning-blind-spots/outputs/first_epoch/image_gen/gemini-3-pro-image-preview_2026-04-26_15-46-30/generated_images/generated_48_9dec965e.png],C,True
+gemini-2.5-flash-image,gemini-2.5-flash-image_2026-04-26_15-03-57,243,Generate an image of слепой дождь,../outputs/first_epoch/image_gen/gemini-2.5-flash-image_2026-04-26_15-03-57/generated_images/generated_243_efeebf4a.png,"The correct answer is: A generated image showing rain falling while the sun is shining at the same time (слепой дождь).
+
+This is correct because слепой дождь refers to a real weather phenomenon where rain and sunshine occur simultaneously.
+
+A common incorrect behavior is generating an image that only shows the text “слепой дождь”, or depicting rain without sunlight, which does not represent the phenomenon.",C,True,"The prompt asks for an image of ""слепой дождь"" (sunshower), which is a weather phenomenon where rain falls while the sun is shining.
+
+Analysis of the generated image:
+1.  **Content Accuracy**: The image depicts rain falling in a sunny landscape. The presence of a bright rainbow, clear light hitting the grass, and a bright sky indicates the sun is shining.
+2.  **Instruction Following**: The image accurately represents the specific Russian term ""слепой дождь"" by showing simultaneous rain and sunshine.
+3.  **Quality**: The image is of high quality, with clear details, realistic lighting, and a well-composed scene.
+4.  **Relevance**: The scene perfectly captures the requested phenomenon.
+
+The image correctly satisfies the task requirements.
+
+GRADE: C",[Generated Image: /Users/mat/EPFL-courses/RAI/reasoning-blind-spots/generated_images/generated_243_efeebf4a.png],C,True
+gpt-image-1.5,gpt-image-1.5_2026-04-26_16-29-02,221,Draw an elephant that has no ears.,../outputs/first_epoch/image_gen/gpt-image-1.5_2026-04-26_16-29-02/generated_images/generated_221_c4c989c2.png,"The correct output is an image of an elephant with no visible ears (no ear flaps on either side of the head), while still clearly recognizable as an elephant via other features (trunk, tusks, body shape). This is correct because the prompt imposes a specific omission constraint. A common incorrect behavior is drawing normal elephant ears or hiding the ears ambiguously rather than removing them.",C,True,"The generated image clearly depicts an elephant that lacks the characteristic large ear flaps (pinnae) usually found on both African and Asian elephants. The head and neck area are smooth and continuous, effectively fulfilling the specific omission constraint of the prompt. Despite the absence of ears, the subject remains immediately recognizable as an elephant through its other prominent features, such as the trunk, tusks, and distinctive body shape and skin texture. The image quality is high and the instructions have been followed accurately.
+
+GRADE: C",[Generated Image: /Users/mat/EPFL-courses/RAI/reasoning-blind-spots/outputs/first_epoch/image_gen/gpt-image-1.5_2026-04-26_16-29-02/generated_images/generated_221_c4c989c2.png],C,True
+gpt-image-2,gpt-image-2_2026-04-26_16-57-23,12,"Make a figure that repeats a circle, a triangle, and a square 4 times. At the end of the repetition plot, a rectangle with a large length.",../outputs/first_epoch/image_gen/gpt-image-2_2026-04-26_16-57-23/generated_images/generated_12_9edbd06b.png,"The correct output is an image showing the repeating sequence circle → triangle → square repeated exactly four times, followed by a rectangle with a long length at the end. This is correct because both the order and the number of repetitions are explicitly constrained. A common incorrect behavior is using the wrong order, repeating the pattern fewer or more than four times, or omitting or misplacing the final rectangle.",I,False,"The generated image contains the correct sequence of shapes (circle, triangle, square) and ends with a long rectangle as requested. However, it fails on the specific count requirement. The prompt asks to repeat the sequence ""circle, a triangle, and a square 4 times,"" but the image only displays the sequence 3 times. According to the grading criteria, the sequence must be repeated exactly four times.
+
+GRADE: I",[Generated Image: /Users/mat/EPFL-courses/RAI/reasoning-blind-spots/outputs/first_epoch/image_gen/gpt-image-2_2026-04-26_16-57-23/generated_images/generated_12_9edbd06b.png],I,False
+gpt-image-1-mini,gpt-image-1-mini_2026-04-26_16-52-44,157,"A influences B, and B influences A, but indirectly - through Z. A has 3 instruments and B has 2 instruments. C is caused by A and Z. D influences only Z. E influences F. Provide a visual schema of this causal model and a SEM setup in STATA.",../outputs/first_epoch/image_gen/gpt-image-1-mini_2026-04-26_16-52-44/generated_images/generated_157_d671c6a5.png,"| Relationship                  | Type                                                        | Notes |
+| ----------------------------- | ----------------------------------------------------------- | ----- |
+| A ↔ B                         | Mutual influence, but **indirectly** via **Z**              |       |
+| A → Z → B                     | A affects B **through Z**                                   |       |
+| B → Z → A                     | B affects A **through Z**                                   |       |
+| A → C and Z → C               | C is caused by both A and Z                                 |       |
+| D → Z                         | D only affects Z                                            |       |
+| E → F                         | Simple one-directional path                                 |       |
+| Instruments: A has 3; B has 2 | Exogenous instruments for A and B (not otherwise connected) |       |
+",I,False,"The generated image fails to satisfy most of the requirements specified in the prompt. Here is a detailed evaluation based on the grading criteria:
+
+1.  **Causal Relationships (A, B, Z):** The image does not include nodes for **B** or **Z** in the visual schema. Therefore, the core relationship (A and B influencing each other indirectly via Z) is completely missing from the diagram.
+2.  **Instruments:** While the image literally depicts three musical instruments pointing toward node **A**, it fails to show any instruments for node **B** (since B is missing).
+3.  **Nodes C and D:** The diagram shows **A → C**, but **Z** is missing, so the requirement that **Z → C** is not met. For node **D**, the prompt states it influences *only* Z, but the diagram shows **A → D** and **D → E**.
+4.  **Nodes E and F:** The prompt specifies **E → F**. The diagram shows **E** as a sink for multiple arrows (from A, C, and D) and completely omits node **F**.
+5.  **SEM Setup in STATA:** The provided text is not valid Stata syntax. Stata's `sem` command uses a specific notation (e.g., `(C <- A Z)`), whereas the image uses an equals-sign notation (`C = A A Z`) which is incorrect. Furthermore, the logic in the text contradicts the prompt (e.g., it does not capture the feedback loop between A and B through Z).
+
+Overall, the image lacks the necessary components and contains numerous inaccuracies regarding the requested causal structure and software syntax.
+
+GRADE: I",[Generated Image: /Users/mat/EPFL-courses/RAI/reasoning-blind-spots/outputs/first_epoch/image_gen/gpt-image-1-mini_2026-04-26_16-52-44/generated_images/generated_157_d671c6a5.png],I,False
+gemini-3.1-flash-image-preview,gemini-3.1-flash-image-preview_2026-04-26_16-02-37,164,"[ChatMessageUser(id='NaoRkm4HPQgRrRPjCxR3Fp', content=[ContentText(internal=None, type='text', text='Given an image, highlight the route one could take in this city layout to travel from point A to point B ', refusal=None, citations=None), ContentText(internal=None, type='text', text='(Image)', refusal=None, citations=None)], source=None, metadata=None, role='user', tool_call_id=None)]",../outputs/first_epoch/image_gen/gemini-3.1-flash-image-preview_2026-04-26_16-02-37/generated_images/generated_164_65b1f0cc.png,"A valid route follows the existing road network from point A to point B by moving east along the horizontal road segment, passing through the nearest intersection, and continuing east to reach point B. The path stays entirely on roads and uses real intersections without cutting across blocks, grass, or water.
+
+In detail, the answer is correct if and only if the highlighted route:
+1) Starts exactly at point A and ends exactly at point B.
+2) Lies entirely on roads shown in the original city layout.
+3) Forms a continuous path using existing intersections and road geometry.
+4) Preserves the original map exactly, adding only a visual highlight for the route.
+
+Any answer is incorrect if it invents roads, alters the layout, draws a disconnected or implausible path, or substitutes a different city map. Common incorrect behavior includes drawing arbitrary red lines that do not follow the road network, hallucinating shortcuts, or recreating the scene with a different layout.",I,False,"The generated image fails to satisfy the task requirements and the specific grading criteria.
+
+According to the criteria, the highlighted route must start exactly at point A and end exactly at point B. In the generated image, the red line starts at the bottom left edge of the map and ends at a random point after looping around a block; it never connects point A to point B.
+
+Furthermore, the grading criteria specify that the route should move east along the horizontal road segment to reach point B. Instead, the generated line turns north between A and B, follows a large loop around several blocks, and completely avoids the direct path described. The image also fails to preserve the original map exactly, as it hallucinates a sky with clouds at the top that was not present in the original input image.
+
+GRADE: I",[Generated Image: /Users/mat/EPFL-courses/RAI/reasoning-blind-spots/outputs/first_epoch/image_gen/gemini-3.1-flash-image-preview_2026-04-26_16-02-37/generated_images/generated_164_65b1f0cc.png],I,False
+gpt-image-1-mini,gpt-image-1-mini_2026-04-26_16-52-44,29,Generate an image of a cat with 4 eyes,../outputs/first_epoch/image_gen/gpt-image-1-mini_2026-04-26_16-52-44/generated_images/generated_29_2b112494.png,"The correct output is an image of a cat that clearly has exactly four eyes. This is correct because the instruction specifies an exact eye count. The image must depict four distinct eyes on the cat (not just multiple pupils, reflections, or decorative markings). A common incorrect behavior is generating a normal two-eyed cat, producing an ambiguous face where some “eyes” are actually spots, or drawing extra eye-like shapes that are not clearly eyes.",C,True,"The generated image depicts a cat that clearly has exactly four distinct eyes. The eyes are arranged in two vertical pairs on the cat's face, and each eye is well-defined with an iris and pupil, adhering perfectly to the instruction. The image quality is high and the subject is unmistakably a cat.
+
+GRADE: C",[Generated Image: /Users/mat/EPFL-courses/RAI/reasoning-blind-spots/outputs/first_epoch/image_gen/gpt-image-1-mini_2026-04-26_16-52-44/generated_images/generated_29_2b112494.png],C,True
+gpt-image-1.5,gpt-image-1.5_2026-04-26_16-29-02,128,Generate a picture of bird on a ball flipped upside down,../outputs/first_epoch/image_gen/gpt-image-1.5_2026-04-26_16-29-02/generated_images/generated_128_ab585ece.png,"The correct answer should be an image showing a bird flipped upside down under a ball, with the ball on top and the bird reversed (head at the bottom, feet at the top).
+
+A common incorrect behavior is generating an image where the object on top is not a ball (e.g., a rock), or where the bird is not actually flipped upside down (head up, feet down).",C,True,"The generated image shows a bird (specifically a cockatiel) hanging upside down from a ball (a soccer ball). The bird's head is at the bottom and its feet are gripping the ball at the top, perfectly matching the specific grading criteria: ""an image showing a bird flipped upside down under a ball, with the ball on top and the bird reversed (head at the bottom, feet at the top)."" The image is clear, high quality, and follows all the instructions provided.
+
+GRADE: C",[Generated Image: /Users/mat/EPFL-courses/RAI/reasoning-blind-spots/outputs/first_epoch/image_gen/gpt-image-1.5_2026-04-26_16-29-02/generated_images/generated_128_ab585ece.png],I,False
+gemini-3-pro-image-preview,gemini-3-pro-image-preview_2026-04-26_15-46-30,248,Generate an image of one human hand with 9 fingers.,../outputs/first_epoch/image_gen/gemini-3-pro-image-preview_2026-04-26_15-46-30/generated_images/generated_248_cb3ec6ec.png,"The solution should be an image depicting a human hand with exactly nine fingers. All fingers should be clearly visible and recognizable as part of a single hand, making the reduced finger count obvious and unambiguous.",I,False,"The generated image depicts a human hand with an abnormal number of fingers, but it does not meet the specific requirement of having exactly **nine** fingers.
+
+Upon close inspection and counting of the visible digits/fingernails:
+1. One finger on the upper left.
+2. One finger on the middle left.
+3. One finger on the lower left.
+4. One finger at the bottom center-left.
+5. One finger at the bottom center-right.
+6. One finger on the lower right.
+7. One thumb on the far right.
+
+This results in a total of **7 fingers**, which fails the prompt's requirement for exactly 9 fingers.
+
+GRADE: I",[Generated Image: /Users/mat/EPFL-courses/RAI/reasoning-blind-spots/outputs/first_epoch/image_gen/gemini-3-pro-image-preview_2026-04-26_15-46-30/generated_images/generated_248_cb3ec6ec.png],I,False
+gemini-3-pro-image-preview,gemini-3-pro-image-preview_2026-04-26_15-46-30,157,"A influences B, and B influences A, but indirectly - through Z. A has 3 instruments and B has 2 instruments. C is caused by A and Z. D influences only Z. E influences F. Provide a visual schema of this causal model and a SEM setup in STATA.",../outputs/first_epoch/image_gen/gemini-3-pro-image-preview_2026-04-26_15-46-30/generated_images/generated_157_8b9c52f3.png,"| Relationship                  | Type                                                        | Notes |
+| ----------------------------- | ----------------------------------------------------------- | ----- |
+| A ↔ B                         | Mutual influence, but **indirectly** via **Z**              |       |
+| A → Z → B                     | A affects B **through Z**                                   |       |
+| B → Z → A                     | B affects A **through Z**                                   |       |
+| A → C and Z → C               | C is caused by both A and Z                                 |       |
+| D → Z                         | D only affects Z                                            |       |
+| E → F                         | Simple one-directional path                                 |       |
+| Instruments: A has 3; B has 2 | Exogenous instruments for A and B (not otherwise connected) |       |
+",I,False,"The analysis of the generated image reveals several significant discrepancies between the visual representation and the task requirements:
+
+1.  **Mutual Influence (A ↔ B indirectly via Z)**: The prompt specifies that A and B influence each other **indirectly through Z**. In a causal schema, this should be represented by paths like $A \rightarrow Z \rightarrow B$ and $B \rightarrow Z \rightarrow A$, with no direct arrows between A and B. However, the generated visual schema shows **direct arrows** between A and B, which contradicts the ""indirectly"" requirement. Furthermore, it lacks the necessary arrows from A to Z and B to Z to complete the indirect paths.
+2.  **E influences F**: The prompt requires E to influence F ($E \rightarrow F$). The visual diagram in the top right specifically shows an arrow from **F to E**, which is the reverse of the requested relationship.
+3.  **C is caused by A and Z**: While the schema shows arrows from A and Z to C, it also includes an **unrequested arrow from B to C**, which was not part of the model specifications.
+4.  **STATA SEM Setup**: Interestingly, the provided STATA code is highly accurate and correctly implements the logic of the prompt (e.g., `Z <- A B D`, `A <- Z`, `B <- Z`, `F <- E`). However, the visual schema—which was a primary requirement—fails to correctly represent these causal paths.
+
+Because the visual schema contains multiple fundamental errors in representing the requested causal relationships (reversed paths, direct vs. indirect paths, and missing/extra connections), the output does not satisfy the task requirements.
+
+GRADE: I",[Generated Image: /Users/mat/EPFL-courses/RAI/reasoning-blind-spots/outputs/first_epoch/image_gen/gemini-3-pro-image-preview_2026-04-26_15-46-30/generated_images/generated_157_8b9c52f3.png],I,False

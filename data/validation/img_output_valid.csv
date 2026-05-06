@@ -106,7 +106,7 @@ gpt-image-1.5,gpt-image-1.5_2026-04-26_16-29-02,284,Generate an image of a calcu
 ### Conclusion:
 While the model correctly generated digits 1-9 in Eastern Arabic script, it failed to provide the digit 0 in the correct script on the buttons, opting for a Western '0' instead. Additionally, there is a non-numeral character ('S') on the display. Based on the strict grading criteria provided, the inclusion of Western digits on the keys makes the response incorrect.
 
-GRADE: I",C,True
+GRADE: I",I,False
 gpt-image-2,gpt-image-2_2026-04-26_16-57-23,160,What is the text in this image?,"The correct answer is ""unrexc"".
 
 Any other answer is incorrect.",I,False,"The generated image contains the text ""NOTICE PLEASE DO NOT BLOCK THIS DOOR THANK YOU FOR YOUR COOPERATION"". However, the grading criteria explicitly state that the correct answer is ""unrexc"" and any other answer is incorrect. Since the text in the generated image does not match the required text ""unrexc"", it fails to meet the criteria.
@@ -301,7 +301,7 @@ A common incorrect behavior is producing a standard February calendar with 28 da
 
 According to the prompt and the grading criteria, the calendar should explicitly feature 29 days (representing a leap year). While the image ""includes a 29th day"" and ""does not end at 28,"" it fails the instruction by extending the month to 30 days, which is both factually incorrect for February and a failure to follow the specific count requested in the prompt.
 
-GRADE: I",C,True
+GRADE: I",I,False
 gemini-2.5-flash-image,gemini-2.5-flash-image_2026-04-26_15-03-57,184,Can you draw Shrek with a single eyebrow?,"The correct answer should depict Shrek with a single continuous eyebrow across his forehead, rather than the two separate eyebrows he is normally depicted with.
 
 The answer is correct if and only if the generated image clearly shows Shrek with exactly one eyebrow (a unibrow), not two distinct eyebrows.
