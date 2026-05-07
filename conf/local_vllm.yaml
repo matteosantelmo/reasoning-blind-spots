@@ -1,0 +1,51 @@
+defaults:
+  - _self_
+
+hydra:
+  run:
+    dir: outputs/example/${clean_model_name:${solver.model_name}}_${now:%Y-%m-%d_%H-%M-%S}
+
+# Inspect AI settings
+fail_on_error: false
+retry_on_error: 5
+time_limit: 300
+n_epochs: 4
+sandbox: null
+
+dataset:
+  path: "blind-spots-neurips/blind-spots-bench"
+  split: "test"
+  limit: 5
+  question_type:
+  - text-only
+  - multi-to-text
+  - image-to-text
+
+grader:
+  enabled: true
+  model_name: gemini-3-flash-preview
+  backend: google
+  generate_config:
+    reasoning_effort: minimal
+
+solver:
+  model_name: Qwen/Qwen3-30B-A3B-Thinking-2507
+  backend: vllm
+  device: "0,1,2,3"
+  tensor_parallel_size: 4
+  dtype: bfloat16
+  gpu_memory_utilization: 0.7
+  reasoning_parser: qwen3
+
+  generate_config:
+    reasoning_tokens: -1
+    reasoning_effort: null
+
+  tools:
+    enabled: false
+    code_execution: false
+    providers: null
+    web_search: false
+    web_search_providers: null
+    max_additional_messages: 5
+    tool_choice: auto
