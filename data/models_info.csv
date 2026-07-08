@@ -2,6 +2,7 @@ model_name,model_type,input_price,output_price,release_date,size,reasoning,tool_
 zai-org/GLM-4.7,LM,0.56056908,1.6817072399999997,12-2025,358,True,True
 zai-org/GLM-5,LM,1.0757624,3.2274146599999995,02-2026,754,True,True
 zai-org/GLM-5.1,LM,0.77164284,2.31492852,04-2026,754,True,True
+zai-org/GLM-5.2,LM,0.69,2.07,06-2026,754,True,True
 deepseek-ai/DeepSeek-V4-Flash,LM,0.26664632,0.7998114999999999,04-2026,158,True,True
 deepseek-ai/DeepSeek-V4-Pro,LM,0.9323699,2.7971097,04-2026,862,True,True
 moonshotai/Kimi-K2.5,VLM,0.68560734,2.05669456,02-2026,1000,True,True

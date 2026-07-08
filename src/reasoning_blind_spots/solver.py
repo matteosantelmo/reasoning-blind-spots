@@ -16,7 +16,7 @@ Question:
 TOOL_ENABLED_SOLVER_PROMPT_TEMPLATE = """
 Answer the user's question as accurately as possible.
 Use tools only when they are necessary to compute or verify the answer.
-State your final answer explicitly and clearly.
+State your final answer explicitly in your last message. Tool outputs alone cannot be the final answer.
 
 Question:
 {prompt}

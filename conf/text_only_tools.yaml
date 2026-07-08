@@ -8,7 +8,7 @@ hydra:
 # Inspect AI settings
 fail_on_error: false
 retry_on_error: 5
-time_limit: 300
+time_limit: 600
 n_epochs: 2
 sandbox: null
 
@@ -36,5 +36,5 @@ solver:
     providers: null
     web_search: false
     web_search_providers: null
-    max_additional_messages: 5
+    max_additional_messages: 10
     tool_choice: auto
