@@ -8,6 +8,7 @@ set +a
 #			  		Frontier Models
 #######################################################
 
+
 # gemini-3.1-flash-lite-preview
 python main.py --config-name text_only \
 	++solver.model_name=gemini-3.1-flash-lite-preview \
@@ -171,6 +172,15 @@ python main.py --config-name text_only \
 # zai-org/GLM-5.1
 python main.py --config-name text_only \
 	++solver.model_name=zai-org/GLM-5.1 \
+	++solver.backend=openai \
+	+solver.base_url=https://inference.rcp.epfl.ch/v1 \
+	++solver.api_key=${OSS_INFERENCE_OPENAI_API} \
+	+solver.generate_config.max_tokens=32768
+
+# zai-org/GLM-5.2
+python main.py --config-name text_only \
+	time_limit=900 \
+	++solver.model_name=zai-org/GLM-5.2 \
 	++solver.backend=openai \
 	+solver.base_url=https://inference.rcp.epfl.ch/v1 \
 	++solver.api_key=${OSS_INFERENCE_OPENAI_API} \
