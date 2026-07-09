@@ -1,7 +1,7 @@
 # Reasoning Blind Spots Benchmark
 
 > **`blind-spots-bench`** is a benchmark designed to stress test the reasoning capabilities of frontier AI models on tasks that are straightforward for humans but difficult for AI.
-The questions are crafted to highlight the limitations of current AI systems and understand where they struggle in reasoning tasks. Download the dataset from [HuggingFace](https://huggingface.co/datasets/blind-spots-neurips/blind-spots-bench) 🤗.
+The questions are crafted to highlight the limitations of current AI systems and understand where they struggle in reasoning tasks. Download the dataset from [HuggingFace](https://huggingface.co/datasets/matsant01/blind-spots-bench) 🤗.
 
 Our codebase relies on [Inspect AI](https://inspect.aisi.org.uk) as the evaluation framework.
 
@@ -17,7 +17,7 @@ Our codebase relies on [Inspect AI](https://inspect.aisi.org.uk) as the evaluati
 
 
 <details>
-<summary> 🏆 Complete leaderboard </summary>
+<summary> 🏆 Complete Scores </summary>
 <div>
 
 <table aria-label="LLM and VLM model results by evaluation subset">
